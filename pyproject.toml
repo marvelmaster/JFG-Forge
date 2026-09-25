@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jfg-re"
+version = "0.0.0"
+description = "Reproducible reverse-engineering research for Jet Force Gemini"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "PyOpenGL",
+    "PySide6",
+]
+
+[project.scripts]
+jfg-forge = "jfg_forge.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

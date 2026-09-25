@@ -1,0 +1,293 @@
+"""Runtime-derived playback timing for the verified Boy player states."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from enum import StrEnum
+import math
+from types import MappingProxyType
+from typing import Mapping
+
+from jfg_re.forge_types import AnimationClip, EvidenceStatus
+
+
+NOMINAL_NTSC_VI_HZ = 60.0
+TECHNICAL_SAMPLES_PER_SECOND = 1.0
+MAX_RUNTIME_DELAY_DAT = 6
+
+
+class PlaybackTimingMode(StrEnum):
+    TECHNICAL = "Technical"
+    GAME = "Game Timing"
+
+
+class TimingDependency(StrEnum):
+    FIXED = "fixed"
+    MOVEMENT_MAX = "max(abs(racer+0x04), abs(racer+0x10))"
+    MOVEMENT_LATERAL = "abs(racer+0x10)"
+    STATE_FLAG_DOUBLE = "2x when the state timing flag has bit 0x10 set"
+    UNKNOWN = "UNKNOWN"
+
+
+class TimingCategory(StrEnum):
+    FIXED = "FIXED"
+    MOVEMENT_DEPENDENT = "MOVEMENT_DEPENDENT"
+    STATE_DEPENDENT = "STATE_DEPENDENT"
+    OTHER_RUNTIME_DEPENDENT = "OTHER_RUNTIME_DEPENDENT"
+    UNKNOWN = "UNKNOWN"
+
+
+@dataclass(frozen=True)
+class PlaybackTimingContext:
+    """One shared preview/export interpretation of the visible speed control."""
+
+    timing_mode: PlaybackTimingMode = PlaybackTimingMode.GAME
+    movement_speed: float = 1.0
+    state_timing_flag: bool = False
+
+    def __post_init__(self) -> None:
+        if not math.isfinite(self.movement_speed) or self.movement_speed <= 0.0:
+            raise ValueError("Movement / Speed must be finite and positive.")
+        if not isinstance(self.state_timing_flag, bool):
+            raise ValueError("State timing flag must be boolean.")
+
+    def effective_samples_per_second(self, clip: AnimationClip) -> float:
+        """Return the exact rate consumed by both Forge playback and glTF export."""
+        if self.timing_mode is PlaybackTimingMode.TECHNICAL:
+            return TECHNICAL_SAMPLES_PER_SECOND * self.movement_speed
+        timing = runtime_timing(clip)
+        rate = timing.samples_per_second(
+            clip,
+            movement_metric=self.movement_speed if timing.requires_movement_metric else 1.0,
+            state_timing_flag=self.state_timing_flag,
+        )
+        if rate is None:
+            return TECHNICAL_SAMPLES_PER_SECOND * self.movement_speed
+        # Movement-dependent formulas already consumed the slider exactly once.
+        return rate if timing.requires_movement_metric else rate * self.movement_speed
+
+
+@dataclass(frozen=True)
+class RuntimeClipTiming:
+    animation_index: int
+    animation_id: int
+    status: EvidenceStatus
+    base_phase_per_vi_tick: float | None
+    category: TimingCategory
+    dependency: TimingDependency
+    evidence: str
+
+    @property
+    def available(self) -> bool:
+        return self.status is EvidenceStatus.VERIFIED and self.base_phase_per_vi_tick is not None
+
+    @property
+    def requires_movement_metric(self) -> bool:
+        return self.dependency in (
+            TimingDependency.MOVEMENT_MAX,
+            TimingDependency.MOVEMENT_LATERAL,
+        )
+
+    @property
+    def requires_state_timing_flag(self) -> bool:
+        return self.dependency is TimingDependency.STATE_FLAG_DOUBLE
+
+    def _validate_clip(self, clip: AnimationClip) -> None:
+        if (clip.animation_index, clip.animation_id) != (self.animation_index, self.animation_id):
+            raise ValueError("Runtime timing metadata does not match the selected animation clip.")
+
+    def clip_span(self, clip: AnimationClip) -> float:
+        """Return the phase-to-sample multiplier used by modGenAnimMatrices."""
+        self._validate_clip(clip)
+        return float(clip.sample_count if clip.loop else clip.sample_count - 1)
+
+    def phase_delta(
+        self,
+        *,
+        delay_dat: int,
+        movement_metric: float = 1.0,
+        state_timing_flag: bool = False,
+    ) -> float | None:
+        """Return objAnimDframe's normalized phase change for one update."""
+        if not self.available:
+            return None
+        if (
+            not isinstance(delay_dat, int)
+            or delay_dat < 1
+            or delay_dat > MAX_RUNTIME_DELAY_DAT
+        ):
+            raise ValueError("delayDat must be the post-clamp integer VI count in 1..6.")
+        if not math.isfinite(movement_metric) or movement_metric < 0.0:
+            raise ValueError("Movement metric must be finite and non-negative.")
+        if not isinstance(state_timing_flag, bool):
+            raise ValueError("State timing flag must be boolean.")
+        dependency_scale = movement_metric if self.requires_movement_metric else 1.0
+        if self.requires_state_timing_flag and state_timing_flag:
+            dependency_scale *= 2.0
+        return float(delay_dat) * float(self.base_phase_per_vi_tick) * dependency_scale
+
+    def sample_delta(
+        self,
+        clip: AnimationClip,
+        *,
+        delay_dat: int,
+        movement_metric: float = 1.0,
+        state_timing_flag: bool = False,
+    ) -> float | None:
+        phase_delta = self.phase_delta(
+            delay_dat=delay_dat,
+            movement_metric=movement_metric,
+            state_timing_flag=state_timing_flag,
+        )
+        return None if phase_delta is None else self.clip_span(clip) * phase_delta
+
+    def samples_per_second(
+        self,
+        clip: AnimationClip,
+        *,
+        movement_metric: float = 1.0,
+        state_timing_flag: bool = False,
+        vi_hz: float = NOMINAL_NTSC_VI_HZ,
+    ) -> float | None:
+        if not math.isfinite(vi_hz) or vi_hz <= 0.0:
+            raise ValueError("VI rate must be finite and positive.")
+        per_tick = self.sample_delta(
+            clip,
+            delay_dat=1,
+            movement_metric=movement_metric,
+            state_timing_flag=state_timing_flag,
+        )
+        return None if per_tick is None else per_tick * vi_hz
+
+
+def _verified(
+    animation_index: int,
+    animation_id: int,
+    base_scale: float,
+    category: TimingCategory,
+    dependency: TimingDependency,
+    evidence: str,
+) -> RuntimeClipTiming:
+    return RuntimeClipTiming(
+        animation_index=animation_index,
+        animation_id=animation_id,
+        status=EvidenceStatus.VERIFIED,
+        base_phase_per_vi_tick=base_scale,
+        category=category,
+        dependency=dependency,
+        evidence=evidence,
+    )
+
+
+_ANIMATION_IDS = (
+    1026, 1027, 1028, 1025, 1033, 1039, 1040, 1041, 1038, 1042, 1043, 1031,
+    1036, 1029, 1030, 1044, 1019, 1020, 1021, 1022, 1023, 1051, 1035, 1070,
+    1048, 1050, 1054, 1053, 1055, 1056, 1057, 1058, 1059, 1060, 1063, 1062,
+    1061, 1066, 1067, 1068, 1045, 1046, 1047, 1069, 1034, 1024, 1052, 1064,
+    1065, 1032, 1037, 1071,
+)
+
+_BASE_PHASE_PER_VI_TICK = (
+    0.015, 0.009, 0.0075, 0.014, 0.0175, 0.01, 0.02, 0.0175, 0.0334,
+    0.0115, 0.0115, 0.0175, 0.028, 0.02, 0.005, 0.025, 0.005, 0.005,
+    0.005, 0.005, 0.005, 0.017, 0.005, 0.01, 0.01, 0.0334, 0.014, 0.005,
+    0.015, 0.009, 0.0075, 0.0115, 0.0115, 0.06, 0.0075, 0.009, 0.015,
+    0.006, 0.004, 0.01, 0.014, 0.025, 0.02, 0.003, 0.0175, 0.005, 0.017,
+    0.0115, 0.0115, 0.0175, 0.028, 0.01,
+)
+
+_MOVEMENT_MAX_INDICES = frozenset((0, 1, 2, 3, 4, 26, 28, 29, 30, 34, 35, 36, 37, 44))
+_MOVEMENT_LATERAL_INDICES = frozenset((9, 10, 31, 32, 47, 48))
+_STATE_FLAG_DOUBLE_INDICES = frozenset((13,))
+
+_CASE_ADDRESS = {
+    0: "0x010051D8", 1: "0x010052FC", 2: "0x01005388", 3: "0x010053F4",
+    4: "0x01005504", 5: "0x01005530", 6: "0x01005B50", 7: "0x01005B50",
+    8: "0x0100556C", 9: "0x0100559C", 10: "0x0100559C", 11: "0x010056D4",
+    12: "0x0100571C", 13: "0x010057AC", 14: "0x010057F8", 15: "0x01005820",
+    16: "0x0100584C", 17: "0x0100584C", 18: "0x0100584C", 19: "0x0100584C",
+    20: "0x0100584C", 21: "0x01005948", 22: "0x010059A0", 23: "0x01005B50",
+    24: "0x01005B50", 25: "0x01005B50", 26: "0x010053F4", 27: "0x0100584C",
+    28: "0x010051D8", 29: "0x010052FC", 30: "0x01005388", 31: "0x0100559C",
+    32: "0x0100559C", 33: "0x010057F8", 34: "0x01005388", 35: "0x010052FC",
+    36: "0x010051D8", 37: "0x01005A04", 38: "0x010059C8", 39: "0x01005B18",
+    40: "0x01005B50", 41: "0x01005AB0", 42: "0x01005AE4", 43: "0x01005A44",
+    44: "0x01005504", 45: "0x0100584C", 46: "0x01005948", 47: "0x0100559C",
+    48: "0x0100559C", 49: "0x010056F8", 50: "0x01005764", 51: "default -> 0x01005B50",
+}
+
+
+def _timing_kind(index: int) -> tuple[TimingCategory, TimingDependency]:
+    if index in _MOVEMENT_MAX_INDICES:
+        return TimingCategory.MOVEMENT_DEPENDENT, TimingDependency.MOVEMENT_MAX
+    if index in _MOVEMENT_LATERAL_INDICES:
+        return TimingCategory.MOVEMENT_DEPENDENT, TimingDependency.MOVEMENT_LATERAL
+    if index in _STATE_FLAG_DOUBLE_INDICES:
+        return TimingCategory.STATE_DEPENDENT, TimingDependency.STATE_FLAG_DOUBLE
+    return TimingCategory.FIXED, TimingDependency.FIXED
+
+
+VERIFIED_BOY_TIMINGS: Mapping[int, RuntimeClipTiming] = MappingProxyType(
+    {
+        index: _verified(
+            index,
+            animation_id,
+            base_scale,
+            *_timing_kind(index),
+            evidence=(
+                f"Overlay16 jump-table case {_CASE_ADDRESS[index]}; "
+                "common objAnimDframe call 0x01005B54..0x01005B60"
+            ),
+        )
+        for index, (animation_id, base_scale) in enumerate(
+            zip(_ANIMATION_IDS, _BASE_PHASE_PER_VI_TICK, strict=True)
+        )
+    }
+)
+
+
+def runtime_timing(clip: AnimationClip) -> RuntimeClipTiming:
+    known = VERIFIED_BOY_TIMINGS.get(clip.animation_index)
+    if known is not None:
+        known._validate_clip(clip)
+        return known
+    return RuntimeClipTiming(
+        animation_index=clip.animation_index,
+        animation_id=clip.animation_id,
+        status=EvidenceStatus.UNKNOWN,
+        base_phase_per_vi_tick=None,
+        category=TimingCategory.UNKNOWN,
+        dependency=TimingDependency.UNKNOWN,
+        evidence="The selected Boy state case has not been timing-audited.",
+    )
+
+
+def vi_ticks_to_seconds(
+    delay_dat: int,
+    *,
+    vi_hz: float = NOMINAL_NTSC_VI_HZ,
+) -> float:
+    if (
+        not isinstance(delay_dat, int)
+        or delay_dat < 1
+        or delay_dat > MAX_RUNTIME_DELAY_DAT
+    ):
+        raise ValueError("delayDat must be the post-clamp integer VI count in 1..6.")
+    if not math.isfinite(vi_hz) or vi_hz <= 0.0:
+        raise ValueError("VI rate must be finite and positive.")
+    return delay_dat / vi_hz
+
+
+__all__ = [
+    "NOMINAL_NTSC_VI_HZ",
+    "MAX_RUNTIME_DELAY_DAT",
+    "PlaybackTimingMode",
+    "PlaybackTimingContext",
+    "RuntimeClipTiming",
+    "TECHNICAL_SAMPLES_PER_SECOND",
+    "TimingDependency",
+    "TimingCategory",
+    "VERIFIED_BOY_TIMINGS",
+    "runtime_timing",
+    "vi_ticks_to_seconds",
+]

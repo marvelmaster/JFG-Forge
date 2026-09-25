@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "synthetic": false,
+  "provenance": {
+    "rom_sha1": "493ced9008dbe932d6e91179b68e8630cf23a023",
+    "rom_size_bytes": 33554432,
+    "capture_pc": "0x8003D908",
+    "target_model": "Boy / Prop 220",
+    "object_type_s16": 1,
+    "run_note": "REPLACE with emulator/run identifier and gameplay context"
+  },
+  "pointers": {
+    "stack_pointer": "REPLACE",
+    "instance": "REPLACE with S4",
+    "object": "REPLACE with u32_be[SP+0xF8]",
+    "racer": "REPLACE with u32_be[SP+0x74]",
+    "matrix_base": "REPLACE with u32_be[S4+0x10+4*s8[S4+0x0B]]"
+  },
+  "dumps": {
+    "instance": {"file": "instance-0x80.bin", "sha256": "REPLACE"},
+    "object_world_matrix": {"file": "object-world-matrix-0x40.bin", "sha256": "REPLACE"},
+    "selectors": {"file": "selectors-0x80.bin", "sha256": "REPLACE"},
+    "runtime_matrices": {"file": "runtime-matrices-0x540.bin", "sha256": "REPLACE"},
+    "racer_extended": {"file": "racer-0x540-0x583.bin", "sha256": "REPLACE"},
+    "delay_dat": {"file": "delayDat-4.bin", "sha256": "REPLACE"}
+  }
+}
