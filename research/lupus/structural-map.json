@@ -1,0 +1,1559 @@
+{
+  "confidence": {
+    "27_node_hierarchy": "VERIFIED from Prop 222",
+    "DogGun_matrix_16_socket": "VERIFIED",
+    "canonical_Lupus_identity": "VERIFIED",
+    "full_Lupus_timing_catalog": "PENDING",
+    "generic_runtime_matrix_rules": "APPLIES THROUGH VERIFIED SHARED RUNTIME PATH; no live Lupus numeric matrix capture",
+    "reference_points_1_through_8_semantics": "UNKNOWN",
+    "static_model_layout": "VERIFIED"
+  },
+  "doggun_attachment_models": [
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 77,
+      "active_triangle_records": 77,
+      "name": "DogPistol",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 320,
+      "sha256": "5771c1e3430b24860e692bb9afe0c4c8379864fc149caae3085f5142df8562fc",
+      "slot": 0,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 78,
+      "active_triangle_records": 78,
+      "name": "DogAutomatic",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 321,
+      "sha256": "360e18f4c51af9d2950781386ed6b4e40f128c87a0d1d5bbb98bc87eb7a8ee9e",
+      "slot": 1,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 95,
+      "active_triangle_records": 95,
+      "name": "DogUzi",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 322,
+      "sha256": "9f425b3d4ee912b8b4b61a11f081a35af338523fa9a43b645fa53875ddec1e00",
+      "slot": 2,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 80,
+      "active_triangle_records": 80,
+      "name": "DogUzi1",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 323,
+      "sha256": "0326ec0c37dc17c03afe2e392537b8eda73e1a7e06009d54962d6ba5e04f39c0",
+      "slot": 3,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 86,
+      "active_triangle_records": 86,
+      "name": "DogShrinkBeam",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 324,
+      "sha256": "9796ef5a350e43fb59b631a2803d1a8ade9c8834e1ca0cab5a42ead02c6e439d",
+      "slot": 4,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 80,
+      "active_triangle_records": 80,
+      "name": "DogRocket",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 325,
+      "sha256": "c45d8fd0df4606a0de4b2c05937bba32e5719379563b95ab0b9729401e914dc8",
+      "slot": 5,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 98,
+      "active_triangle_records": 98,
+      "name": "DogFlameThrower",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 326,
+      "sha256": "8e760930309d06a16b5cb979697f9d930e1740ca35a02d2eca3bc4dc27abdb20",
+      "slot": 6,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 210,
+      "active_triangle_records": 210,
+      "name": "DogSniper",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 327,
+      "sha256": "88e30faa92b04b194da730ed1827eeb75b8bf20e2d0fa1720c802d5ffb909a9e",
+      "slot": 7,
+      "transform_record_count": 0
+    },
+    {
+      "active_group_matrix_ids": [
+        0
+      ],
+      "active_nondegenerate_faces": 132,
+      "active_triangle_records": 132,
+      "name": "DogGrenade",
+      "placement": "rigid model-local geometry under the external DogGun matrix",
+      "prop_id": 328,
+      "sha256": "162eaffa963e6e987a70610cef886c9626fe5d84ee94ed09991c29e56e48fe08",
+      "slot": 8,
+      "transform_record_count": 0
+    }
+  ],
+  "geometry": {
+    "active_geometrically_degenerate": 0,
+    "active_group_count": 44,
+    "active_group_ids": [
+      0,
+      1,
+      2,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      63,
+      64
+    ],
+    "active_group_split_violations": [],
+    "active_matrix_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17,
+      19,
+      20,
+      22,
+      23,
+      25,
+      26
+    ],
+    "active_nondegenerate_faces": 361,
+    "active_referenced_source_vertices": 459,
+    "active_triangle_records": 361,
+    "active_vertex_matrix_assignment_conflicts": [],
+    "group_count": 65,
+    "raw_xyz_bbox": {
+      "maximum": [
+        34,
+        45,
+        39
+      ],
+      "minimum": [
+        -34,
+        -39,
+        -56
+      ]
+    },
+    "skipped_geometrically_degenerate": 16,
+    "skipped_group_count": 21,
+    "skipped_group_ids": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62
+    ],
+    "skipped_group_split_violations": [
+      47,
+      48,
+      52,
+      54,
+      57,
+      61
+    ],
+    "skipped_nondegenerate_faces": 5,
+    "skipped_triangle_records": 21,
+    "stored_triangle_records": 382,
+    "stored_vertices": 490,
+    "structural_checks": {
+      "all_active_group_splits_valid": true,
+      "all_triangle_local_indices_in_range": true,
+      "group_ranges_strictly_increasing": true,
+      "no_active_vertex_matrix_conflicts": true,
+      "sentinel_matches_header_counts": true
+    },
+    "texture_indices_used_by_active_groups": [
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "texture_indices_used_by_all_groups": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "identity": {
+    "canonical_generated_path": "data/generated/props-us-verified/bins/0222_Dog.bin",
+    "character": "Lupus",
+    "confidence": "VERIFIED from playerDog object definition 2, model Prop 222, internal Dog name, and canonical ROM decompression",
+    "internal_player_name": "playerDog",
+    "prop_id": 222,
+    "prop_name": "Dog",
+    "rom_container": {
+      "canonical_matches_rom_decompression": true,
+      "compressed_size": 7152,
+      "declared_decompressed_size": 15392,
+      "relative_end": 502096,
+      "relative_range_hex": [
+        "0x78D60",
+        "0x7A950"
+      ],
+      "relative_start": 494944,
+      "rom_end": 21065600,
+      "rom_range_hex": [
+        "0x1415390",
+        "0x1416F80"
+      ],
+      "rom_start": 21058448
+    },
+    "rom_sha1": "493ced9008dbe932d6e91179b68e8630cf23a023",
+    "sha256": "e69c897a48697d6adef3c922111ae05d2ef04c07ff800d91f5ee0d78ab90b3eb",
+    "size_bytes": 15392
+  },
+  "objects_and_attachments": {
+    "doggun": {
+      "attachment_local_transform": "identity",
+      "attachment_matrix_id": 16,
+      "behaviour_id": 4,
+      "hand_or_unarmed_fallback": "No hand/fallback-named slot is present; slot 8 is DogGrenade. Precise unarmed selection remains UNKNOWN.",
+      "header_rom_start": 24306688,
+      "model_slots": [
+        {
+          "name": "DogPistol",
+          "prop_id": 320,
+          "slot": 0
+        },
+        {
+          "name": "DogAutomatic",
+          "prop_id": 321,
+          "slot": 1
+        },
+        {
+          "name": "DogUzi",
+          "prop_id": 322,
+          "slot": 2
+        },
+        {
+          "name": "DogUzi1",
+          "prop_id": 323,
+          "slot": 3
+        },
+        {
+          "name": "DogShrinkBeam",
+          "prop_id": 324,
+          "slot": 4
+        },
+        {
+          "name": "DogRocket",
+          "prop_id": 325,
+          "slot": 5
+        },
+        {
+          "name": "DogFlameThrower",
+          "prop_id": 326,
+          "slot": 6
+        },
+        {
+          "name": "DogSniper",
+          "prop_id": 327,
+          "slot": 7
+        },
+        {
+          "name": "DogGrenade",
+          "prop_id": 328,
+          "slot": 8
+        }
+      ],
+      "object_definition_id": 401,
+      "technical_name": "DogGun"
+    },
+    "player": {
+      "child_object_definition_ids": [
+        401
+      ],
+      "header_rom_start": 24205912,
+      "model_names": [
+        "Dog",
+        "DogShad"
+      ],
+      "model_prop_ids": [
+        222,
+        798
+      ],
+      "object_definition_id": 2,
+      "object_ids": [
+        6
+      ],
+      "technical_name": "playerDog"
+    },
+    "power_variant": {
+      "child_object_definition_ids": [
+        401
+      ],
+      "header_rom_start": 24207144,
+      "model_names": [
+        "PowerDog"
+      ],
+      "model_prop_ids": [
+        223
+      ],
+      "object_definition_id": 5,
+      "technical_name": "playerDogPower"
+    }
+  },
+  "runtime_evidence": {
+    "animation_path": {
+      "channel_map_copy": "0x8003D5CC..0x8003D618 reads model +0x4F and writes each current map byte to transform +2",
+      "known_objAnimSetMove_calls": [
+        "0x01100E08",
+        "0x011014F8",
+        "0x01101538"
+      ],
+      "matrix_generation_call": "0x01101348 -> modGenAnimMatrices 0x8003D21C",
+      "packed_decoder": "gen_anim_data 0x80073E80",
+      "post_matrix_sequence": "objMakeGunMtx, lightObject, and objAnimTextures; no intervening write to the 27 skeletal matrix slots was found in this submission block",
+      "selection_owner": "dogControl and directly connected overlay-17 helpers"
+    },
+    "doggun_attachment": {
+      "reference_record_0": {
+        "matrix_id": 16,
+        "source_xyz_s16": [
+          0,
+          0,
+          -1
+        ],
+        "vertex_id": 467
+      },
+      "result": "DogGun_world = Lupus_matrix_16; DogGun_local = identity",
+      "status": "VERIFIED through the Lupus overlay call, Prop 222 record 0, and generic objMakeGunMtx data flow"
+    },
+    "overlay": {
+      "data_size": "0x770",
+      "name": "dogControl overlay",
+      "number": 17,
+      "rom_start": "0x1F27B48",
+      "text_size": "0x6240",
+      "vram": "0x01100000"
+    },
+    "reference_points": {
+      "count_loads": "0x8003D908 and 0x8003D99C read model byte +0x2D (9 for Prop 222)",
+      "doggun_selector": "objMakeGunMtx 0x8000BCE0..0x8000BD00 reads reference record 0 matrix ID and copies that 0x40-byte runtime slot",
+      "loop": "0x8003D918..0x8003D9AC reads each (vertex,matrix) record and transforms its XYZ into the model-instance reference-point array"
+    },
+    "relocated_calls": [
+      {
+        "call_address": "0x01101348",
+        "symbol": "modGenAnimMatrices",
+        "target_address": "0x8003D21C"
+      },
+      {
+        "call_address": "0x01101380",
+        "symbol": "objMakeGunMtx",
+        "target_address": "0x8000BC28"
+      },
+      {
+        "call_address": "0x011013B8",
+        "symbol": "lightObject",
+        "target_address": "0x800221F0"
+      },
+      {
+        "call_address": "0x011013DC",
+        "symbol": "objAnimTextures",
+        "target_address": "0x80009734"
+      },
+      {
+        "call_address": "0x01105060",
+        "symbol": "objAnimDframe",
+        "target_address": "0x8001138C"
+      },
+      {
+        "call_address": "0x01105074",
+        "symbol": "charAnimSoundTick",
+        "target_address": "0x8002B1D4"
+      }
+    ],
+    "shared_mechanisms": {
+      "MSB_first_packed_samples": "VERIFIED FOR LUPUS by complete structural parse",
+      "Root_Q10": "APPLIES THROUGH VERIFIED SHARED RUNTIME PATH and structurally valid Lupus blobs",
+      "current_previous_blending": "APPLIES THROUGH VERIFIED SHARED modGenAnimMatrices path; no Lupus transition capture",
+      "interpolation_10bit": "APPLIES THROUGH VERIFIED SHARED gen_anim_data path",
+      "optional_scale_streams": "VERIFIED FOR LUPUS; all 24 entries contain six runtime scalar scale streams",
+      "rigid_matrix_deformation": "VERIFIED FOR LUPUS model data and shared render path",
+      "row_vector_hierarchy": "APPLIES THROUGH VERIFIED SHARED matrix path; no live Lupus matrix capture",
+      "signed_angle_deltas": "APPLIES THROUGH VERIFIED SHARED gen_anim_data path",
+      "stored_A_C_B_mapping": "APPLIES THROUGH VERIFIED SHARED gen_anim_data/matrix path; no live Lupus matrix capture"
+    },
+    "timing_lead": {
+      "arguments": "0x01105054/58/5C load a0/a1/a2 from stack +0x40/+0x30/+0x4C",
+      "candidate_local_state_table": "overlay data near 0x011067C0 is referenced by the surrounding state machinery; its timing semantics are PENDING",
+      "function": "func_overlay_17_01104C50_1F2C798",
+      "objAnimDframe_call": "0x01105060 -> 0x8001138C",
+      "scope_boundary": "No complete 24-entry Game Timing classification was performed."
+    }
+  },
+  "schema_version": 1,
+  "scope": "Lupus discovery: canonical US Prop 222 static model, object chain, attachments, and shared runtime evidence",
+  "sections": {
+    "declared_file_size": 15392,
+    "groups_with_boundary": {
+      "active_record_count": 65,
+      "end": 1320,
+      "start": 264,
+      "stored_record_count": 66,
+      "stride": 16
+    },
+    "header": {
+      "end": 136,
+      "size": 136,
+      "start": 0
+    },
+    "pre_group_unknown": {
+      "end": 264,
+      "size": 8,
+      "start": 256
+    },
+    "pre_transform_unknown": {
+      "end": 12376,
+      "hex": "0000010c",
+      "size": 4,
+      "start": 12372
+    },
+    "texture_records": {
+      "count": 15,
+      "end": 256,
+      "start": 136,
+      "stride": 8
+    },
+    "trailing_unknown": {
+      "end": 15392,
+      "size": 2584,
+      "start": 12808
+    },
+    "transforms": {
+      "count": 27,
+      "end": 12808,
+      "start": 12376,
+      "stride": 16
+    },
+    "triangles": {
+      "count": 382,
+      "end": 7432,
+      "start": 1320,
+      "stride": 16
+    },
+    "vertex_references": {
+      "count": 9,
+      "end": 12372,
+      "start": 12336,
+      "stride": 4
+    },
+    "vertices": {
+      "count": 490,
+      "end": 12336,
+      "start": 7432,
+      "stride": 10
+    }
+  },
+  "textures": {
+    "format_markers": {
+      "0000": 1,
+      "0100": 1,
+      "1100": 12,
+      "3300": 1
+    },
+    "record_count": 15,
+    "records": [
+      {
+        "active_group_count": 3,
+        "asset_rom_start": 2285808,
+        "compressed_stream_rom_offset": 2285840,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33746,
+        "texture_id_hex": "0x83D2",
+        "texture_index": 0,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 0,
+        "asset_rom_start": 2436128,
+        "compressed_stream_rom_offset": 2436160,
+        "excluded_group_count": 5,
+        "format_marker": "3300",
+        "height": 8,
+        "texture_id": 33841,
+        "texture_id_hex": "0x8431",
+        "texture_index": 1,
+        "usage": "excluded-by-0x400 geometry only",
+        "verified_rgba16": false,
+        "width": 16
+      },
+      {
+        "active_group_count": 4,
+        "asset_rom_start": 1250368,
+        "compressed_stream_rom_offset": 1250400,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 16,
+        "texture_id": 33097,
+        "texture_id_hex": "0x8149",
+        "texture_index": 2,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 16
+      },
+      {
+        "active_group_count": 8,
+        "asset_rom_start": 1228288,
+        "compressed_stream_rom_offset": 1228320,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 40,
+        "texture_id": 33080,
+        "texture_id_hex": "0x8138",
+        "texture_index": 3,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 48
+      },
+      {
+        "active_group_count": 1,
+        "asset_rom_start": 11996800,
+        "compressed_stream_rom_offset": 11996832,
+        "excluded_group_count": 0,
+        "format_marker": "0100",
+        "height": 32,
+        "texture_id": 39425,
+        "texture_id_hex": "0x9A01",
+        "texture_index": 4,
+        "usage": "admitted geometry",
+        "verified_rgba16": false,
+        "width": 32
+      },
+      {
+        "active_group_count": 1,
+        "asset_rom_start": 1231920,
+        "compressed_stream_rom_offset": 1231952,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 16,
+        "texture_id": 33083,
+        "texture_id_hex": "0x813B",
+        "texture_index": 5,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 16
+      },
+      {
+        "active_group_count": 11,
+        "asset_rom_start": 6122688,
+        "compressed_stream_rom_offset": 6122720,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 36053,
+        "texture_id_hex": "0x8CD5",
+        "texture_index": 6,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 32
+      },
+      {
+        "active_group_count": 3,
+        "asset_rom_start": 2287552,
+        "compressed_stream_rom_offset": 2287584,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33747,
+        "texture_id_hex": "0x83D3",
+        "texture_index": 7,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 1,
+        "asset_rom_start": 2289280,
+        "compressed_stream_rom_offset": 2289312,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33748,
+        "texture_id_hex": "0x83D4",
+        "texture_index": 8,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 1,
+        "asset_rom_start": 2290912,
+        "compressed_stream_rom_offset": 2290944,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33749,
+        "texture_id_hex": "0x83D5",
+        "texture_index": 9,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 3,
+        "asset_rom_start": 2292608,
+        "compressed_stream_rom_offset": 2292640,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33750,
+        "texture_id_hex": "0x83D6",
+        "texture_index": 10,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 2,
+        "asset_rom_start": 1309344,
+        "compressed_stream_rom_offset": 1309376,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33132,
+        "texture_id_hex": "0x816C",
+        "texture_index": 11,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 16
+      },
+      {
+        "active_group_count": 2,
+        "asset_rom_start": 2294304,
+        "compressed_stream_rom_offset": 2294336,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 32,
+        "texture_id": 33751,
+        "texture_id_hex": "0x83D7",
+        "texture_index": 12,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 36
+      },
+      {
+        "active_group_count": 1,
+        "asset_rom_start": 1250736,
+        "compressed_stream_rom_offset": 1250768,
+        "excluded_group_count": 0,
+        "format_marker": "0000",
+        "height": 16,
+        "texture_id": 33098,
+        "texture_id_hex": "0x814A",
+        "texture_index": 13,
+        "usage": "admitted geometry",
+        "verified_rgba16": false,
+        "width": 16
+      },
+      {
+        "active_group_count": 3,
+        "asset_rom_start": 2284960,
+        "compressed_stream_rom_offset": 2284992,
+        "excluded_group_count": 0,
+        "format_marker": "1100",
+        "height": 64,
+        "texture_id": 33745,
+        "texture_id_hex": "0x83D1",
+        "texture_index": 14,
+        "usage": "admitted geometry",
+        "verified_rgba16": true,
+        "width": 8
+      }
+    ],
+    "unsupported_count": 3,
+    "verified_rgba16_count": 12
+  },
+  "three_character_comparison": [
+    {
+      "Juno": "VERIFIED",
+      "Lupus": "VERIFIED",
+      "Vela": "VERIFIED",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE",
+      "mechanism": "compact model record format"
+    },
+    {
+      "Juno": "VERIFIED",
+      "Lupus": "VERIFIED shared makeModelGfx path",
+      "Vela": "VERIFIED",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE",
+      "mechanism": "group flag 0x400 exclusion"
+    },
+    {
+      "Juno": "VERIFIED",
+      "Lupus": "VERIFIED",
+      "Vela": "VERIFIED",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE",
+      "mechanism": "rigid matrix splits"
+    },
+    {
+      "Juno": "VERIFIED",
+      "Lupus": "VERIFIED",
+      "Vela": "VERIFIED",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE",
+      "mechanism": "16-byte transforms"
+    },
+    {
+      "Juno": "VERIFIED",
+      "Lupus": "VERIFIED structure + shared path",
+      "Vela": "VERIFIED shared path",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE",
+      "mechanism": "packed animation / Root-Q10 / 10-bit interpolation"
+    },
+    {
+      "Juno": "VERIFIED live capture",
+      "Lupus": "VERIFIED shared path",
+      "Vela": "VERIFIED shared path",
+      "classification": "GENERIC VERIFIED ACROSS ALL THREE; only Juno has independent live numeric capture",
+      "mechanism": "stored A/C/B rotation mapping"
+    },
+    {
+      "Juno": "present in subset",
+      "Lupus": "present in 24/24",
+      "Vela": "present in subset",
+      "classification": "GENERIC FORMAT, CHARACTER-SPECIFIC USAGE",
+      "mechanism": "scale streams"
+    },
+    {
+      "Juno": "BoyGun",
+      "Lupus": "DogGun",
+      "Vela": "GirlGun",
+      "classification": "GENERIC ARCHITECTURE, CHARACTER-SPECIFIC MODELS",
+      "mechanism": "child weapon object"
+    },
+    {
+      "Juno": "matrix 6",
+      "Lupus": "matrix 16",
+      "Vela": "matrix 6",
+      "classification": "GENERIC MECHANISM, CHARACTER-SPECIFIC MATRIX",
+      "mechanism": "reference-record-0 attachment socket"
+    },
+    {
+      "Juno": "catalogued",
+      "Lupus": "call verified; catalog PENDING",
+      "Vela": "catalogued",
+      "classification": "SHARED FUNCTION, LUPUS-SPECIFIC TIMING UNKNOWN",
+      "mechanism": "objAnimDframe timing family"
+    }
+  ],
+  "transform_structure": {
+    "topology": {
+      "all_parents_valid": true,
+      "cycle_free": true,
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          17,
+          21
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          17,
+          24
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          25,
+          26
+        ]
+      ],
+      "parent_before_child": true,
+      "roots": [
+        0
+      ],
+      "target_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "target_ids_unique": true
+    },
+    "transform_records": [
+      {
+        "channel_bytes": [
+          0,
+          0
+        ],
+        "file_offset": 12376,
+        "local_translation_xyz_f32": [
+          0.0,
+          60.636592864990234,
+          7.110040664672852
+        ],
+        "parent_id": 255,
+        "record_index": 0,
+        "target_matrix_id": 0
+      },
+      {
+        "channel_bytes": [
+          1,
+          1
+        ],
+        "file_offset": 12392,
+        "local_translation_xyz_f32": [
+          -8.198644962931212e-08,
+          -1.3415985107421875,
+          -0.9378151893615723
+        ],
+        "parent_id": 0,
+        "record_index": 1,
+        "target_matrix_id": 1
+      },
+      {
+        "channel_bytes": [
+          2,
+          2
+        ],
+        "file_offset": 12408,
+        "local_translation_xyz_f32": [
+          8.198644962931212e-08,
+          6.920246124267578,
+          -37.48367691040039
+        ],
+        "parent_id": 1,
+        "record_index": 2,
+        "target_matrix_id": 2
+      },
+      {
+        "channel_bytes": [
+          3,
+          3
+        ],
+        "file_offset": 12424,
+        "local_translation_xyz_f32": [
+          19.692243576049805,
+          43.45374298095703,
+          -18.905027389526367
+        ],
+        "parent_id": 2,
+        "record_index": 3,
+        "target_matrix_id": 3
+      },
+      {
+        "channel_bytes": [
+          4,
+          4
+        ],
+        "file_offset": 12440,
+        "local_translation_xyz_f32": [
+          -19.692243576049805,
+          43.749351501464844,
+          -18.609636306762695
+        ],
+        "parent_id": 2,
+        "record_index": 4,
+        "target_matrix_id": 4
+      },
+      {
+        "channel_bytes": [
+          5,
+          5
+        ],
+        "file_offset": 12456,
+        "local_translation_xyz_f32": [
+          0.0,
+          2.660430908203125,
+          -49.33030700683594
+        ],
+        "parent_id": 2,
+        "record_index": 5,
+        "target_matrix_id": 5
+      },
+      {
+        "channel_bytes": [
+          6,
+          6
+        ],
+        "file_offset": 12472,
+        "local_translation_xyz_f32": [
+          0.0,
+          34.29003143310547,
+          -44.899444580078125
+        ],
+        "parent_id": 2,
+        "record_index": 6,
+        "target_matrix_id": 6
+      },
+      {
+        "channel_bytes": [
+          7,
+          7
+        ],
+        "file_offset": 12488,
+        "local_translation_xyz_f32": [
+          0.0,
+          -9.754928588867188,
+          -17.428068161010742
+        ],
+        "parent_id": 2,
+        "record_index": 7,
+        "target_matrix_id": 7
+      },
+      {
+        "channel_bytes": [
+          8,
+          8
+        ],
+        "file_offset": 12504,
+        "local_translation_xyz_f32": [
+          0.0,
+          0.886810302734375,
+          -21.563549041748047
+        ],
+        "parent_id": 7,
+        "record_index": 8,
+        "target_matrix_id": 8
+      },
+      {
+        "channel_bytes": [
+          9,
+          9
+        ],
+        "file_offset": 12520,
+        "local_translation_xyz_f32": [
+          25.00487518310547,
+          -2.488475799560547,
+          -27.31682586669922
+        ],
+        "parent_id": 1,
+        "record_index": 9,
+        "target_matrix_id": 9
+      },
+      {
+        "channel_bytes": [
+          10,
+          10
+        ],
+        "file_offset": 12536,
+        "local_translation_xyz_f32": [
+          -4.284809112548828,
+          -27.45178985595703,
+          0.4585113525390625
+        ],
+        "parent_id": 9,
+        "record_index": 10,
+        "target_matrix_id": 10
+      },
+      {
+        "channel_bytes": [
+          11,
+          11
+        ],
+        "file_offset": 12552,
+        "local_translation_xyz_f32": [
+          0.3252220153808594,
+          -22.26880645751953,
+          -3.877309799194336
+        ],
+        "parent_id": 10,
+        "record_index": 11,
+        "target_matrix_id": 11
+      },
+      {
+        "channel_bytes": [
+          12,
+          12
+        ],
+        "file_offset": 12568,
+        "local_translation_xyz_f32": [
+          -25.254928588867188,
+          -2.488475799560547,
+          -27.316823959350586
+        ],
+        "parent_id": 1,
+        "record_index": 12,
+        "target_matrix_id": 12
+      },
+      {
+        "channel_bytes": [
+          13,
+          13
+        ],
+        "file_offset": 12584,
+        "local_translation_xyz_f32": [
+          4.04826545715332,
+          -27.197084426879883,
+          0.4585132598876953
+        ],
+        "parent_id": 12,
+        "record_index": 13,
+        "target_matrix_id": 13
+      },
+      {
+        "channel_bytes": [
+          14,
+          14
+        ],
+        "file_offset": 12600,
+        "local_translation_xyz_f32": [
+          -0.3250560760498047,
+          -22.524368286132812,
+          -3.8819217681884766
+        ],
+        "parent_id": 13,
+        "record_index": 14,
+        "target_matrix_id": 14
+      },
+      {
+        "channel_bytes": [
+          15,
+          15
+        ],
+        "file_offset": 12616,
+        "local_translation_xyz_f32": [
+          8.198644962931212e-08,
+          10.111255645751953,
+          -8.212912559509277
+        ],
+        "parent_id": 1,
+        "record_index": 15,
+        "target_matrix_id": 15
+      },
+      {
+        "channel_bytes": [
+          16,
+          16
+        ],
+        "file_offset": 12632,
+        "local_translation_xyz_f32": [
+          -0.12130258232355118,
+          38.796348571777344,
+          4.980526447296143
+        ],
+        "parent_id": 15,
+        "record_index": 16,
+        "target_matrix_id": 16
+      },
+      {
+        "channel_bytes": [
+          17,
+          17
+        ],
+        "file_offset": 12648,
+        "local_translation_xyz_f32": [
+          1.0031492081452598e-07,
+          -1.3945693969726562,
+          1.147470474243164
+        ],
+        "parent_id": 0,
+        "record_index": 17,
+        "target_matrix_id": 17
+      },
+      {
+        "channel_bytes": [
+          18,
+          18
+        ],
+        "file_offset": 12664,
+        "local_translation_xyz_f32": [
+          23.504587173461914,
+          1.5378990173339844,
+          15.81336784362793
+        ],
+        "parent_id": 17,
+        "record_index": 18,
+        "target_matrix_id": 18
+      },
+      {
+        "channel_bytes": [
+          19,
+          19
+        ],
+        "file_offset": 12680,
+        "local_translation_xyz_f32": [
+          -3.683359146118164,
+          -27.842296600341797,
+          4.975502014160156
+        ],
+        "parent_id": 18,
+        "record_index": 19,
+        "target_matrix_id": 19
+      },
+      {
+        "channel_bytes": [
+          20,
+          20
+        ],
+        "file_offset": 12696,
+        "local_translation_xyz_f32": [
+          1.3392505645751953,
+          -25.52594566345215,
+          -2.207042694091797
+        ],
+        "parent_id": 19,
+        "record_index": 20,
+        "target_matrix_id": 20
+      },
+      {
+        "channel_bytes": [
+          21,
+          21
+        ],
+        "file_offset": 12712,
+        "local_translation_xyz_f32": [
+          -23.254535675048828,
+          1.7926139831542969,
+          15.558652877807617
+        ],
+        "parent_id": 17,
+        "record_index": 21,
+        "target_matrix_id": 21
+      },
+      {
+        "channel_bytes": [
+          22,
+          22
+        ],
+        "file_offset": 12728,
+        "local_translation_xyz_f32": [
+          3.034566879272461,
+          -28.09701156616211,
+          5.230224609375
+        ],
+        "parent_id": 21,
+        "record_index": 22,
+        "target_matrix_id": 22
+      },
+      {
+        "channel_bytes": [
+          23,
+          23
+        ],
+        "file_offset": 12744,
+        "local_translation_xyz_f32": [
+          -1.5892963409423828,
+          -25.78065299987793,
+          -2.207042694091797
+        ],
+        "parent_id": 22,
+        "record_index": 23,
+        "target_matrix_id": 23
+      },
+      {
+        "channel_bytes": [
+          24,
+          24
+        ],
+        "file_offset": 12760,
+        "local_translation_xyz_f32": [
+          1.6580796682319487e-06,
+          11.369609832763672,
+          18.966217041015625
+        ],
+        "parent_id": 17,
+        "record_index": 24,
+        "target_matrix_id": 24
+      },
+      {
+        "channel_bytes": [
+          25,
+          25
+        ],
+        "file_offset": 12776,
+        "local_translation_xyz_f32": [
+          7.511819148930954e-07,
+          7.284614562988281,
+          8.592517852783203
+        ],
+        "parent_id": 24,
+        "record_index": 25,
+        "target_matrix_id": 25
+      },
+      {
+        "channel_bytes": [
+          26,
+          26
+        ],
+        "file_offset": 12792,
+        "local_translation_xyz_f32": [
+          4.5526348912972026e-08,
+          14.57489013671875,
+          0.5207633972167969
+        ],
+        "parent_id": 25,
+        "record_index": 26,
+        "target_matrix_id": 26
+      }
+    ],
+    "vertex_references": [
+      {
+        "file_offset": 12336,
+        "matrix_id": 16,
+        "record_index": 0,
+        "runtime_role": "DogGun attachment-matrix selector and runtime reference point 0",
+        "source_xyz_s16": [
+          0,
+          0,
+          -1
+        ],
+        "vertex_id": 467
+      },
+      {
+        "file_offset": 12340,
+        "matrix_id": 23,
+        "record_index": 1,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          -2,
+          -4,
+          4
+        ],
+        "vertex_id": 471
+      },
+      {
+        "file_offset": 12344,
+        "matrix_id": 20,
+        "record_index": 2,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          2,
+          -4,
+          4
+        ],
+        "vertex_id": 468
+      },
+      {
+        "file_offset": 12348,
+        "matrix_id": 14,
+        "record_index": 3,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          -4,
+          -5,
+          7
+        ],
+        "vertex_id": 463
+      },
+      {
+        "file_offset": 12352,
+        "matrix_id": 11,
+        "record_index": 4,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          2,
+          -5,
+          6
+        ],
+        "vertex_id": 460
+      },
+      {
+        "file_offset": 12356,
+        "matrix_id": 11,
+        "record_index": 5,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          2,
+          -38,
+          6
+        ],
+        "vertex_id": 461
+      },
+      {
+        "file_offset": 12360,
+        "matrix_id": 14,
+        "record_index": 6,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          -4,
+          -39,
+          7
+        ],
+        "vertex_id": 464
+      },
+      {
+        "file_offset": 12364,
+        "matrix_id": 20,
+        "record_index": 7,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          2,
+          -37,
+          4
+        ],
+        "vertex_id": 469
+      },
+      {
+        "file_offset": 12368,
+        "matrix_id": 23,
+        "record_index": 8,
+        "runtime_role": "runtime-transformed reference point; higher-level purpose UNKNOWN",
+        "source_xyz_s16": [
+          -2,
+          -37,
+          4
+        ],
+        "vertex_id": 472
+      }
+    ]
+  },
+  "variants": [
+    {
+      "name": "PowerDog",
+      "prop_id": 223,
+      "relationship": "playerDogPower object definition 5 primary model",
+      "status": "VERIFIED powered player variant"
+    },
+    {
+      "name": "MultiDog",
+      "prop_id": 240,
+      "relationship": "playerMultiDog model",
+      "status": "VERIFIED table identity; runtime purpose outside this pass"
+    },
+    {
+      "name": "DogLod",
+      "prop_id": 241,
+      "relationship": "DogLod",
+      "status": "LIKELY LOD variant from internal name"
+    },
+    {
+      "name": "MultiPowerDog",
+      "prop_id": 246,
+      "relationship": "playerMultiDogP model",
+      "status": "VERIFIED table identity; runtime purpose outside this pass"
+    },
+    {
+      "name": "PowerDogLod",
+      "prop_id": 247,
+      "relationship": "PowerDogLod",
+      "status": "LIKELY LOD variant from internal name"
+    }
+  ]
+}

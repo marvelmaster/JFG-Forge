@@ -1,0 +1,6013 @@
+{
+  "catalog": {
+    "animation_ids_in_index_order": [
+      582,
+      583,
+      584,
+      585,
+      586,
+      587,
+      588,
+      589,
+      590,
+      591,
+      592,
+      593,
+      594,
+      595,
+      596,
+      597,
+      598,
+      599,
+      600,
+      601,
+      602,
+      603,
+      604,
+      605
+    ],
+    "animations": [
+      {
+        "animation_id": 582,
+        "asset42_offset_entry_rom_hex": "0x160D728",
+        "asset43_relative_range_hex": [
+          "0x7B858",
+          "0x7BAF8"
+        ],
+        "blob_sha256": "cd88fea111682dbf7aa39fdd7a7b866b54192bd9316f0c38888bb9de026c156a",
+        "blob_size": 672,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b0010001e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xE009",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 15,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 0,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x16898C8",
+          "0x1689B68"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 11,
+        "runtime_sample_bits": 229,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,16)",
+        "sample_count": 16,
+        "sample_stride_bytes": 30,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 238,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 2
+      },
+      {
+        "animation_id": 583,
+        "asset42_offset_entry_rom_hex": "0x160D72C",
+        "asset43_relative_range_hex": [
+          "0x7BAF8",
+          "0x7BD98"
+        ],
+        "blob_sha256": "2dd923912d559594674421429edc1ad3a76f9cad34c255955f62ce53e6a634d6",
+        "blob_size": 672,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b0010001e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xE009",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 15,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 1,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x1689B68",
+          "0x1689E08"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 15,
+        "runtime_sample_bits": 225,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,16)",
+        "sample_count": 16,
+        "sample_stride_bytes": 30,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 234,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 6
+      },
+      {
+        "animation_id": 584,
+        "asset42_offset_entry_rom_hex": "0x160D730",
+        "asset43_relative_range_hex": [
+          "0x7BD98",
+          "0x7C078"
+        ],
+        "blob_sha256": "67db779895b2d6395153a74a5beb0eb0f42971e3d72f1d1584c2713c9e707745",
+        "blob_size": 736,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000f00240400",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xE029",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 14,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 2,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x1689E08",
+          "0x168A0E8"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            4,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 14,
+        "runtime_sample_bits": 274,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,15)",
+        "sample_count": 15,
+        "sample_stride_bytes": 36,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 283,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 5
+      },
+      {
+        "animation_id": 585,
+        "asset42_offset_entry_rom_hex": "0x160D734",
+        "asset43_relative_range_hex": [
+          "0x7C078",
+          "0x7C318"
+        ],
+        "blob_sha256": "cd88fea111682dbf7aa39fdd7a7b866b54192bd9316f0c38888bb9de026c156a",
+        "blob_size": 672,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b0010001e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xE009",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 15,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 3,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168A0E8",
+          "0x168A388"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 11,
+        "runtime_sample_bits": 229,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,16)",
+        "sample_count": 16,
+        "sample_stride_bytes": 30,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 238,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 2
+      },
+      {
+        "animation_id": 586,
+        "asset42_offset_entry_rom_hex": "0x160D738",
+        "asset43_relative_range_hex": [
+          "0x7C318",
+          "0x7C8B0"
+        ],
+        "blob_sha256": "ab397e6c19c0e9a8281b52e3eafebb47c6bfb9223677646f2d2e8d4c45a0d48f",
+        "blob_size": 1432,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001bfe28041f0604",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xF288",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 39,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 4,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168A388",
+          "0x168A920"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            6,
+            4
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            -2,
+            4
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 15,
+        "runtime_sample_bits": 233,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,40)",
+        "sample_count": 40,
+        "sample_stride_bytes": 31,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 241,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 7
+      },
+      {
+        "animation_id": 587,
+        "asset42_offset_entry_rom_hex": "0x160D73C",
+        "asset43_relative_range_hex": [
+          "0x7C8B0",
+          "0x7CB68"
+        ],
+        "blob_sha256": "22e7fc2b465f1ddcfe19a8758f1375a63c814627808496b0ac021eae11668dad",
+        "blob_size": 696,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b1015fb180000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 5,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168A920",
+          "0x168ABD8"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            16,
+            -5
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 5,
+        "runtime_sample_bits": 187,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,20]",
+        "sample_count": 21,
+        "sample_stride_bytes": 24,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 187,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 5
+      },
+      {
+        "animation_id": 588,
+        "asset42_offset_entry_rom_hex": "0x160D740",
+        "asset43_relative_range_hex": [
+          "0x7CB68",
+          "0x7CF80"
+        ],
+        "blob_sha256": "7a81b964f35fbb7fce8c31bc1cb73f8d7c4f76246319aef7c2846d5d074d49f4",
+        "blob_size": 1048,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001bed1a00210600",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 6,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168ABD8",
+          "0x168AFF0"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            6,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            -19,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 6,
+        "runtime_sample_bits": 258,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,26)",
+        "sample_count": 26,
+        "sample_stride_bytes": 33,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 258,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 6
+      },
+      {
+        "animation_id": 589,
+        "asset42_offset_entry_rom_hex": "0x160D744",
+        "asset43_relative_range_hex": [
+          "0x7CF80",
+          "0x7D260"
+        ],
+        "blob_sha256": "007e131719a8badfc3413bb55b76ecd0df7f6245c68ec01334bbd07c5ffd6184",
+        "blob_size": 736,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001bfc1efc120503",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 7,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168AFF0",
+          "0x168B2D0"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            3
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            -4,
+            -4
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 3,
+        "runtime_sample_bits": 141,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,29]",
+        "sample_count": 30,
+        "sample_stride_bytes": 18,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 141,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 3
+      },
+      {
+        "animation_id": 590,
+        "asset42_offset_entry_rom_hex": "0x160D748",
+        "asset43_relative_range_hex": [
+          "0x7D260",
+          "0x7D390"
+        ],
+        "blob_sha256": "62d269b90382a671fe60f79e6e9470eb5f8dd29e034fac8153239065aedf2cff",
+        "blob_size": 304,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b0008000e0504",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 8,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168B2D0",
+          "0x168B400"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            4
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 4,
+        "runtime_sample_bits": 108,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,7]",
+        "sample_count": 8,
+        "sample_stride_bytes": 14,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 108,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 4
+      },
+      {
+        "animation_id": 591,
+        "asset42_offset_entry_rom_hex": "0x160D74C",
+        "asset43_relative_range_hex": [
+          "0x7D390",
+          "0x7D520"
+        ],
+        "blob_sha256": "fc74aee655dfa073aed678c78f2fd1ecedf8efb065931d9523a4a40de285341c",
+        "blob_size": 400,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000f000e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 9,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168B400",
+          "0x168B590"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 2,
+        "runtime_sample_bits": 110,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,15)",
+        "sample_count": 15,
+        "sample_stride_bytes": 14,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 110,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 2
+      },
+      {
+        "animation_id": 592,
+        "asset42_offset_entry_rom_hex": "0x160D750",
+        "asset43_relative_range_hex": [
+          "0x7D520",
+          "0x7D9C0"
+        ],
+        "blob_sha256": "552af31e7ff067ac69f8980b4bb4c9ea02acfe691c17ee01eb18f66757cb85b7",
+        "blob_size": 1184,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001bf31a00260500",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 10,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168B590",
+          "0x168BA30"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            -13,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 1,
+        "runtime_sample_bits": 303,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,26)",
+        "sample_count": 26,
+        "sample_stride_bytes": 38,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 303,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 1
+      },
+      {
+        "animation_id": 593,
+        "asset42_offset_entry_rom_hex": "0x160D754",
+        "asset43_relative_range_hex": [
+          "0x7D9C0",
+          "0x7DE60"
+        ],
+        "blob_sha256": "552af31e7ff067ac69f8980b4bb4c9ea02acfe691c17ee01eb18f66757cb85b7",
+        "blob_size": 1184,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001bf31a00260500",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 11,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168BA30",
+          "0x168BED0"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            -13,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 1,
+        "runtime_sample_bits": 303,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,26)",
+        "sample_count": 26,
+        "sample_stride_bytes": 38,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 303,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 1
+      },
+      {
+        "animation_id": 594,
+        "asset42_offset_entry_rom_hex": "0x160D758",
+        "asset43_relative_range_hex": [
+          "0x7DE60",
+          "0x7DFF0"
+        ],
+        "blob_sha256": "fc74aee655dfa073aed678c78f2fd1ecedf8efb065931d9523a4a40de285341c",
+        "blob_size": 400,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000f000e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 12,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168BED0",
+          "0x168C060"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 2,
+        "runtime_sample_bits": 110,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,15)",
+        "sample_count": 15,
+        "sample_stride_bytes": 14,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 110,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 2
+      },
+      {
+        "animation_id": 595,
+        "asset42_offset_entry_rom_hex": "0x160D75C",
+        "asset43_relative_range_hex": [
+          "0x7DFF0",
+          "0x7E1C0"
+        ],
+        "blob_sha256": "b09f601eb0ef366a5003451a551431279ea3535b0af5ee915218007e44a46984",
+        "blob_size": 464,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "f81b001000116000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 13,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C060",
+          "0x168C230"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            6,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            true,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            -8,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 5,
+        "runtime_sample_bits": 131,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,16)",
+        "sample_count": 16,
+        "sample_stride_bytes": 17,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 131,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 5
+      },
+      {
+        "animation_id": 596,
+        "asset42_offset_entry_rom_hex": "0x160D760",
+        "asset43_relative_range_hex": [
+          "0x7E1C0",
+          "0x7E3B0"
+        ],
+        "blob_sha256": "7dfe679c4ae9cfc4b845c78f874291cfb72dc3021c4ab738736ea1daa13f6be6",
+        "blob_size": 496,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b0010fa130505",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 14,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C230",
+          "0x168C420"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            5
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            -6
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 6,
+        "runtime_sample_bits": 146,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,15]",
+        "sample_count": 16,
+        "sample_stride_bytes": 19,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 146,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 6
+      },
+      {
+        "animation_id": 597,
+        "asset42_offset_entry_rom_hex": "0x160D764",
+        "asset43_relative_range_hex": [
+          "0x7E3B0",
+          "0x7E508"
+        ],
+        "blob_sha256": "02ea9862f6dfc7f55d0a68c9bff538576848ce837781fb3542edbe4567c2ef19",
+        "blob_size": 344,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b020a000f0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 15,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C420",
+          "0x168C578"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            2,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 0,
+        "runtime_sample_bits": 120,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,9]",
+        "sample_count": 10,
+        "sample_stride_bytes": 15,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 120,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 0
+      },
+      {
+        "animation_id": 598,
+        "asset42_offset_entry_rom_hex": "0x160D768",
+        "asset43_relative_range_hex": [
+          "0x7E508",
+          "0x7E688"
+        ],
+        "blob_sha256": "bd99fe555cdebe99d492382c6aef89e38e8965a2612c6e323fc495a87f78b401",
+        "blob_size": 384,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b140807180200",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xF283",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 6,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 16,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C578",
+          "0x168C6F8"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            2,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            20,
+            7
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 3,
+        "runtime_sample_bits": 189,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,7]",
+        "sample_count": 8,
+        "sample_stride_bytes": 24,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 192,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 0
+      },
+      {
+        "animation_id": 599,
+        "asset42_offset_entry_rom_hex": "0x160D76C",
+        "asset43_relative_range_hex": [
+          "0x7E688",
+          "0x7E870"
+        ],
+        "blob_sha256": "25b8d01cc861f281d07dda72ef276051f1c4518202a3a7487ffb7b58985962da",
+        "blob_size": 488,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000b041b0604",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0xF2A8",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 10,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 17,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C6F8",
+          "0x168C8E0"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            6,
+            4
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            4
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 12,
+        "runtime_sample_bits": 204,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,10]",
+        "sample_count": 11,
+        "sample_stride_bytes": 27,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 212,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 4
+      },
+      {
+        "animation_id": 600,
+        "asset42_offset_entry_rom_hex": "0x160D770",
+        "asset43_relative_range_hex": [
+          "0x7E870",
+          "0x7E978"
+        ],
+        "blob_sha256": "f5dc54ef55c675cfa084813c219a088794719b8cdbe29ee1fd79df67e8c64aff",
+        "blob_size": 264,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000a00070000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 18,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C8E0",
+          "0x168C9E8"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 7,
+        "runtime_sample_bits": 49,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,10)",
+        "sample_count": 10,
+        "sample_stride_bytes": 7,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 49,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 7
+      },
+      {
+        "animation_id": 601,
+        "asset42_offset_entry_rom_hex": "0x160D774",
+        "asset43_relative_range_hex": [
+          "0x7E978",
+          "0x7EAC8"
+        ],
+        "blob_sha256": "de660382eccac1a7754d74d37095ef56ee4443a56fce97c6d4ef7ddb60b68837",
+        "blob_size": 336,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b080a000e0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001400be001400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 19,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168C9E8",
+          "0x168CB38"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            8,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 1,
+        "runtime_sample_bits": 111,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,10)",
+        "sample_count": 10,
+        "sample_stride_bytes": 14,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 111,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 1
+      },
+      {
+        "animation_id": 602,
+        "asset42_offset_entry_rom_hex": "0x160D778",
+        "asset43_relative_range_hex": [
+          "0x7EAC8",
+          "0x7EC18"
+        ],
+        "blob_sha256": "ead4d2582a09b0ab65e8ff174ab0b0397af8e8628c23f28ecbadd2fa48a9d73e",
+        "blob_size": 336,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b080c000c0000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 20,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168CB38",
+          "0x168CC88"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            8,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 7,
+        "runtime_sample_bits": 89,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,12)",
+        "sample_count": 12,
+        "sample_stride_bytes": 12,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 89,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 7
+      },
+      {
+        "animation_id": 603,
+        "asset42_offset_entry_rom_hex": "0x160D77C",
+        "asset43_relative_range_hex": [
+          "0x7EC18",
+          "0x7EDB0"
+        ],
+        "blob_sha256": "1ac288b885457def6ac733c550c633e4248941568e6ac5cabe60f7fc06008000",
+        "blob_size": 408,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b080c00120000",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "001c00be001c00be",
+        "header_low_nibble": 12,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": true,
+        "loop_flag_hex": "0x10",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 21,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168CC88",
+          "0x168CE20"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            0,
+            0
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            false,
+            false
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            8,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 2,
+        "runtime_sample_bits": 142,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,12)",
+        "sample_count": 12,
+        "sample_stride_bytes": 18,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 142,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 2
+      },
+      {
+        "animation_id": 604,
+        "asset42_offset_entry_rom_hex": "0x160D780",
+        "asset43_relative_range_hex": [
+          "0x7EDB0",
+          "0x7EF20"
+        ],
+        "blob_sha256": "283f1b091cfe8f13cc000663d1f5e28c233a78b0a6c3433ea0365ebf381c75a2",
+        "blob_size": 368,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          15,
+          16,
+          17,
+          24,
+          25,
+          26,
+          21,
+          22,
+          23,
+          18,
+          19,
+          20
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "001b000b00100505",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 190,
+        "header_0_7_hex": "000400be000400be",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 190,
+        "lupus_animation_index": 22,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168CE20",
+          "0x168CF90"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            5,
+            5
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "runtime_decoded_channel_count": 26,
+        "runtime_descriptor_count": 78,
+        "runtime_ignored_bits_per_declared_sample": 5,
+        "runtime_sample_bits": 123,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          48,
+          49,
+          50
+        ],
+        "runtime_time_domain": "[0,10]",
+        "sample_count": 11,
+        "sample_stride_bytes": 16,
+        "scratch_channel_index": 26,
+        "serialized_descriptor_count": 81,
+        "serialized_sample_bits": 123,
+        "transform_channel_slots": 27,
+        "zero_padding_bits_after_serialized_fields": 5
+      },
+      {
+        "animation_id": 605,
+        "asset42_offset_entry_rom_hex": "0x160D784",
+        "asset43_relative_range_hex": [
+          "0x7EF20",
+          "0x7F398"
+        ],
+        "blob_sha256": "42da8fa0be1b30bf47bbd102ad67e37585c7fc7cf2119b42ae0c1044adeafb54",
+        "blob_size": 1144,
+        "channel_map": [
+          0,
+          1,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          16,
+          17,
+          18,
+          25,
+          26,
+          27,
+          22,
+          23,
+          24,
+          19,
+          20,
+          21
+        ],
+        "channel_map_identity": false,
+        "control_8_15_hex": "0c1cf123071b0705",
+        "cross_blob_lookahead_bytes": 0,
+        "cross_blob_lookahead_hex": "",
+        "frame_data_offset": 196,
+        "header_0_7_hex": "000400c4000400c4",
+        "header_low_nibble": 4,
+        "ignored_final_slot_descriptor_hex": [
+          "0x0000",
+          "0x0000",
+          "0x0000"
+        ],
+        "ignored_final_slot_nonzero_sample_count": 0,
+        "ignored_final_slot_scale_stream_count": 0,
+        "loop_enabled": false,
+        "loop_flag_hex": "0x00",
+        "loop_frame_data_offset": 196,
+        "lupus_animation_index": 23,
+        "name": null,
+        "name_status": "No Lupus animation-name table was established; numeric index and ID only.",
+        "rom_range_hex": [
+          "0x168CF90",
+          "0x168D408"
+        ],
+        "root": {
+          "bit_widths_xyz": [
+            0,
+            7,
+            5
+          ],
+          "dynamic_axes_xyz": [
+            false,
+            true,
+            true
+          ],
+          "format": "three signed bases << 11 plus optional Q10 samples; final /1024",
+          "signed_base_values": [
+            12,
+            -15,
+            7
+          ]
+        },
+        "runtime_decoded_channel_count": 27,
+        "runtime_descriptor_count": 81,
+        "runtime_ignored_bits_per_declared_sample": 2,
+        "runtime_sample_bits": 214,
+        "runtime_scale_stream_count": 6,
+        "runtime_scale_stream_scalar_indices": [
+          42,
+          43,
+          44,
+          51,
+          52,
+          53
+        ],
+        "runtime_time_domain": "[0,34]",
+        "sample_count": 35,
+        "sample_stride_bytes": 27,
+        "scratch_channel_index": 27,
+        "serialized_descriptor_count": 84,
+        "serialized_sample_bits": 214,
+        "transform_channel_slots": 28,
+        "zero_padding_bits_after_serialized_fields": 2
+      }
+    ],
+    "counts": {
+      "animations": 24,
+      "looping": 15,
+      "non_looping": 9,
+      "requiring_one_byte_contiguous_asset_lookahead": 0,
+      "unique_animation_ids": 24,
+      "with_nonidentity_channel_map": 24,
+      "with_runtime_scale_streams": 24
+    },
+    "sample_count_distribution": {
+      "10": 3,
+      "11": 2,
+      "12": 2,
+      "15": 3,
+      "16": 5,
+      "21": 1,
+      "26": 3,
+      "30": 1,
+      "35": 1,
+      "40": 1,
+      "8": 2
+    },
+    "sample_stride_distribution": {
+      "12": 1,
+      "14": 4,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 2,
+      "19": 1,
+      "24": 2,
+      "27": 2,
+      "30": 3,
+      "31": 1,
+      "33": 1,
+      "36": 1,
+      "38": 2,
+      "7": 1
+    },
+    "schema_version": 1,
+    "scope": "Prop 222 Dog: all 24 animation table entries",
+    "table_chain": {
+      "asset40_prop_pair_rom_hex": "0x160AB3C",
+      "asset41_id_range_rom_hex": [
+        "0x160B398",
+        "0x160B3C8"
+      ],
+      "asset44_map_pair_rom_hex": "0x16FF378",
+      "asset45_map_relative_range_hex": [
+        "0x2410",
+        "0x2698"
+      ],
+      "asset45_map_rom_range_hex": [
+        "0x1702240",
+        "0x17024C8"
+      ],
+      "global_index_range": [
+        380,
+        404
+      ],
+      "map_trailing_alignment_hex": ""
+    }
+  },
+  "evidence_classification": {
+    "MSB_first_packed_samples": "VERIFIED FOR LUPUS by complete structural parse",
+    "Root_Q10": "APPLIES THROUGH VERIFIED SHARED RUNTIME PATH and structurally valid Lupus blobs",
+    "current_previous_blending": "APPLIES THROUGH VERIFIED SHARED modGenAnimMatrices path; no Lupus transition capture",
+    "interpolation_10bit": "APPLIES THROUGH VERIFIED SHARED gen_anim_data path",
+    "optional_scale_streams": "VERIFIED FOR LUPUS; all 24 entries contain six runtime scalar scale streams",
+    "rigid_matrix_deformation": "VERIFIED FOR LUPUS model data and shared render path",
+    "row_vector_hierarchy": "APPLIES THROUGH VERIFIED SHARED matrix path; no live Lupus matrix capture",
+    "signed_angle_deltas": "APPLIES THROUGH VERIFIED SHARED gen_anim_data path",
+    "stored_A_C_B_mapping": "APPLIES THROUGH VERIFIED SHARED gen_anim_data/matrix path; no live Lupus matrix capture"
+  },
+  "prop_id": 222,
+  "prop_sha256": "e69c897a48697d6adef3c922111ae05d2ef04c07ff800d91f5ee0d78ab90b3eb",
+  "reference_animation": {
+    "active_triangle_record_count": 361,
+    "all_matrices_finite": true,
+    "animation_id": 605,
+    "catalog_index": 23,
+    "interpolation": {
+      "current_sample": 17,
+      "fraction_10bit": 512,
+      "next_sample": 18
+    },
+    "joint_origin_bbox": {
+      "maximum": [
+        83.74761962890625,
+        77.3895263671875,
+        135.0487518310547
+      ],
+      "minimum": [
+        -24.19949722290039,
+        3.788166046142578,
+        -20.159156799316406
+      ]
+    },
+    "matrix_count": 27,
+    "matrix_sha256_f32be_4x4": "95dcf65672e1a1168716fefdec3dc4ab7094f888dfab5dc970c6f397840bbc6d",
+    "numeric_runtime_capture_status": "UNKNOWN; this is an isolated shared-decoder evaluation, not a live Lupus matrix capture.",
+    "root_translation_model_xyz": [
+      24.0,
+      -29.0,
+      34.0
+    ],
+    "root_translation_raw_q10_xyz": [
+      24576,
+      -29696,
+      34816
+    ],
+    "selection_reason": "Catalog index 23 uniquely uses 28 serialized channel slots with a zero scratch slot, a distinct 27-entry map, dynamic Root-Q10 Y/Z, six runtime scale streams, and non-looping interpolation.",
+    "semantic_name": null,
+    "time": 17.5,
+    "transformed_active_vertex_count": 459,
+    "transformed_vertex_bbox": {
+      "maximum": [
+        99.64035034179688,
+        97.54615020751953,
+        142.56048583984375
+      ],
+      "minimum": [
+        -30.12649917602539,
+        -7.806570053100586,
+        -38.82414245605469
+      ]
+    },
+    "world_matrices": [
+      {
+        "animation_channel": 0,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            -0.99681556224823,
+            0.003058204660192132,
+            0.07968243956565857,
+            0.0
+          ],
+          [
+            0.03332743048667908,
+            0.9237815737724304,
+            0.3814665973186493,
+            0.0
+          ],
+          [
+            -0.07244256883859634,
+            0.3829074800014496,
+            -0.9209418296813965,
+            0.0
+          ],
+          [
+            0.0,
+            60.636592864990234,
+            7.110040664672852,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "bf7f2f4e",
+            "3b486c29",
+            "3da3308c",
+            "00000000"
+          ],
+          [
+            "3d088258",
+            "3f6c7cf3",
+            "3ec34f97",
+            "00000000"
+          ],
+          [
+            "bd945cc5",
+            "3ec40c73",
+            "bf6bc2d8",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "42728bdf",
+            "40e38574",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.0,
+          60.636592864990234,
+          7.110040664672852
+        ],
+        "matrix_id": 0,
+        "parent_id": 255,
+        "record_index": 0,
+        "rotation_raw_s16_abc": [
+          -4096,
+          -31936,
+          -32
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.99681556224823,
+            0.003058204660192132,
+            0.07968243956565857,
+            0.0
+          ],
+          [
+            0.03332743048667908,
+            0.9237815737724304,
+            0.3814665973186493,
+            0.0
+          ],
+          [
+            -0.07244256883859634,
+            0.3829074800014496,
+            -0.9209418296813965,
+            0.0
+          ],
+          [
+            24.0,
+            31.636592864990234,
+            41.11003875732422,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf7f2f4e",
+            "3b486c29",
+            "3da3308c",
+            "00000000"
+          ],
+          [
+            "3d088258",
+            "3f6c7cf3",
+            "3ec34f97",
+            "00000000"
+          ],
+          [
+            "bd945cc5",
+            "3ec40c73",
+            "bf6bc2d8",
+            "00000000"
+          ],
+          [
+            "41c00000",
+            "41fd17be",
+            "422470ae",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 1,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.16183267533779144,
+            -0.9326647520065308,
+            -0.32240769267082214,
+            0.0
+          ],
+          [
+            0.9824203252792358,
+            0.12145935744047165,
+            0.1417672336101532,
+            0.0
+          ],
+          [
+            -0.09306187182664871,
+            -0.3396824598312378,
+            0.9359248280525208,
+            0.0
+          ],
+          [
+            -8.198644962931212e-08,
+            -1.3415985107421875,
+            -0.9378151893615723,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3e25b777",
+            "bf6ec31e",
+            "bea5129f",
+            "00000000"
+          ],
+          [
+            "3f7b7fe6",
+            "3df8bfaf",
+            "3e112b6e",
+            "00000000"
+          ],
+          [
+            "bdbe9739",
+            "beadeadc",
+            "3f6f98c5",
+            "00000000"
+          ],
+          [
+            "b3b01087",
+            "bfabb980",
+            "bf7014a8",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -8.198644962931212e-08,
+          -1.3415985107421875,
+          -0.9378151893615723
+        ],
+        "matrix_id": 1,
+        "parent_id": 0,
+        "record_index": 1,
+        "rotation_raw_s16_abc": [
+          1568,
+          3424,
+          -14592
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.1690446138381958,
+            -0.9845359325408936,
+            -0.045966506004333496,
+            0.0
+          ],
+          [
+            -0.9855139255523682,
+            0.16949008405208588,
+            -0.005945034325122833,
+            0.0
+          ],
+          [
+            0.013643987476825714,
+            0.04429560899734497,
+            -0.9989252686500549,
+            0.0
+          ],
+          [
+            24.023225784301758,
+            30.03815269470215,
+            41.461936950683594,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be2d1a08",
+            "bf7c0a8c",
+            "bd3c4760",
+            "00000000"
+          ],
+          [
+            "bf7c4aa4",
+            "3e2d8ecf",
+            "bbc2ce90",
+            "00000000"
+          ],
+          [
+            "3c5f8b08",
+            "3d356f50",
+            "bf7fb991",
+            "00000000"
+          ],
+          [
+            "41c02f91",
+            "41f04e23",
+            "4225d906",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 8,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.9999200105667114,
+            -0.01227148249745369,
+            0.0030679600313305855,
+            0.0
+          ],
+          [
+            0.011059915646910667,
+            0.7304820418357849,
+            -0.6828423142433167,
+            0.0
+          ],
+          [
+            0.0061383978463709354,
+            0.6828216314315796,
+            0.7305592894554138,
+            0.0
+          ],
+          [
+            8.198644962931212e-08,
+            6.920246124267578,
+            -37.48367691040039,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f7ffac2",
+            "bc490e54",
+            "3b490fd4",
+            "00000000"
+          ],
+          [
+            "3c3534a6",
+            "3f3b00df",
+            "bf2ecec1",
+            "00000000"
+          ],
+          [
+            "3bc9249d",
+            "3f2ecd66",
+            "3f3b05ef",
+            "00000000"
+          ],
+          [
+            "33b01087",
+            "40dd72a8",
+            "c215ef49",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          8.198644962931212e-08,
+          6.920246124267578,
+          -37.48367691040039
+        ],
+        "matrix_id": 2,
+        "parent_id": 1,
+        "record_index": 2,
+        "rotation_raw_s16_abc": [
+          -7840,
+          -32,
+          -128
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.15689551830291748,
+            -0.9864012002944946,
+            -0.04895453527569771,
+            0.0
+          ],
+          [
+            -0.7310865521430969,
+            0.08267366886138916,
+            0.6772573590278625,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            16.69179916381836,
+            29.550703048706055,
+            78.86418914794922,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be20a938",
+            "bf7c84ca",
+            "bd48848d",
+            "00000000"
+          ],
+          [
+            "bf3b287d",
+            "3da950d0",
+            "3f2d60bd",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "418588ce",
+            "41ec67d7",
+            "429dba77",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 9,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.8448535799980164,
+            0.5349976420402527,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.5349976420402527,
+            0.8448535799980164,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            19.692243576049805,
+            43.45374298095703,
+            -18.905027389526367,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f584853",
+            "3f08f59b",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "bf08f59b",
+            "3f584853",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "419d89b7",
+            "422dd0a2",
+            "c1973d7f",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          19.692243576049805,
+          43.45374298095703,
+          -18.905027389526367
+        ],
+        "matrix_id": 3,
+        "parent_id": 2,
+        "record_index": 3,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          5888
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.5236833095550537,
+            -0.7891343832015991,
+            0.32097166776657104,
+            0.0
+          ],
+          [
+            -0.5337224006652832,
+            0.597569465637207,
+            0.5983738899230957,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            -5.613334655761719,
+            11.03329849243164,
+            121.2080078125,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf06101c",
+            "bf4a04b6",
+            "3ea45666",
+            "00000000"
+          ],
+          [
+            "bf08a208",
+            "3f18fa50",
+            "3f192f08",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "c0b3a070",
+            "41308864",
+            "42f26a80",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 10,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -19.692243576049805,
+            43.749351501464844,
+            -18.609636306762695,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "c19d89b7",
+            "422eff56",
+            "c194e089",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -19.692243576049805,
+          43.749351501464844,
+          -18.609636306762695
+        ],
+        "matrix_id": 4,
+        "parent_id": 2,
+        "record_index": 4,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.15689551830291748,
+            -0.9864012002944946,
+            -0.04895453527569771,
+            0.0
+          ],
+          [
+            -0.7310865521430969,
+            0.08267366886138916,
+            0.6772573590278625,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            0.15366363525390625,
+            49.94860076904297,
+            123.11941528320312,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be20a938",
+            "bf7c84ca",
+            "bd48848d",
+            "00000000"
+          ],
+          [
+            "bf3b287d",
+            "3da950d0",
+            "3f2d60bd",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "3e1d5a00",
+            "4247cb5e",
+            "42f63d24",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 11,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            2.660430908203125,
+            -49.33030700683594,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "402a4480",
+            "c245523c",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.0,
+          2.660430908203125,
+          -49.33030700683594
+        ],
+        "matrix_id": 5,
+        "parent_id": 2,
+        "record_index": 5,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.15689551830291748,
+            -0.9864012002944946,
+            -0.04895453527569771,
+            0.0
+          ],
+          [
+            -0.7310865521430969,
+            0.08267366886138916,
+            0.6772573590278625,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            47.50212860107422,
+            22.763349533081055,
+            116.88013458251953,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be20a938",
+            "bf7c84ca",
+            "bd48848d",
+            "00000000"
+          ],
+          [
+            "bf3b287d",
+            "3da950d0",
+            "3f2d60bd",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "423e022e",
+            "41b61b57",
+            "42e9c2a1",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 12,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            34.29003143310547,
+            -44.899444580078125,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "420928fe",
+            "c2339908",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.0,
+          34.29003143310547,
+          -44.899444580078125
+        ],
+        "matrix_id": 6,
+        "parent_id": 2,
+        "record_index": 6,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.15689551830291748,
+            -0.9864012002944946,
+            -0.04895453527569771,
+            0.0
+          ],
+          [
+            -0.7310865521430969,
+            0.08267366886138916,
+            0.6772573590278625,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            21.43605613708496,
+            26.00768280029297,
+            135.0487518310547,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be20a938",
+            "bf7c84ca",
+            "bd48848d",
+            "00000000"
+          ],
+          [
+            "bf3b287d",
+            "3da950d0",
+            "3f2d60bd",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "41ab7d0b",
+            "41d00fbc",
+            "43070c7b",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 13,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            -9.754928588867188,
+            -17.428068161010742,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "c11c1430",
+            "c18b6caf",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.0,
+          -9.754928588867188,
+          -17.428068161010742
+        ],
+        "matrix_id": 7,
+        "parent_id": 2,
+        "record_index": 7,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.15689551830291748,
+            -0.9864012002944946,
+            -0.04895453527569771,
+            0.0
+          ],
+          [
+            -0.7310865521430969,
+            0.08267366886138916,
+            0.6772573590278625,
+            0.0
+          ],
+          [
+            -0.6640001535415649,
+            0.14204859733581543,
+            -0.7341156601905823,
+            0.0
+          ],
+          [
+            35.39573669433594,
+            26.26859474182129,
+            85.05181121826172,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be20a938",
+            "bf7c84ca",
+            "bd48848d",
+            "00000000"
+          ],
+          [
+            "bf3b287d",
+            "3da950d0",
+            "3f2d60bd",
+            "00000000"
+          ],
+          [
+            "bf29fbea",
+            "3e117530",
+            "bf3bef01",
+            "00000000"
+          ],
+          [
+            "420d953c",
+            "41d22615",
+            "42aa1a87",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 14,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.007812481373548508,
+            1.1984204320469871e-05,
+            -1.19842188723851e-05,
+            0.0
+          ],
+          [
+            -1.1965820704062935e-05,
+            0.007812481373548508,
+            1.1984204320469871e-05,
+            0.0
+          ],
+          [
+            1.200257429445628e-05,
+            -1.1965820704062935e-05,
+            0.007812481373548508,
+            0.0
+          ],
+          [
+            0.0,
+            0.886810302734375,
+            -21.563549041748047,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3bffffd8",
+            "37490fc4",
+            "b7490fd4",
+            "00000000"
+          ],
+          [
+            "b748c0cf",
+            "3bffffd8",
+            "37490fc4",
+            "00000000"
+          ],
+          [
+            "37495eaa",
+            "b748c0cf",
+            "3bffffd8",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f630600",
+            "c1ac8226",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.0,
+          0.886810302734375,
+          -21.563549041748047
+        ],
+        "matrix_id": 8,
+        "parent_id": 7,
+        "record_index": 8,
+        "rotation_raw_s16_abc": [
+          16,
+          16,
+          16
+        ],
+        "scale_raw_u16_xyz": [
+          256,
+          256,
+          256
+        ],
+        "world_model_matrix": [
+          [
+            -0.001226547290571034,
+            -0.0077069527469575405,
+            -0.00036554221878759563,
+            0.0
+          ],
+          [
+            -0.00571768032386899,
+            0.0006593919824808836,
+            0.005282848607748747,
+            0.0
+          ],
+          [
+            -0.005180623847991228,
+            0.0010969233699142933,
+            -0.005743956658989191,
+            0.0
+          ],
+          [
+            49.06560134887695,
+            23.278839111328125,
+            101.48255157470703,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "baa0c419",
+            "bbfc8a9b",
+            "b9bfa63f",
+            "00000000"
+          ],
+          [
+            "bbbb5b61",
+            "3a2cdb0c",
+            "3bad1bbf",
+            "00000000"
+          ],
+          [
+            "bba9c239",
+            "3a8fc6a4",
+            "bbbc37cd",
+            "00000000"
+          ],
+          [
+            "4244432d",
+            "41ba3b10",
+            "42caf711",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 2,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.5461896061897278,
+            -0.5736808776855469,
+            -0.6103827953338623,
+            0.0
+          ],
+          [
+            0.22937849164009094,
+            0.8032535314559937,
+            -0.5496993660926819,
+            0.0
+          ],
+          [
+            0.805644154548645,
+            0.16023141145706177,
+            0.5703187584877014,
+            0.0
+          ],
+          [
+            25.00487518310547,
+            -2.488475799560547,
+            -27.31682586669922,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f0bd315",
+            "bf12dcc0",
+            "bf1c420c",
+            "00000000"
+          ],
+          [
+            "3e6ae232",
+            "3f4da206",
+            "bf0cb919",
+            "00000000"
+          ],
+          [
+            "3f4e3eb2",
+            "3e2413b4",
+            "3f120069",
+            "00000000"
+          ],
+          [
+            "41c809fc",
+            "c01f4330",
+            "c1da88dc",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          25.00487518310547,
+          -2.488475799560547,
+          -27.31682586669922
+        ],
+        "matrix_id": 9,
+        "parent_id": 1,
+        "record_index": 9,
+        "rotation_raw_s16_abc": [
+          -8000,
+          6848,
+          -8448
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.4647120535373688,
+            -0.6620137691497803,
+            0.5880309343338013,
+            0.0
+          ],
+          [
+            -0.8378928303718567,
+            -0.11403714120388031,
+            0.5337894558906555,
+            0.0
+          ],
+          [
+            -0.28631868958473206,
+            -0.7407653331756592,
+            -0.6076910495758057,
+            0.0
+          ],
+          [
+            21.87600326538086,
+            3.788166046142578,
+            67.61481475830078,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3eedeebd",
+            "bf2979bc",
+            "3f168932",
+            "00000000"
+          ],
+          [
+            "bf568025",
+            "bde98c4e",
+            "3f08a66d",
+            "00000000"
+          ],
+          [
+            "be92985d",
+            "bf3da2cc",
+            "bf1b91a4",
+            "00000000"
+          ],
+          [
+            "41af020e",
+            "40727150",
+            "42873ac9",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 3,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -4.284809112548828,
+            -27.45178985595703,
+            0.4585113525390625,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "c0891d28",
+            "c1db9d44",
+            "3eeac200",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -4.284809112548828,
+          -27.45178985595703,
+          0.4585113525390625
+        ],
+        "matrix_id": 10,
+        "parent_id": 9,
+        "record_index": 10,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.4647120535373688,
+            -0.6620137691497803,
+            0.5880309343338013,
+            0.0
+          ],
+          [
+            -0.8378928303718567,
+            -0.11403714120388031,
+            0.5337894558906555,
+            0.0
+          ],
+          [
+            -0.28631868958473206,
+            -0.7407653331756592,
+            -0.6076910495758057,
+            0.0
+          ],
+          [
+            42.75517654418945,
+            9.415643692016602,
+            50.16310501098633,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3eedeebd",
+            "bf2979bc",
+            "3f168932",
+            "00000000"
+          ],
+          [
+            "bf568025",
+            "bde98c4e",
+            "3f08a66d",
+            "00000000"
+          ],
+          [
+            "be92985d",
+            "bf3da2cc",
+            "bf1b91a4",
+            "00000000"
+          ],
+          [
+            "422b054d",
+            "4116a67a",
+            "4248a705",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 4,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.3252220153808594,
+            -22.26880645751953,
+            -3.877309799194336,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "3ea68380",
+            "c1b22684",
+            "c07825d8",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          0.3252220153808594,
+          -22.26880645751953,
+          -3.877309799194336
+        ],
+        "matrix_id": 11,
+        "parent_id": 10,
+        "record_index": 11,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.4647120535373688,
+            -0.6620137691497803,
+            0.5880309343338013,
+            0.0
+          ],
+          [
+            -0.8378928303718567,
+            -0.11403714120388031,
+            0.5337894558906555,
+            0.0
+          ],
+          [
+            -0.28631868958473206,
+            -0.7407653331756592,
+            -0.6076910495758057,
+            0.0
+          ],
+          [
+            62.675331115722656,
+            14.611989974975586,
+            40.823699951171875,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3eedeebd",
+            "bf2979bc",
+            "3f168932",
+            "00000000"
+          ],
+          [
+            "bf568025",
+            "bde98c4e",
+            "3f08a66d",
+            "00000000"
+          ],
+          [
+            "be92985d",
+            "bf3da2cc",
+            "bf1b91a4",
+            "00000000"
+          ],
+          [
+            "427ab38a",
+            "4169cab6",
+            "42234b78",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 5,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.7284334897994995,
+            -0.6850546598434448,
+            0.00920374970883131,
+            0.0
+          ],
+          [
+            0.6850836873054504,
+            0.7284643650054932,
+            0.0,
+            0.0
+          ],
+          [
+            -0.006704603787511587,
+            0.006305338814854622,
+            0.9999576210975647,
+            0.0
+          ],
+          [
+            -25.254928588867188,
+            -2.488475799560547,
+            -27.316823959350586,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f3a7a9e",
+            "bf2f5fbe",
+            "3c16cb53",
+            "00000000"
+          ],
+          [
+            "3f2f61a5",
+            "3f3a7ca4",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "bbdbb24b",
+            "3bce9d04",
+            "3f7ffd39",
+            "00000000"
+          ],
+          [
+            "c1ca0a18",
+            "c01f4330",
+            "c1da88db",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -25.254928588867188,
+          -2.488475799560547,
+          -27.316823959350586
+        ],
+        "matrix_id": 12,
+        "parent_id": 1,
+        "record_index": 12,
+        "rotation_raw_s16_abc": [
+          0,
+          -96,
+          -7872
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.552118718624115,
+            -0.8328711986541748,
+            -0.0386047288775444,
+            0.0
+          ],
+          [
+            -0.8337215185165405,
+            -0.5510219931602478,
+            -0.03582165017724037,
+            0.0
+          ],
+          [
+            0.008562786504626274,
+            0.05196334794163704,
+            -0.9986122250556946,
+            0.0
+          ],
+          [
+            30.372154235839844,
+            53.270751953125,
+            69.92507934570312,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3f0d57a7",
+            "bf55370c",
+            "bd1e1ffe",
+            "00000000"
+          ],
+          [
+            "bf556ec6",
+            "bf0d0fc7",
+            "bd12b9b9",
+            "00000000"
+          ],
+          [
+            "3c0c4aee",
+            "3d54d785",
+            "bf7fa50d",
+            "00000000"
+          ],
+          [
+            "41f2fa2c",
+            "42551540",
+            "428bd9a4",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 6,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            4.04826545715332,
+            -27.197084426879883,
+            0.4585132598876953,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "40818b64",
+            "c1d993a1",
+            "3eeac240",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          4.04826545715332,
+          -27.197084426879883,
+          0.4585132598876953
+        ],
+        "matrix_id": 13,
+        "parent_id": 12,
+        "record_index": 13,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.552118718624115,
+            -0.8328711986541748,
+            -0.0386047288775444,
+            0.0
+          ],
+          [
+            -0.8337215185165405,
+            -0.5510219931602478,
+            -0.03582165017724037,
+            0.0
+          ],
+          [
+            0.008562786504626274,
+            0.05196334794163704,
+            -0.9986122250556946,
+            0.0
+          ],
+          [
+            55.28599548339844,
+            64.90908813476562,
+            70.28516387939453,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3f0d57a7",
+            "bf55370c",
+            "bd1e1ffe",
+            "00000000"
+          ],
+          [
+            "bf556ec6",
+            "bf0d0fc7",
+            "bd12b9b9",
+            "00000000"
+          ],
+          [
+            "3c0c4aee",
+            "3d54d785",
+            "bf7fa50d",
+            "00000000"
+          ],
+          [
+            "425d24dc",
+            "4281d174",
+            "428c9201",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 7,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -0.3250560760498047,
+            -22.524368286132812,
+            -3.8819217681884766,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "bea66dc0",
+            "c1b431e8",
+            "c0787168",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -0.3250560760498047,
+          -22.524368286132812,
+          -3.8819217681884766
+        ],
+        "matrix_id": 14,
+        "parent_id": 13,
+        "record_index": 14,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            0.552118718624115,
+            -0.8328711986541748,
+            -0.0386047288775444,
+            0.0
+          ],
+          [
+            -0.8337215185165405,
+            -0.5510219931602478,
+            -0.03582165017724037,
+            0.0
+          ],
+          [
+            0.008562786504626274,
+            0.05196334794163704,
+            -0.9986122250556946,
+            0.0
+          ],
+          [
+            73.85234069824219,
+            77.3895263671875,
+            74.98110961914062,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "3f0d57a7",
+            "bf55370c",
+            "bd1e1ffe",
+            "00000000"
+          ],
+          [
+            "bf556ec6",
+            "bf0d0fc7",
+            "bd12b9b9",
+            "00000000"
+          ],
+          [
+            "3c0c4aee",
+            "3d54d785",
+            "bf7fa50d",
+            "00000000"
+          ],
+          [
+            "4293b466",
+            "429ac770",
+            "4295f654",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 16,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            8.198644962931212e-08,
+            10.111255645751953,
+            -8.212912559509277,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "33b01087",
+            "4121c7b4",
+            "c1036817",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          8.198644962931212e-08,
+          10.111255645751953,
+          -8.212912559509277
+        ],
+        "matrix_id": 15,
+        "parent_id": 1,
+        "record_index": 15,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.1690446138381958,
+            -0.9845359325408936,
+            -0.045966506004333496,
+            0.0
+          ],
+          [
+            -0.9855139255523682,
+            0.16949008405208588,
+            -0.005945034325122833,
+            0.0
+          ],
+          [
+            0.013643987476825714,
+            0.04429560899734497,
+            -0.9989252686500549,
+            0.0
+          ],
+          [
+            13.946385383605957,
+            31.38811492919922,
+            49.60591125488281,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be2d1a08",
+            "bf7c0a8c",
+            "bd3c4760",
+            "00000000"
+          ],
+          [
+            "bf7c4aa4",
+            "3e2d8ecf",
+            "bbc2ce90",
+            "00000000"
+          ],
+          [
+            "3c5f8b08",
+            "3d356f50",
+            "bf7fb991",
+            "00000000"
+          ],
+          [
+            "415f2465",
+            "41fb1adc",
+            "42466c74",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 17,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.7890605926513672,
+            0.0012104046763852239,
+            -0.0012104060733690858,
+            0.0
+          ],
+          [
+            -0.0012085478520020843,
+            0.7890605926513672,
+            0.0012104046763852239,
+            0.0
+          ],
+          [
+            0.0012122599873691797,
+            -0.0012085478520020843,
+            0.7890605926513672,
+            0.0
+          ],
+          [
+            -0.12130258232355118,
+            38.796348571777344,
+            4.980526447296143,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f49ffe0",
+            "3a9ea671",
+            "ba9ea67d",
+            "00000000"
+          ],
+          [
+            "ba9e6823",
+            "3f49ffe0",
+            "3a9ea671",
+            "00000000"
+          ],
+          [
+            "3a9ee4b2",
+            "ba9e6823",
+            "3f49ffe0",
+            "00000000"
+          ],
+          [
+            "bdf86d7d",
+            "421b2f76",
+            "409f6079",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -0.12130258232355118,
+          38.796348571777344,
+          4.980526447296143
+        ],
+        "matrix_id": 16,
+        "parent_id": 15,
+        "record_index": 16,
+        "rotation_raw_s16_abc": [
+          16,
+          16,
+          16
+        ],
+        "scale_raw_u16_xyz": [
+          25856,
+          25856,
+          25856
+        ],
+        "world_model_matrix": [
+          [
+            -0.1345958262681961,
+            -0.7767069935798645,
+            -0.03506844863295555,
+            0.0
+          ],
+          [
+            -0.7774093747138977,
+            0.1349814236164093,
+            -0.005844543222337961,
+            0.0
+          ],
+          [
+            0.011752047576010227,
+            0.03355356678366661,
+            -0.7882610559463501,
+            0.0
+          ],
+          [
+            -24.19949722290039,
+            38.30375289916992,
+            44.40566635131836,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "be09d37d",
+            "bf46d645",
+            "bd0fa3ef",
+            "00000000"
+          ],
+          [
+            "bf47044d",
+            "3e0a3892",
+            "bbbf8395",
+            "00000000"
+          ],
+          [
+            "3c408ba9",
+            "3d096f77",
+            "bf49cb7a",
+            "00000000"
+          ],
+          [
+            "c1c19892",
+            "4219370b",
+            "42319f67",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 18,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.919244647026062,
+            -0.3741721510887146,
+            -0.12241067737340927,
+            0.0
+          ],
+          [
+            0.3837956488132477,
+            0.9209887981414795,
+            0.06693670898675919,
+            0.0
+          ],
+          [
+            0.08769300580024719,
+            -0.10851190984249115,
+            0.9902196526527405,
+            0.0
+          ],
+          [
+            1.0031492081452598e-07,
+            -1.3945693969726562,
+            1.147470474243164,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f6b539e",
+            "bebf937e",
+            "bdfab273",
+            "00000000"
+          ],
+          [
+            "3ec480dd",
+            "3f6bc5ec",
+            "3d89161d",
+            "00000000"
+          ],
+          [
+            "3db39864",
+            "bdde3b7e",
+            "3f7d7f09",
+            "00000000"
+          ],
+          [
+            "33d76cb6",
+            "bfb28140",
+            "3f92e050",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          1.0031492081452598e-07,
+          -1.3945693969726562,
+          1.147470474243164
+        ],
+        "matrix_id": 17,
+        "parent_id": 0,
+        "record_index": 17,
+        "rotation_raw_s16_abc": [
+          704,
+          1280,
+          -4032
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.9199197888374329,
+            -0.3897140622138977,
+            0.04324659705162048,
+            0.0
+          ],
+          [
+            -0.35672837495803833,
+            0.8775967955589294,
+            0.32026341557502747,
+            0.0
+          ],
+          [
+            -0.16276422142982483,
+            0.27918940782546997,
+            -0.9463407397270203,
+            0.0
+          ],
+          [
+            23.870397567749023,
+            30.787691116333008,
+            39.521305084228516,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf6b7fdd",
+            "bec7889a",
+            "3d312358",
+            "00000000"
+          ],
+          [
+            "beb6a51a",
+            "3f60aa2f",
+            "3ea3f991",
+            "00000000"
+          ],
+          [
+            "be26abaa",
+            "3e8ef1ea",
+            "bf724363",
+            "00000000"
+          ],
+          [
+            "41bef693",
+            "41f64d31",
+            "421e15d1",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 25,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.8192676901817322,
+            -0.49790841341018677,
+            -0.28440752625465393,
+            0.0
+          ],
+          [
+            0.2377183437347412,
+            0.7462828755378723,
+            -0.6217330098152161,
+            0.0
+          ],
+          [
+            0.5218145847320557,
+            0.44175687432289124,
+            0.729767382144928,
+            0.0
+          ],
+          [
+            23.504587173461914,
+            1.5378990173339844,
+            15.81336784362793,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f51bb87",
+            "befeedda",
+            "be919ddd",
+            "00000000"
+          ],
+          [
+            "3e736c70",
+            "3f3f0c65",
+            "bf1f29e5",
+            "00000000"
+          ],
+          [
+            "3f0595a4",
+            "3ee22df5",
+            "3f3ad209",
+            "00000000"
+          ],
+          [
+            "41bc0965",
+            "3fc4d9e0",
+            "417d038e",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          23.504587173461914,
+          1.5378990173339844,
+          15.81336784362793
+        ],
+        "matrix_id": 18,
+        "parent_id": 17,
+        "record_index": 18,
+        "rotation_raw_s16_abc": [
+          -7360,
+          3008,
+          -5696
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.529751181602478,
+            -0.8356465697288513,
+            0.14511512219905853,
+            0.0
+          ],
+          [
+            -0.3837062120437622,
+            0.3887120187282562,
+            0.8376588821411133,
+            0.0
+          ],
+          [
+            -0.7563948035240173,
+            0.3880692422389984,
+            -0.5265633463859558,
+            0.0
+          ],
+          [
+            -0.8744010925292969,
+            27.392202377319336,
+            26.06549835205078,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf079dc6",
+            "bf55ecef",
+            "3e14990f",
+            "00000000"
+          ],
+          [
+            "bec47524",
+            "3ec70543",
+            "3f5670d0",
+            "00000000"
+          ],
+          [
+            "bf41a317",
+            "3ec6b103",
+            "bf06ccdb",
+            "00000000"
+          ],
+          [
+            "bf5fd8c0",
+            "41db233b",
+            "41d08624",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 26,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.9906741380691528,
+            0.02127872407436371,
+            -0.13458071649074554,
+            0.0
+          ],
+          [
+            -0.020234808325767517,
+            0.9997535943984985,
+            0.00912002008408308,
+            0.0
+          ],
+          [
+            0.1347416192293167,
+            -0.006311752833425999,
+            0.990860641002655,
+            0.0
+          ],
+          [
+            -3.683359146118164,
+            -27.842296600341797,
+            4.975502014160156,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f7d9cd2",
+            "3cae50b8",
+            "be09cf87",
+            "00000000"
+          ],
+          [
+            "bca5c378",
+            "3f7fefda",
+            "3c156c23",
+            "00000000"
+          ],
+          [
+            "3e09f9b5",
+            "bbced2d2",
+            "3f7da90b",
+            "00000000"
+          ],
+          [
+            "c06bbc28",
+            "c1debd06",
+            "409f3750",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -3.683359146118164,
+          -27.842296600341797,
+          4.975502014160156
+        ],
+        "matrix_id": 19,
+        "parent_id": 18,
+        "record_index": 19,
+        "rotation_raw_s16_abc": [
+          96,
+          1408,
+          224
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.431179404258728,
+            -0.8718088269233704,
+            0.23245137929916382,
+            0.0
+          ],
+          [
+            -0.37979060411453247,
+            0.4090645909309387,
+            0.8297138214111328,
+            0.0
+          ],
+          [
+            -0.8184395432472229,
+            0.26947271823883057,
+            -0.5074849128723145,
+            0.0
+          ],
+          [
+            7.99668025970459,
+            21.578392028808594,
+            -0.41127777099609375,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bedcc38c",
+            "bf5f2edd",
+            "3e6e07bc",
+            "00000000"
+          ],
+          [
+            "bec273ea",
+            "3ed170ea",
+            "3f546820",
+            "00000000"
+          ],
+          [
+            "bf518541",
+            "3e89f854",
+            "bf01ea88",
+            "00000000"
+          ],
+          [
+            "40ffe4ce",
+            "41aca08c",
+            "bed29300",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 27,
+        "animation_channel_status": "runtime zero scratch; serialized final-slot fields ignored",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.3392505645751953,
+            -25.52594566345215,
+            -2.207042694091797,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "3fab6c90",
+            "c1cc3523",
+            "c00d4030",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          1.3392505645751953,
+          -25.52594566345215,
+          -2.207042694091797
+        ],
+        "matrix_id": 20,
+        "parent_id": 19,
+        "record_index": 20,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.431179404258728,
+            -0.8718088269233704,
+            0.23245137929916382,
+            0.0
+          ],
+          [
+            -0.37979060411453247,
+            0.4090645909309387,
+            0.8297138214111328,
+            0.0
+          ],
+          [
+            -0.8184395432472229,
+            0.26947271823883057,
+            -0.5074849128723145,
+            0.0
+          ],
+          [
+            18.920066833496094,
+            9.374323844909668,
+            -20.159156799316406,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bedcc38c",
+            "bf5f2edd",
+            "3e6e07bc",
+            "00000000"
+          ],
+          [
+            "bec273ea",
+            "3ed170ea",
+            "3f546820",
+            "00000000"
+          ],
+          [
+            "bf518541",
+            "3e89f854",
+            "bf01ea88",
+            "00000000"
+          ],
+          [
+            "41975c4c",
+            "4115fd3b",
+            "c1a145f4",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 22,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            0.7684956192970276,
+            -0.47353309392929077,
+            0.4303264915943146,
+            0.0
+          ],
+          [
+            0.5107494592666626,
+            0.859087347984314,
+            0.03322489559650421,
+            0.0
+          ],
+          [
+            -0.38542112708091736,
+            0.19425582885742188,
+            0.9020616412162781,
+            0.0
+          ],
+          [
+            -23.254535675048828,
+            1.7926139831542969,
+            15.558652877807617,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f44bc21",
+            "bef272ee",
+            "3edc53c1",
+            "00000000"
+          ],
+          [
+            "3f02c07a",
+            "3f5bed26",
+            "3d0816d4",
+            "00000000"
+          ],
+          [
+            "bec555eb",
+            "3e46eb00",
+            "3f66ed83",
+            "00000000"
+          ],
+          [
+            "c1ba094a",
+            "3fe57460",
+            "4178f03e",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -23.254535675048828,
+          1.7926139831542969,
+          15.558652877807617
+        ],
+        "matrix_id": 21,
+        "parent_id": 17,
+        "record_index": 21,
+        "rotation_raw_s16_abc": [
+          384,
+          -4640,
+          -5760
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.608073353767395,
+            -0.5949220657348633,
+            -0.52565598487854,
+            0.0
+          ],
+          [
+            -0.7817171812057495,
+            0.5641620755195618,
+            0.26578032970428467,
+            0.0
+          ],
+          [
+            0.13843660056591034,
+            0.5725283622741699,
+            -0.8081128001213074,
+            0.0
+          ],
+          [
+            42.09083557128906,
+            45.76731491088867,
+            24.365947723388672,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf1baab2",
+            "bf184cd0",
+            "bf069164",
+            "00000000"
+          ],
+          [
+            "bf481e9e",
+            "3f106ced",
+            "3e88145c",
+            "00000000"
+          ],
+          [
+            "3e0dc253",
+            "3f129138",
+            "bf4ee07b",
+            "00000000"
+          ],
+          [
+            "42285d04",
+            "423711bb",
+            "41c2ed76",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 23,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            3.034566879272461,
+            -28.09701156616211,
+            5.230224609375,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "40423658",
+            "c1e0c6ae",
+            "40a75e00",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          3.034566879272461,
+          -28.09701156616211,
+          5.230224609375
+        ],
+        "matrix_id": 22,
+        "parent_id": 21,
+        "record_index": 22,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.608073353767395,
+            -0.5949220657348633,
+            -0.52565598487854,
+            0.0
+          ],
+          [
+            -0.7817171812057495,
+            0.5641620755195618,
+            0.26578032970428467,
+            0.0
+          ],
+          [
+            0.13843660056591034,
+            0.5725283622741699,
+            -0.8081128001213074,
+            0.0
+          ],
+          [
+            62.93356704711914,
+            31.105167388916016,
+            11.07656478881836,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf1baab2",
+            "bf184cd0",
+            "bf069164",
+            "00000000"
+          ],
+          [
+            "bf481e9e",
+            "3f106ced",
+            "3e88145c",
+            "00000000"
+          ],
+          [
+            "3e0dc253",
+            "3f129138",
+            "bf4ee07b",
+            "00000000"
+          ],
+          [
+            "427bbbf9",
+            "41f8d762",
+            "4131399c",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 24,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -1.5892963409423828,
+            -25.78065299987793,
+            -2.207042694091797,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "bfcb6e10",
+            "c1ce3ec7",
+            "c00d4030",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          -1.5892963409423828,
+          -25.78065299987793,
+          -2.207042694091797
+        ],
+        "matrix_id": 23,
+        "parent_id": 22,
+        "record_index": 23,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.608073353767395,
+            -0.5949220657348633,
+            -0.52565598487854,
+            0.0
+          ],
+          [
+            -0.7817171812057495,
+            0.5641620755195618,
+            0.26578032970428467,
+            0.0
+          ],
+          [
+            0.13843660056591034,
+            0.5725283622741699,
+            -0.8081128001213074,
+            0.0
+          ],
+          [
+            83.74761962890625,
+            16.242612838745117,
+            6.843536853790283,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf1baab2",
+            "bf184cd0",
+            "bf069164",
+            "00000000"
+          ],
+          [
+            "bf481e9e",
+            "3f106ced",
+            "3e88145c",
+            "00000000"
+          ],
+          [
+            "3e0dc253",
+            "3f129138",
+            "bf4ee07b",
+            "00000000"
+          ],
+          [
+            "42a77ec8",
+            "4181f0df",
+            "40dafe41",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 19,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.6580796682319487e-06,
+            11.369609832763672,
+            18.966217041015625,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "35de8b2f",
+            "4135e9ec",
+            "4197bad0",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          1.6580796682319487e-06,
+          11.369609832763672,
+          18.966217041015625
+        ],
+        "matrix_id": 24,
+        "parent_id": 17,
+        "record_index": 24,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.9199197888374329,
+            -0.3897140622138977,
+            0.04324659705162048,
+            0.0
+          ],
+          [
+            -0.35672837495803833,
+            0.8775967955589294,
+            0.32026341557502747,
+            0.0
+          ],
+          [
+            -0.16276422142982483,
+            0.27918940782546997,
+            -0.9463407397270203,
+            0.0
+          ],
+          [
+            16.72751235961914,
+            46.060791015625,
+            25.21407127380371,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf6b7fdd",
+            "bec7889a",
+            "3d312358",
+            "00000000"
+          ],
+          [
+            "beb6a51a",
+            "3f60aa2f",
+            "3ea3f991",
+            "00000000"
+          ],
+          [
+            "be26abaa",
+            "3e8ef1ea",
+            "bf724363",
+            "00000000"
+          ],
+          [
+            "4185d1f2",
+            "42383e40",
+            "41c9b66b",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 20,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            7.511819148930954e-07,
+            7.284614562988281,
+            8.592517852783203,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "3549a4d4",
+            "40e91b90",
+            "41097af4",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          7.511819148930954e-07,
+          7.284614562988281,
+          8.592517852783203
+        ],
+        "matrix_id": 25,
+        "parent_id": 24,
+        "record_index": 25,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.9199197888374329,
+            -0.3897140622138977,
+            0.04324659705162048,
+            0.0
+          ],
+          [
+            -0.35672837495803833,
+            0.8775967955589294,
+            0.32026341557502747,
+            0.0
+          ],
+          [
+            -0.16276422142982483,
+            0.27918940782546997,
+            -0.9463407397270203,
+            0.0
+          ],
+          [
+            12.730328559875488,
+            54.852684020996094,
+            19.415616989135742,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf6b7fdd",
+            "bec7889a",
+            "3d312358",
+            "00000000"
+          ],
+          [
+            "beb6a51a",
+            "3f60aa2f",
+            "3ea3f991",
+            "00000000"
+          ],
+          [
+            "be26abaa",
+            "3e8ef1ea",
+            "bf724363",
+            "00000000"
+          ],
+          [
+            "414baf6d",
+            "425b6926",
+            "419b532f",
+            "3f800000"
+          ]
+        ]
+      },
+      {
+        "animation_channel": 21,
+        "animation_channel_status": "decoded",
+        "local_matrix": [
+          [
+            1.0,
+            0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            4.5526348912972026e-08,
+            14.57489013671875,
+            0.5207633972167969,
+            1.0
+          ]
+        ],
+        "local_matrix_f32_hex": [
+          [
+            "3f800000",
+            "00000000",
+            "80000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "3f800000",
+            "00000000",
+            "00000000"
+          ],
+          [
+            "00000000",
+            "00000000",
+            "3f800000",
+            "00000000"
+          ],
+          [
+            "334388c0",
+            "416932c0",
+            "3f0550c0",
+            "3f800000"
+          ]
+        ],
+        "local_translation_xyz": [
+          4.5526348912972026e-08,
+          14.57489013671875,
+          0.5207633972167969
+        ],
+        "matrix_id": 26,
+        "parent_id": 25,
+        "record_index": 26,
+        "rotation_raw_s16_abc": [
+          0,
+          0,
+          0
+        ],
+        "scale_raw_u16_xyz": [
+          0,
+          0,
+          0
+        ],
+        "world_model_matrix": [
+          [
+            -0.9199197888374329,
+            -0.3897140622138977,
+            0.04324659705162048,
+            0.0
+          ],
+          [
+            -0.35672837495803833,
+            0.8775967955589294,
+            0.32026341557502747,
+            0.0
+          ],
+          [
+            -0.16276422142982483,
+            0.27918940782546997,
+            -0.9463407397270203,
+            0.0
+          ],
+          [
+            7.446290016174316,
+            67.78895568847656,
+            23.590600967407227,
+            1.0
+          ]
+        ],
+        "world_model_matrix_f32_hex": [
+          [
+            "bf6b7fdd",
+            "bec7889a",
+            "3d312358",
+            "00000000"
+          ],
+          [
+            "beb6a51a",
+            "3f60aa2f",
+            "3ea3f991",
+            "00000000"
+          ],
+          [
+            "be26abaa",
+            "3e8ef1ea",
+            "bf724363",
+            "00000000"
+          ],
+          [
+            "40ee4802",
+            "428793f2",
+            "41bcb98d",
+            "3f800000"
+          ]
+        ]
+      }
+    ]
+  },
+  "schema_version": 1,
+  "scope": "Lupus Prop 222 animation assets, complete 24-entry structural catalog, and isolated reference evaluation"
+}
