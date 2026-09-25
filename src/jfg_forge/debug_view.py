@@ -9,6 +9,7 @@ from jfg_re.forge_types import BoySceneSnapshot, SkeletonDebugData
 
 
 JOINT_6_CONTEXT = "BoyGun attachment socket [VERIFIED]"
+VELA_JOINT_6_CONTEXT = "GirlGun socket — VERIFIED"
 
 
 class ViewMode(StrEnum):
@@ -95,13 +96,18 @@ def selected_joint_information(scene: BoySceneSnapshot, joint_id: int) -> Select
         static_local_translation=static.static_local_translation,
         rendered_corner_count=rendered_corner_count,
         rendered_source_vertex_count=len(rendered_source_vertices),
-        context=JOINT_6_CONTEXT if joint_id == 6 else None,
+        context=(
+            (VELA_JOINT_6_CONTEXT if scene.model.prop_id == 218 else JOINT_6_CONTEXT)
+            if joint_id == 6
+            else None
+        ),
     )
 
 
 __all__ = [
     "DEFAULT_VIEW_MODE",
     "JOINT_6_CONTEXT",
+    "VELA_JOINT_6_CONTEXT",
     "PreparedSkeletonDebug",
     "SelectedJointInformation",
     "ViewMode",

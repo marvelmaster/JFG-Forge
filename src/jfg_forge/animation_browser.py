@@ -120,8 +120,16 @@ def research_context(animation_index: int) -> AnimationResearchContext:
     )
 
 
-def browser_entry(clip: AnimationClip) -> AnimationBrowserEntry:
-    context = research_context(clip.animation_index)
+def browser_entry(
+    clip: AnimationClip,
+    *,
+    include_boy_gameplay_context: bool = True,
+) -> AnimationBrowserEntry:
+    context = (
+        research_context(clip.animation_index)
+        if include_boy_gameplay_context
+        else AnimationResearchContext(UNKNOWN_CONTEXT, EvidenceStatus.UNKNOWN)
+    )
     metadata = clip.metadata
     widths = tuple(int(value) for value in metadata["root"]["bit_widths_xyz"])
     if len(widths) != 3:
@@ -138,8 +146,18 @@ def browser_entry(clip: AnimationClip) -> AnimationBrowserEntry:
     )
 
 
-def browser_entries(clips: Iterable[AnimationClip]) -> tuple[AnimationBrowserEntry, ...]:
-    return tuple(browser_entry(clip) for clip in clips)
+def browser_entries(
+    clips: Iterable[AnimationClip],
+    *,
+    include_boy_gameplay_context: bool = True,
+) -> tuple[AnimationBrowserEntry, ...]:
+    return tuple(
+        browser_entry(
+            clip,
+            include_boy_gameplay_context=include_boy_gameplay_context,
+        )
+        for clip in clips
+    )
 
 
 def sample_display(pose: Pose) -> SampleDisplay:

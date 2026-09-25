@@ -24,6 +24,7 @@ from jfg_re.boy_rig_gltf import (
     validate_gltf_binary_layout,
 )
 from jfg_re.forge_types import AnimationClip, BoyAsset, LoadedAttachment, TextureAsset
+from jfg_re.vela_rig_gltf import build_vela_rig_artifacts
 from jfg_forge.runtime_timing import PlaybackTimingContext
 
 
@@ -52,18 +53,21 @@ class ExportResult:
 def suggested_filename(
     operation: ExportOperation,
     clip: AnimationClip | None = None,
+    *,
+    character_name: str = "Boy",
+    prop_id: int = 220,
 ) -> str:
     if operation is ExportOperation.MODEL:
         if clip is not None:
             raise ValueError("Model-only export does not accept an animation clip.")
-        return "Boy_Prop220.gltf"
+        return f"{character_name}_Prop{prop_id}.gltf"
     if clip is None:
         raise ValueError("Animation export requires a selected clip.")
     identity = f"anim_{clip.animation_index:02d}_ID{clip.animation_id}"
     if operation is ExportOperation.CURRENT_ANIMATION:
-        return f"Boy_{identity}.gltf"
+        return f"{character_name}_{identity}.gltf"
     if operation is ExportOperation.MODEL_AND_CURRENT_ANIMATION:
-        return f"Boy_Prop220_{identity}.gltf"
+        return f"{character_name}_Prop{prop_id}_{identity}.gltf"
     raise ValueError(f"Unsupported export operation {operation!r}.")
 
 
@@ -187,7 +191,7 @@ def _sampler_wrap(axis: object) -> int:
 
 def _attachment_name(attachment: LoadedAttachment) -> str:
     return (
-        f"BoyGun_slot{attachment.slot.slot}_Prop{attachment.slot.prop_id}_"
+        f"{attachment.definition.name}_slot{attachment.slot.slot}_Prop{attachment.slot.prop_id}_"
         f"{attachment.slot.name}"
     )
 
@@ -199,9 +203,9 @@ def _append_attachment(
     texture_manifest_path: Path,
     output_directory: Path,
 ) -> bytes:
-    """Append one rigid BoyGun mesh below the exported matrix-6 joint."""
+    """Append one rigid character attachment below the exported matrix-6 joint."""
     if attachment.definition.attachment_joint_id != 6:
-        raise ValueError("BoyGun export requires the verified matrix-6 attachment socket.")
+        raise ValueError("Attachment export requires the verified matrix-6 socket.")
     if attachment.model.active_face_count != attachment.slot.expected_active_faces:
         raise ValueError("Attachment geometry differs from its verified active-face count.")
 
@@ -362,9 +366,9 @@ def _append_attachment(
     })
     gltf["nodes"][socket_indices[0]].setdefault("children", []).append(attachment_node)
     gltf["buffers"][0]["byteLength"] = len(data)
-    gltf["extras"]["boygun_attachment"] = {
+    gltf["extras"][f"{attachment.definition.name.lower()}_attachment"] = {
         "node": attachment_node,
-        "parent_joint_id": 6,
+        "parent_joint_id": attachment.definition.attachment_joint_id,
         "prop_id": attachment.slot.prop_id,
         "slot": attachment.slot.slot,
         "local_transform": "identity",
@@ -485,9 +489,108 @@ def export_boy(
     )
 
 
+def export_vela(
+    vela: BoyAsset,
+    destination: Path,
+    operation: ExportOperation,
+    *,
+    animation_index: int | None = None,
+    attachment: LoadedAttachment | None = None,
+    timing_context: PlaybackTimingContext | None = None,
+) -> ExportResult:
+    """Write the Vela MVP glTF using the shared preview timing context."""
+    destination = Path(destination).resolve()
+    if destination.suffix.lower() != ".gltf":
+        raise ValueError("JFG Forge Vela exports require a .gltf destination.")
+    if not destination.parent.is_dir():
+        raise FileNotFoundError(f"Export directory does not exist: {destination.parent}")
+    include_mesh = operation is not ExportOperation.CURRENT_ANIMATION
+    clip = None
+    if operation is not ExportOperation.MODEL:
+        if animation_index is None:
+            raise ValueError("Current-animation export requires an animation index.")
+        clip = vela.animation(animation_index)
+    elif animation_index is not None:
+        raise ValueError("Model-only export does not accept an animation index.")
+    if attachment is not None and not include_mesh:
+        raise ValueError("Animation-only export does not include attachment geometry.")
+    if attachment is not None and attachment.definition != vela.attachment:
+        raise ValueError("Selected attachment does not belong to Vela's attachment definition.")
+
+    artifacts = build_vela_rig_artifacts(
+        vela,
+        destination.parent,
+        clip=clip,
+        include_mesh=include_mesh,
+    )
+    binary = artifacts["vela.bin"]
+    gltf = json.loads(artifacts["vela.gltf"])
+    report = json.loads(artifacts["vela-report.json"])
+    effective_rate = None
+    animation_duration = None
+    if clip is not None:
+        binary, effective_rate, animation_duration = _retime_animation(
+            gltf,
+            binary,
+            clip,
+            timing_context or PlaybackTimingContext(),
+        )
+    if attachment is not None:
+        binary = _append_attachment(
+            gltf,
+            binary,
+            attachment,
+            vela.texture_manifest_path,
+            destination.parent,
+        )
+    binary_path = destination.with_suffix(".bin")
+    gltf["buffers"][0]["uri"] = binary_path.name
+    gltf["buffers"][0]["byteLength"] = len(binary)
+    gltf["extras"].update({
+        "forge_export_operation": operation.value,
+        "technical_animation_identity": None if clip is None else {
+            "index": clip.animation_index,
+            "id": clip.animation_id,
+        },
+        "timing": "Shared JFG Forge preview/export timing context",
+    })
+
+    written: list[Path] = []
+    if include_mesh:
+        texture_directory = destination.parent / f"{destination.stem}_textures"
+        texture_directory.mkdir(parents=False, exist_ok=True)
+        for image in gltf.get("images", []):
+            source = _resolve_image_source(destination.parent, image["uri"])
+            target_name = image.get("extras", {}).get("portable_filename", source.name)
+            target = texture_directory / target_name
+            target.write_bytes(source.read_bytes())
+            image["uri"] = f"{texture_directory.name}/{target.name}"
+            written.append(target)
+
+    validate_gltf_binary_layout(gltf, binary, require_skin=include_mesh, joint_count=28)
+    binary_path.write_bytes(binary)
+    destination.write_text(json.dumps(gltf, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    written.extend((binary_path, destination))
+    return ExportResult(
+        operation=operation,
+        destination=destination,
+        written_files=tuple(written),
+        animation_index=None if clip is None else clip.animation_index,
+        animation_id=None if clip is None else clip.animation_id,
+        mesh_included=include_mesh,
+        animation_count=len(gltf.get("animations", [])),
+        maximum_position_error=float(report["validation_summary"]["maximum_position_error"]),
+        attachment_slot=None if attachment is None else attachment.slot.slot,
+        attachment_prop_id=None if attachment is None else attachment.slot.prop_id,
+        effective_samples_per_second=effective_rate,
+        animation_duration_seconds=animation_duration,
+    )
+
+
 __all__ = [
     "ExportOperation",
     "ExportResult",
     "export_boy",
+    "export_vela",
     "suggested_filename",
 ]

@@ -77,6 +77,7 @@ def validate_gltf_binary_layout(
     binary: bytes,
     *,
     require_skin: bool = True,
+    joint_count: int = 21,
 ) -> dict[str, Any]:
     """Validate every accessor's readable byte span, not just its BufferView."""
     if len(gltf.get("buffers", [])) != 1 or gltf["buffers"][0]["byteLength"] != len(binary):
@@ -132,9 +133,11 @@ def validate_gltf_binary_layout(
             raise BoyExportError("glTF model export must contain exactly one skin.")
         skin_accessor = gltf["skins"][0]["inverseBindMatrices"]
         skin = checked[skin_accessor]
-        if not (skin["component_type"] == 5126 and skin["type"] == "MAT4" and skin["count"] == 21
-                and skin["required_bytes"] == 21 * 16 * 4):
-            raise BoyExportError("Inverse-bind accessor is not 21 tightly readable FLOAT/MAT4 values.")
+        if not (skin["component_type"] == 5126 and skin["type"] == "MAT4" and skin["count"] == joint_count
+                and skin["required_bytes"] == joint_count * 16 * 4):
+            raise BoyExportError(
+                f"Inverse-bind accessor is not {joint_count} tightly readable FLOAT/MAT4 values."
+            )
     return {"accessor_count": len(checked), "all_accessors_valid": True,
             "inverse_bind_accessor": skin, "checked_accessors": checked}
 

@@ -29,8 +29,10 @@ from jfg_re.forge_scene import (
     evaluate_attachment_positions,
     evaluate_boy_scene,
     evaluate_rigid_mesh_positions,
+    evaluate_vela_scene,
 )
 from jfg_re.forge_types import BoyAsset, BoySceneSnapshot, LoadedAttachment
+from jfg_re.vela_data import load_vela_attachment
 from jfg_forge.attachment_browser import AttachmentBrowserController, inspect_attachment
 from jfg_forge.animation_browser import AnimationBrowserEntry, browser_entries, sample_display
 from jfg_forge.debug_view import (
@@ -39,7 +41,7 @@ from jfg_forge.debug_view import (
     prepare_skeleton_debug,
     selected_joint_information,
 )
-from jfg_forge.export_service import ExportOperation, export_boy, suggested_filename
+from jfg_forge.export_service import ExportOperation, export_boy, export_vela, suggested_filename
 from jfg_forge.playback import (
     MAX_MOVEMENT_SPEED_TICK,
     MIN_MOVEMENT_SPEED_TICK,
@@ -53,7 +55,9 @@ from jfg_forge.runtime_timing import NOMINAL_NTSC_VI_HZ
 from jfg_forge.render_data import (
     ModelInformation,
     PreparedRenderData,
+    model_information,
     prepare_attachment_render_data,
+    prepare_render_data,
 )
 from jfg_forge.viewport import ModelViewport
 
@@ -62,12 +66,15 @@ class MainWindow(QMainWindow):
     def __init__(
         self,
         boy: BoyAsset,
+        vela: BoyAsset,
         initial_scene: BoySceneSnapshot,
         data: PreparedRenderData,
         information: ModelInformation,
     ) -> None:
         super().__init__()
-        self._boy = boy
+        self._assets = {"Juno": boy, "Vela": vela}
+        self._character_key = "Juno"
+        self._asset = boy
         self._scene = initial_scene
         self._playback = PlaybackController(boy.animations)
         self._attachment_browser = AttachmentBrowserController(boy.attachment)
@@ -123,10 +130,15 @@ class MainWindow(QMainWindow):
 
     def _export(self, operation: ExportOperation) -> None:
         clip = None if operation is ExportOperation.MODEL else self._playback.clip
-        filename = suggested_filename(operation, clip)
+        filename = suggested_filename(
+            operation,
+            clip,
+            character_name=self._character_key,
+            prop_id=self._asset.model.prop_id,
+        )
         destination, _selected_filter = QFileDialog.getSaveFileName(
             self,
-            "Export Boy glTF",
+            f"Export {self._character_key} glTF",
             filename,
             "glTF 2.0 (*.gltf)",
         )
@@ -136,8 +148,9 @@ class MainWindow(QMainWindow):
         if path.suffix.lower() != ".gltf":
             path = path.with_suffix(".gltf")
         try:
-            result = export_boy(
-                self._boy,
+            exporter = export_boy if self._character_key == "Juno" else export_vela
+            result = exporter(
+                self._asset,
                 path,
                 operation,
                 animation_index=None if clip is None else clip.animation_index,
@@ -159,7 +172,7 @@ class MainWindow(QMainWindow):
                 identity = f"model + {identity}"
         if result.attachment_prop_id is not None:
             identity = (
-                f"{identity} + BoyGun slot {result.attachment_slot} / "
+                f"{identity} + {self._asset.attachment.name} slot {result.attachment_slot} / "
                 f"Prop {result.attachment_prop_id}"
             )
         self.statusBar().showMessage(f"Exported {identity} to {result.destination}", 15000)
@@ -171,16 +184,30 @@ class MainWindow(QMainWindow):
         heading = QLabel("Asset / Model Info")
         heading.setStyleSheet("font-weight: bold; font-size: 15px;")
         layout.addWidget(heading)
+        self.character_combo = QComboBox()
+        for name in self._assets:
+            self.character_combo.addItem(name, name)
+        layout.addWidget(self.character_combo)
         form = QFormLayout()
-        form.addRow("Name", QLabel(information.name or "(unknown)"))
-        form.addRow("Prop", QLabel(str(information.prop_id)))
-        form.addRow("Source vertices", QLabel(str(information.source_vertices)))
-        form.addRow("Render vertices", QLabel(str(information.render_vertices)))
-        form.addRow("Faces", QLabel(str(information.faces)))
-        form.addRow("Groups", QLabel(str(information.groups)))
-        form.addRow("Joints", QLabel(str(information.joints)))
-        form.addRow("Textures", QLabel(f"{information.verified_textures} VERIFIED\n{information.unknown_textures} UNKNOWN"))
-        form.addRow("Attachment", QLabel(information.attachment_status))
+        self.model_name_value = QLabel()
+        self.model_prop_value = QLabel()
+        self.model_source_vertices_value = QLabel()
+        self.model_render_vertices_value = QLabel()
+        self.model_faces_value = QLabel()
+        self.model_groups_value = QLabel()
+        self.model_joints_value = QLabel()
+        self.model_textures_value = QLabel()
+        self.model_attachment_status_value = QLabel()
+        form.addRow("Name", self.model_name_value)
+        form.addRow("Prop", self.model_prop_value)
+        form.addRow("Source vertices", self.model_source_vertices_value)
+        form.addRow("Render vertices", self.model_render_vertices_value)
+        form.addRow("Faces", self.model_faces_value)
+        form.addRow("Groups", self.model_groups_value)
+        form.addRow("Joints", self.model_joints_value)
+        form.addRow("Textures", self.model_textures_value)
+        form.addRow("Attachment", self.model_attachment_status_value)
+        self._set_model_information(information)
         layout.addLayout(form)
         animation_heading = QLabel("Animation Browser")
         animation_heading.setStyleSheet("font-weight: bold; font-size: 15px; margin-top: 12px;")
@@ -188,7 +215,7 @@ class MainWindow(QMainWindow):
         self.animation_combo = QComboBox()
         self.animation_combo.setMinimumContentsLength(24)
         self.animation_combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
-        for clip in self._boy.animations:
+        for clip in self._asset.animations:
             self.animation_combo.addItem(animation_label(clip), clip.animation_index)
         layout.addWidget(self.animation_combo)
         navigation_row = QHBoxLayout()
@@ -289,9 +316,9 @@ class MainWindow(QMainWindow):
         self.state_timing_flag_check.toggled.connect(self._set_state_timing_flag)
         self.mark_reference_button.clicked.connect(self._mark_reference)
 
-        attachment_heading = QLabel("BoyGun / Attachment")
-        attachment_heading.setStyleSheet("font-weight: bold; font-size: 15px; margin-top: 12px;")
-        layout.addWidget(attachment_heading)
+        self.attachment_heading = QLabel("BoyGun / Attachment")
+        self.attachment_heading.setStyleSheet("font-weight: bold; font-size: 15px; margin-top: 12px;")
+        layout.addWidget(self.attachment_heading)
         attachment_form = QFormLayout()
         self.attachment_combo = QComboBox()
         self.attachment_combo.setToolTip(
@@ -328,7 +355,7 @@ class MainWindow(QMainWindow):
         self.view_mode_combo.setCurrentIndex(list(ViewMode).index(DEFAULT_VIEW_MODE))
         debug_form.addRow("View", self.view_mode_combo)
         self.joint_combo = QComboBox()
-        for joint in self._boy.model.skeleton.joints:
+        for joint in self._asset.model.skeleton.joints:
             self.joint_combo.addItem(str(joint.joint_id), joint.joint_id)
         debug_form.addRow("Joint", self.joint_combo)
         self.joint_id_value = QLabel()
@@ -348,6 +375,7 @@ class MainWindow(QMainWindow):
         debug_form.addRow("Context", self.joint_context_value)
         layout.addLayout(debug_form)
         layout.addStretch(1)
+        self.character_combo.currentIndexChanged.connect(self._select_character)
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setMinimumWidth(300)
@@ -358,6 +386,87 @@ class MainWindow(QMainWindow):
 
     def _select_view_mode(self, _combo_index: int = -1) -> None:
         self.viewport.set_view_mode(ViewMode(self.view_mode_combo.currentData()))
+
+    def _set_model_information(self, information: ModelInformation) -> None:
+        self.model_name_value.setText(information.name or "(unknown)")
+        self.model_prop_value.setText(str(information.prop_id))
+        self.model_source_vertices_value.setText(str(information.source_vertices))
+        self.model_render_vertices_value.setText(str(information.render_vertices))
+        self.model_faces_value.setText(str(information.faces))
+        self.model_groups_value.setText(str(information.groups))
+        self.model_joints_value.setText(str(information.joints))
+        self.model_textures_value.setText(
+            f"{information.verified_textures} VERIFIED\n{information.unknown_textures} UNKNOWN"
+        )
+        self.model_attachment_status_value.setText(information.attachment_status)
+
+    def _select_character(self, _combo_index: int = -1) -> None:
+        key = str(self.character_combo.currentData())
+        if key == self._character_key:
+            return
+        self._timer.stop()
+        movement_speed = self._playback.movement_speed
+        self._character_key = key
+        self._asset = self._assets[key]
+        self._playback = PlaybackController(self._asset.animations)
+        self._playback.set_movement_speed(movement_speed)
+        self._attachment_browser = AttachmentBrowserController(self._asset.attachment)
+        flag_blocker = QSignalBlocker(self.state_timing_flag_check)
+        self.state_timing_flag_check.setChecked(False)
+        del flag_blocker
+        self.reference_clip_value.setText("none")
+        self._attachment_cache.clear()
+        self._attachment_render_cache.clear()
+        self._selected_attachment = None
+        self._viewport_attachment_slot = None
+        self.viewport.set_attachment_data(None)
+        self._browser_entries = {
+            entry.animation_index: entry
+            for entry in browser_entries(
+                self._asset.animations,
+                include_boy_gameplay_context=key == "Juno",
+            )
+        }
+
+        for combo in (self.animation_combo, self.attachment_combo, self.joint_combo):
+            blocker = QSignalBlocker(combo)
+            combo.clear()
+            if combo is self.animation_combo:
+                for clip in self._asset.animations:
+                    combo.addItem(animation_label(clip), clip.animation_index)
+            elif combo is self.attachment_combo:
+                for entry in self._attachment_browser.entries:
+                    combo.addItem(entry.label, entry.slot)
+            else:
+                for joint in self._asset.model.skeleton.joints:
+                    combo.addItem(str(joint.joint_id), joint.joint_id)
+            del blocker
+
+        timing_blocker = QSignalBlocker(self.timing_mode_combo)
+        timing_mode = PlaybackTimingMode.GAME
+        self.timing_mode_combo.setCurrentIndex(self.timing_mode_combo.findData(timing_mode.value))
+        self.timing_mode_combo.setEnabled(True)
+        del timing_blocker
+        self.attachment_heading.setText(f"{self._asset.attachment.name} / Attachment")
+        self.attachment_socket_value.setText(
+            f"Joint 6 — {self._asset.attachment.name} attachment socket [VERIFIED]"
+        )
+        slider_blocker = QSignalBlocker(self.time_slider)
+        self.time_slider.setRange(0, self._playback.slider_maximum)
+        self.time_slider.setValue(0)
+        del slider_blocker
+        self.play_button.setText("Play")
+        self._scene = (
+            evaluate_boy_scene(self._asset, animation_index=0, time=0.0)
+            if key == "Juno"
+            else evaluate_vela_scene(self._asset, animation_index=0, time=0.0)
+        )
+        data = prepare_render_data(self._scene)
+        self.viewport.set_model_data(data, prepare_skeleton_debug(self._scene.skeleton_debug))
+        self._set_model_information(model_information(self._scene))
+        self._update_joint_display()
+        self._update_attachment_display()
+        self._update_time_display()
 
     def _select_joint(self, _combo_index: int = -1) -> None:
         joint_id = int(self.joint_combo.currentData())
@@ -374,10 +483,14 @@ class MainWindow(QMainWindow):
             else:
                 loaded = self._attachment_cache.get(slot)
                 if loaded is None:
-                    loaded = load_boy_attachment(self._boy, slot=slot)
+                    loaded = (
+                        load_boy_attachment(self._asset, slot=slot)
+                        if self._character_key == "Juno"
+                        else load_vela_attachment(self._asset, slot=slot)
+                    )
                     self._attachment_cache[slot] = loaded
                 self._selected_attachment = loaded
-                joint_index = self.joint_combo.findData(self._boy.attachment.attachment_joint_id)
+                joint_index = self.joint_combo.findData(self._asset.attachment.attachment_joint_id)
                 if joint_index >= 0:
                     self.joint_combo.setCurrentIndex(joint_index)
             self._evaluate_current_pose()
@@ -499,8 +612,9 @@ class MainWindow(QMainWindow):
 
     def _evaluate_current_pose(self, *, update_slider: bool = True) -> None:
         try:
-            scene = evaluate_boy_scene(
-                self._boy,
+            evaluator = evaluate_boy_scene if self._character_key == "Juno" else evaluate_vela_scene
+            scene = evaluator(
+                self._asset,
                 animation_index=self._playback.animation_index,
                 time=self._playback.time,
                 loaded_attachment=self._selected_attachment,
@@ -586,9 +700,10 @@ class MainWindow(QMainWindow):
         self.selected_clip_value.setText(self._clip_summary(entry))
         self._update_timing_display()
         self.statusBar().showMessage(
-            f"Boy / Prop 220 — animation index {clip.animation_index} — "
+            f"{self._character_key} / Prop {self._asset.model.prop_id} — animation index {clip.animation_index} — "
             f"ID {clip.animation_id} — time {self._playback.time:.3f} — "
             f"{self._playback.timing_mode.value}"
+            + (" — live 28-matrix capture PENDING" if self._character_key == "Vela" else "")
         )
 
     def _update_timing_display(self) -> None:

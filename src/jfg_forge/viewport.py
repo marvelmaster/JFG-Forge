@@ -298,6 +298,33 @@ class ModelViewport(QOpenGLWidget):
             self.doneCurrent()
         self.update()
 
+    def set_model_data(
+        self,
+        data: PreparedRenderData,
+        skeleton: PreparedSkeletonDebug,
+    ) -> None:
+        """Replace the active character model while preserving the viewport."""
+        if self._program and not self._failed:
+            self.makeCurrent()
+            self._destroy_model_resources()
+        self._data = data
+        self._vertex_data = np.empty((len(data.positions), 5), dtype=np.float32)
+        self._vertex_data[:, :3] = np.asarray(data.positions, dtype=np.float32)
+        self._vertex_data[:, 3:] = np.asarray(data.uvs, dtype=np.float32)
+        self._skeleton = skeleton
+        self._skeleton_vertex_data = np.asarray(
+            skeleton.edge_positions + skeleton.joint_positions,
+            dtype=np.float32,
+        )
+        self._selected_joint_id = skeleton.joint_ids[0]
+        self._camera = OrbitCamera.from_points(data.positions)
+        if self._program and not self._failed:
+            self._upload_mesh()
+            self._upload_skeleton()
+            self._upload_textures()
+            self.doneCurrent()
+        self.update()
+
     def set_attachment_data(self, data: PreparedRenderData | None) -> None:
         """Replace the optional attachment mesh without rebuilding Boy resources."""
         if self._program and not self._failed:
@@ -497,6 +524,15 @@ class ModelViewport(QOpenGLWidget):
 
     def _destroy_gl_resources(self) -> None:
         self._destroy_attachment_resources()
+        self._destroy_model_resources()
+        if self._program:
+            glDeleteProgram(self._program)
+            self._program = 0
+        if self._debug_program:
+            glDeleteProgram(self._debug_program)
+            self._debug_program = 0
+
+    def _destroy_model_resources(self) -> None:
         if self._textures:
             glDeleteTextures(list(self._textures.values()))
             self._textures.clear()
@@ -512,12 +548,6 @@ class ModelViewport(QOpenGLWidget):
         if self._skeleton_vao:
             glDeleteVertexArrays(1, [self._skeleton_vao])
             self._skeleton_vao = 0
-        if self._program:
-            glDeleteProgram(self._program)
-            self._program = 0
-        if self._debug_program:
-            glDeleteProgram(self._debug_program)
-            self._debug_program = 0
 
     def _destroy_attachment_resources(self) -> None:
         if self._attachment_textures:

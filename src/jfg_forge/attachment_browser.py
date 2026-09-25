@@ -1,4 +1,4 @@
-"""Qt-free selection and inspection state for BoyGun attachments."""
+"""Qt-free selection and inspection state for character attachments."""
 
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ class AttachmentBrowserController:
 
     def select(self, slot: int | None) -> None:
         if slot not in self._available:
-            raise KeyError(f"BoyGun slot {slot} is unavailable.")
+            raise KeyError(f"Attachment slot {slot} is unavailable.")
         self.selected_slot = slot
 
 
@@ -53,7 +53,7 @@ def inspect_attachment(
     scene_attachment: SceneAttachment,
 ) -> AttachmentInspection:
     if scene_attachment.attachment is not loaded:
-        raise ValueError("Scene attachment and loaded BoyGun asset differ.")
+        raise ValueError("Scene attachment and loaded attachment asset differ.")
     return AttachmentInspection(
         slot=loaded.slot.slot,
         prop_id=loaded.model.prop_id,

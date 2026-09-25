@@ -130,13 +130,13 @@ def _prepare_model_render_data(
 
 
 def prepare_render_data(scene: BoySceneSnapshot) -> PreparedRenderData:
-    """Prepare static CPU-evaluated Boy geometry and material batches."""
+    """Prepare static CPU-evaluated character geometry and material batches."""
     positions = evaluate_rigid_mesh_positions(scene.model.render_mesh, scene.pose)
     return _prepare_model_render_data(scene.model, positions)
 
 
 def prepare_attachment_render_data(attachment: SceneAttachment) -> PreparedRenderData:
-    """Prepare one selected BoyGun model using its composed scene transform."""
+    """Prepare one selected attachment using its composed scene transform."""
     positions = evaluate_attachment_positions(attachment)
     return _prepare_model_render_data(attachment.attachment.model, positions)
 
@@ -154,7 +154,11 @@ def model_information(scene: BoySceneSnapshot) -> ModelInformation:
         joints=0 if skeleton is None else len(skeleton.joints),
         verified_textures=sum(texture.status is EvidenceStatus.VERIFIED for texture in model.textures),
         unknown_textures=sum(texture.status is EvidenceStatus.UNKNOWN for texture in model.textures),
-        attachment_status="matrix 6 placement VERIFIED",
+        attachment_status=(
+            "GirlGun matrix 6 placement VERIFIED"
+            if model.prop_id == 218
+            else "matrix 6 placement VERIFIED"
+        ),
     )
 
 

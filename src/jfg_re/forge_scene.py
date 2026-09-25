@@ -8,6 +8,7 @@ from pathlib import Path
 from jfg_re.boy_anim0_frame0 import _transform
 from jfg_re.boy_export import BoyExportError
 from jfg_re.forge_data import load_boy_attachment, sample_animation
+from jfg_re.vela_data import load_vela_attachment, sample_vela_animation
 from jfg_re.forge_types import (
     BoyAsset,
     BoySceneSnapshot,
@@ -86,13 +87,13 @@ def build_skeleton_debug_data(pose: Pose) -> SkeletonDebugData:
 
 
 def _compose_attachment(
-    boy: BoyAsset,
+    character: BoyAsset,
     pose: Pose,
     attachment: LoadedAttachment,
 ) -> SceneAttachment:
-    parent_joint_id = boy.attachment.attachment_joint_id
-    if attachment.definition != boy.attachment:
-        raise BoyExportError("Loaded attachment does not belong to Boy's attachment definition.")
+    parent_joint_id = character.attachment.attachment_joint_id
+    if attachment.definition != character.attachment:
+        raise BoyExportError("Loaded attachment does not belong to the character's attachment definition.")
     try:
         socket = next(joint.world_matrix for joint in pose.joints if joint.joint_id == parent_joint_id)
     except StopIteration as error:
@@ -140,8 +141,11 @@ def compose_boy_scene(
     attachment: LoadedAttachment | None = None,
 ) -> BoySceneSnapshot:
     """Compose an immutable scene snapshot from already loaded/evaluated data."""
-    if pose.animation_index < 0 or len(pose.joints) != 21:
-        raise BoyExportError("Boy scene composition requires a complete 21-joint pose.")
+    expected_joints = 0 if boy.model.skeleton is None else len(boy.model.skeleton.joints)
+    if pose.animation_index < 0 or len(pose.joints) != expected_joints:
+        raise BoyExportError(
+            f"Character scene composition requires a complete {expected_joints}-joint pose."
+        )
     world_matrices = tuple(joint.world_matrix for joint in pose.joints)
     scene_attachment = None if attachment is None else _compose_attachment(boy, pose, attachment)
     return BoySceneSnapshot(
@@ -178,10 +182,31 @@ def evaluate_boy_scene(
     return compose_boy_scene(boy, pose, attachment=attachment)
 
 
+def evaluate_vela_scene(
+    vela: BoyAsset,
+    *,
+    animation_index: int,
+    time: float,
+    attachment_slot: int | None = None,
+    props_dir: Path | None = None,
+    loaded_attachment: LoadedAttachment | None = None,
+) -> BoySceneSnapshot:
+    """Sample Vela and compose one renderer-neutral scene snapshot."""
+    if loaded_attachment is not None and attachment_slot is not None:
+        if loaded_attachment.slot.slot != attachment_slot:
+            raise ValueError("loaded_attachment and attachment_slot select different slots.")
+    attachment = loaded_attachment
+    if attachment is None and attachment_slot is not None:
+        attachment = load_vela_attachment(vela, slot=attachment_slot, props_dir=props_dir)
+    pose = sample_vela_animation(vela, animation_index, time)
+    return compose_boy_scene(vela, pose, attachment=attachment)
+
+
 __all__ = [
     "build_skeleton_debug_data",
     "compose_boy_scene",
     "evaluate_attachment_positions",
     "evaluate_boy_scene",
+    "evaluate_vela_scene",
     "evaluate_rigid_mesh_positions",
 ]
