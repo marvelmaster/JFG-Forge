@@ -188,6 +188,7 @@ class ModelViewport(QOpenGLWidget):
         data: PreparedRenderData,
         skeleton: PreparedSkeletonDebug,
         parent: object | None = None,
+        default_yaw: float | None = None,
     ) -> None:
         super().__init__(parent)
         self._data = data
@@ -201,7 +202,8 @@ class ModelViewport(QOpenGLWidget):
         )
         self._view_mode = DEFAULT_VIEW_MODE
         self._selected_joint_id = 0
-        self._camera = OrbitCamera.from_points(data.positions)
+        self._default_yaw = default_yaw
+        self._camera = OrbitCamera.from_points(data.positions, yaw=default_yaw)
         self._last_pointer: QPoint | None = None
         self._program = 0
         self._debug_program = 0
@@ -327,7 +329,7 @@ class ModelViewport(QOpenGLWidget):
             dtype=np.float32,
         )
         self._selected_joint_id = skeleton.joint_ids[0]
-        self._camera = OrbitCamera.from_points(data.positions)
+        self._camera = OrbitCamera.from_points(data.positions, yaw=self._default_yaw)
         if self._program and not self._failed:
             self._upload_mesh()
             self._upload_skeleton()

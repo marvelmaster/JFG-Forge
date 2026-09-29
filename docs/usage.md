@@ -41,9 +41,9 @@ and the attachment status.
 
 | Control | What it does |
 |---|---|
-| Animation list | Pick one animation of the selected character. |
+| Animation list | Pick one animation of the selected character. It starts playing right away. |
 | Previous / Next | Step through the list. Ctrl+Left and Ctrl+Right do the same and wrap around. |
-| Play / Stop | Start or stop playback. Looping animations repeat; others stop at the last frame. |
+| Pause / Stop | Playback starts automatically whenever you pick a character or an animation, and always loops: animations that the game plays only once start over after their last frame. Pause holds the current frame (the button then reads Play); Stop pauses and returns to the first frame. |
 | Time slider | Scrub to any point in the animation. |
 | Movement / Speed | 1.0 to 5.0 in steps of 0.1. Explained under timing below. |
 | Timing mode | *Game Timing* or *Technical*. |
@@ -93,6 +93,10 @@ that placement. Selected weapons are included in model exports.
 | Left mouse button, drag | Orbit around the model |
 | Middle mouse button, drag | Pan |
 | Mouse wheel | Zoom |
+
+In the Characters tab the camera starts in front of the model, turned slightly to
+the side, each time you pick a character. In the Models tab it starts at a fixed
+angle, because the front of a prop is not known.
 
 The viewer needs OpenGL 3.3. If it cannot start, Forge shows a renderer error
 (see [troubleshooting](troubleshooting.md)).

@@ -40,6 +40,7 @@ from jfg_forge.core.roster import (
 )
 from jfg_forge.gui.attachment_browser import AttachmentBrowserController, inspect_attachment
 from jfg_forge.gui.animation_browser import AnimationBrowserEntry, browser_entries, sample_display
+from jfg_forge.gui.camera import FRONT_YAW
 from jfg_forge.gui.debug_view import (
     DEFAULT_VIEW_MODE,
     ViewMode,
@@ -126,6 +127,7 @@ class MainWindow(QMainWindow):
         boy = self._asset
         self._scene = initial_scene
         self._playback = PlaybackController(boy.animations)
+        self._playback.repeat = True
         self._attachment_browser = AttachmentBrowserController(boy.attachment)
         self._attachment_cache: dict[int, LoadedAttachment] = {}
         self._attachment_render_cache: dict[int, PreparedRenderData] = {}
@@ -143,7 +145,11 @@ class MainWindow(QMainWindow):
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
         splitter.addWidget(self._build_information_panel(information))
-        self.viewport = ModelViewport(data, prepare_skeleton_debug(initial_scene.skeleton_debug))
+        self.viewport = ModelViewport(
+            data,
+            prepare_skeleton_debug(initial_scene.skeleton_debug),
+            default_yaw=FRONT_YAW,
+        )
         self.viewport.initialization_failed.connect(self._show_renderer_error)
         splitter.addWidget(self.viewport)
         splitter.setSizes([260, 920])
@@ -168,6 +174,7 @@ class MainWindow(QMainWindow):
         self._update_joint_display()
         self._update_attachment_display()
         self._update_time_display()
+        self._start_playback()
 
     def _tab_changed(self, index: int) -> None:
         """Pause character playback when the Models tab is opened and show a first model."""
@@ -518,6 +525,7 @@ class MainWindow(QMainWindow):
         self._export_asset = exporter_for(self._spec)
         self._asset = asset
         self._playback = PlaybackController(self._asset.animations)
+        self._playback.repeat = True
         self._playback.set_movement_speed(movement_speed)
         self._attachment_browser = AttachmentBrowserController(self._asset.attachment)
         flag_blocker = QSignalBlocker(self.state_timing_flag_check)
@@ -586,6 +594,7 @@ class MainWindow(QMainWindow):
         self._update_joint_display()
         self._update_attachment_display()
         self._update_time_display()
+        self._start_playback()
 
     def _select_joint(self, _combo_index: int = -1) -> None:
         joint_id = int(self.joint_combo.currentData())
@@ -638,17 +647,17 @@ class MainWindow(QMainWindow):
             self.joint_geometry_value.setText("no")
         self.joint_context_value.setText(information.context or "—")
 
+    def _start_playback(self) -> None:
+        """Play the selected animation in a loop, from its current time."""
+        self._playback.play()
+        self._elapsed.restart()
+        self._timer.start()
+        self.play_button.setText("Pause")
+
     def _select_animation(self, _combo_index: int = -1) -> None:
-        was_playing = self._playback.playing
         self._playback.select(int(self.animation_combo.currentData()))
         self.time_slider.setRange(0, self._playback.slider_maximum)
-        if was_playing:
-            self._elapsed.restart()
-            self._timer.start()
-            self.play_button.setText("Pause")
-        else:
-            self._timer.stop()
-            self.play_button.setText("Play")
+        self._start_playback()
         self._evaluate_current_pose()
 
     def _navigate_animation(self, offset: int) -> None:

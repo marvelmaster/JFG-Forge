@@ -47,6 +47,11 @@ def _normalize(value: Vec3) -> Vec3:
     return _scale(value, 1.0 / length)
 
 
+# The models look down -Z, so a camera at this yaw sees their front, slightly
+# from the side (200 degrees).
+FRONT_YAW = math.radians(200.0)
+
+
 @dataclass
 class OrbitCamera:
     target: Vec3 = (0.0, 0.0, 0.0)
@@ -56,7 +61,7 @@ class OrbitCamera:
     scene_radius: float = 1.0
 
     @classmethod
-    def from_points(cls, points: Iterable[Vec3]) -> "OrbitCamera":
+    def from_points(cls, points: Iterable[Vec3], yaw: float | None = None) -> "OrbitCamera":
         values = tuple(points)
         if not values:
             raise ValueError("Cannot frame an empty point set.")
@@ -65,7 +70,10 @@ class OrbitCamera:
         target = tuple((minimum[axis] + maximum[axis]) * 0.5 for axis in range(3))
         radius = max(math.dist(target, point) for point in values)
         radius = max(radius, 1.0)
-        return cls(target=target, distance=radius * 2.6, scene_radius=radius)
+        camera = cls(target=target, distance=radius * 2.6, scene_radius=radius)
+        if yaw is not None:
+            camera.yaw = yaw
+        return camera
 
     @property
     def eye(self) -> Vec3:

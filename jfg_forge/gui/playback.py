@@ -67,6 +67,8 @@ class PlaybackController:
         self.timing_mode = PlaybackTimingMode.GAME
         self.state_timing_flag = False
         self.playing = False
+        # When set, clips that normally stop at their last sample start over.
+        self.repeat = False
         self.reference_index: int | None = None
 
     @property
@@ -191,6 +193,9 @@ class PlaybackController:
             self.time = next_time % self.clip.sample_count
             return
         if next_time >= self.end_time:
+            if self.repeat:
+                self.time = next_time % self.end_time if self.end_time > 0.0 else 0.0
+                return
             self.time = self.end_time
             self.playing = False
         else:
