@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from jfg_forge.core.green_ant import load_greenant_attachment, sample_greenant_animation
+from jfg_forge.core.compact_character import sample_compact_animation
 from jfg_forge.core.matrices import _transform
 from jfg_forge.core.model_parser import BoyExportError
 from jfg_forge.core.character_data import load_boy_attachment, sample_animation
@@ -225,8 +225,8 @@ def evaluate_lupus_scene(
     return compose_boy_scene(lupus, pose, attachment=attachment)
 
 
-def evaluate_greenant_scene(
-    greenant: BoyAsset,
+def evaluate_compact_scene(
+    character: BoyAsset,
     *,
     animation_index: int,
     time: float,
@@ -234,15 +234,21 @@ def evaluate_greenant_scene(
     props_dir: Path | None = None,
     loaded_attachment: LoadedAttachment | None = None,
 ) -> BoySceneSnapshot:
-    """Sample the multiplayer Green Ant and compose one scene snapshot."""
+    """Sample a compact-layout character (multiplayer models, hover ships)."""
     if loaded_attachment is not None and attachment_slot is not None:
         if loaded_attachment.slot.slot != attachment_slot:
             raise ValueError("loaded_attachment and attachment_slot select different slots.")
     attachment = loaded_attachment
     if attachment is None and attachment_slot is not None:
-        attachment = load_greenant_attachment(greenant, slot=attachment_slot, props_dir=props_dir)
-    pose = sample_greenant_animation(greenant, animation_index, time)
-    return compose_boy_scene(greenant, pose, attachment=attachment)
+        loader = {
+            "BoyGun": load_boy_attachment,
+            "GirlGun": load_vela_attachment,
+        }.get(character.attachment.name)
+        if loader is None:
+            raise KeyError(f"{character.model.name} has no attachment slots.")
+        attachment = loader(character, slot=attachment_slot, props_dir=props_dir)
+    pose = sample_compact_animation(character, animation_index, time)
+    return compose_boy_scene(character, pose, attachment=attachment)
 
 
 def evaluate_powerdog_scene(
@@ -270,7 +276,7 @@ __all__ = [
     "compose_boy_scene",
     "evaluate_attachment_positions",
     "evaluate_boy_scene",
-    "evaluate_greenant_scene",
+    "evaluate_compact_scene",
     "evaluate_lupus_scene",
     "evaluate_powerdog_scene",
     "evaluate_vela_scene",

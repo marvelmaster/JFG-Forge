@@ -11,6 +11,7 @@ from __future__ import annotations
 import base64
 from dataclasses import dataclass
 from enum import StrEnum
+from functools import partial
 import json
 from pathlib import Path
 import struct
@@ -28,9 +29,10 @@ from jfg_forge.core.gltf_rig import (
 from jfg_forge.core.asset_types import AnimationClip, BoyAsset, LoadedAttachment, TextureAsset
 from jfg_forge.core.gltf_decal import plan_gltf_decal_offsets
 from jfg_forge.core.rdp_material import primitive_material_state
+from jfg_forge.core.roster import CharacterSpec
 from jfg_forge.core.texture_rgba16 import encode_png_rgba
 from jfg_forge.core.gltf_compact_rig import (
-    build_greenant_rig_artifacts,
+    build_compact_rig_artifacts,
     build_lupus_rig_artifacts,
     build_powerdog_rig_artifacts,
     build_powergirl_rig_artifacts,
@@ -701,8 +703,9 @@ def export_lupus(
     )
 
 
-def export_greenant(
-    greenant: BoyAsset,
+def export_compact_character(
+    spec: CharacterSpec,
+    character: BoyAsset,
     destination: Path,
     operation: ExportOperation,
     *,
@@ -710,16 +713,23 @@ def export_greenant(
     attachment: LoadedAttachment | None = None,
     timing_context: PlaybackTimingContext | None = None,
 ) -> ExportResult:
+    """Export any roster entry that uses the generic compact loader."""
+
+    def builder(asset: BoyAsset, output_dir: Path, *, clip: AnimationClip | None, include_mesh: bool):
+        return build_compact_rig_artifacts(
+            asset, output_dir, clip=clip, include_mesh=include_mesh, spec=spec
+        )
+
     return _export_compact_character(
-        greenant,
+        character,
         destination,
         operation,
         animation_index=animation_index,
         attachment=attachment,
         timing_context=timing_context,
-        character_name="GreenAnt",
-        artifact_stem="greenant",
-        builder=build_greenant_rig_artifacts,
+        character_name=spec.file_name,
+        artifact_stem=spec.file_stem,
+        builder=builder,
     )
 
 
@@ -767,11 +777,26 @@ def export_powergirl(
     )
 
 
+def exporter_for(spec: CharacterSpec) -> Callable[..., ExportResult]:
+    """Return ``export(asset, destination, operation, ...)`` for a roster entry."""
+    if spec.compact:
+        return partial(export_compact_character, spec)
+    return {
+        "boy": export_boy,
+        "powerboy": export_boy,
+        "vela": export_vela,
+        "powergirl": export_powergirl,
+        "lupus": export_lupus,
+        "powerdog": export_powerdog,
+    }[spec.kind]
+
+
 __all__ = [
     "ExportOperation",
     "ExportResult",
     "export_boy",
-    "export_greenant",
+    "export_compact_character",
+    "exporter_for",
     "export_lupus",
     "export_powerdog",
     "export_powergirl",

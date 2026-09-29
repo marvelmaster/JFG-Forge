@@ -8,7 +8,16 @@ import math
 from types import MappingProxyType
 from typing import Mapping
 
+from dataclasses import replace
+
 from jfg_forge.core.asset_types import AnimationClip, EvidenceStatus
+from jfg_forge.core.compact_character import TIMING_FAMILY_KEY
+from jfg_forge.core.roster import (
+    JUNO_CLIP_IDS,
+    TIMING_JUNO_LIKE,
+    TIMING_VELA_LIKE,
+    VELA_CLIP_IDS,
+)
 
 
 NOMINAL_NTSC_VI_HZ = 60.0
@@ -186,13 +195,7 @@ def _verified(
     )
 
 
-_BOY_ANIMATION_IDS = (
-    1026, 1027, 1028, 1025, 1033, 1039, 1040, 1041, 1038, 1042, 1043, 1031,
-    1036, 1029, 1030, 1044, 1019, 1020, 1021, 1022, 1023, 1051, 1035, 1070,
-    1048, 1050, 1054, 1053, 1055, 1056, 1057, 1058, 1059, 1060, 1063, 1062,
-    1061, 1066, 1067, 1068, 1045, 1046, 1047, 1069, 1034, 1024, 1052, 1064,
-    1065, 1032, 1037, 1071,
-)
+_BOY_ANIMATION_IDS = JUNO_CLIP_IDS
 
 _BOY_BASE_PHASE_PER_VI_TICK = (
     0.015, 0.009, 0.0075, 0.014, 0.0175, 0.01, 0.02, 0.0175, 0.0334,
@@ -253,13 +256,7 @@ VERIFIED_BOY_TIMINGS: Mapping[int, RuntimeClipTiming] = MappingProxyType(
 )
 
 
-_VELA_ANIMATION_IDS = (
-    1097, 1098, 1099, 1096, 1104, 1110, 1111, 1112, 1109, 1113, 1114,
-    1102, 1107, 1100, 1101, 1115, 1090, 1091, 1092, 1093, 1094, 1095,
-    1121, 1106, 1141, 1119, 1120, 1124, 1123, 1125, 1126, 1127, 1128,
-    1129, 1130, 1116, 1117, 1118, 1131, 1132, 1133, 1124, 1134, 1135,
-    1137, 1136, 1138, 1139, 1140, 1122, 1103, 1108, 1142,
-)
+_VELA_ANIMATION_IDS = VELA_CLIP_IDS
 
 _VELA_BASE_PHASE_PER_VI_TICK = (
     0.014, 0.011, 0.008, 0.014, 0.014, 0.012, 0.02, 0.015, 0.0334,
@@ -420,36 +417,44 @@ VERIFIED_POWERDOG_TIMINGS: Mapping[int, RuntimeClipTiming] = MappingProxyType(
 )
 
 
-# The multiplayer Green Ant (Prop 250) carries Juno's clip set minus the last
-# clip: its 51 animation IDs equal Boy indices 0..50 in order, its player
-# definition's only child is BoyGun, and its rig has Juno's 21 joints.  Its
-# states therefore take Juno's Overlay-16 factors and cases.  LIKELY, because
-# no capture shows the ant's controller reaching that overlay.
-GREENANT_TIMINGS: Mapping[int, RuntimeClipTiming] = MappingProxyType(
-    {
-        index: RuntimeClipTiming(
-            animation_index=index,
-            animation_id=animation_id,
-            status=EvidenceStatus.LIKELY,
-            base_phase_per_vi_tick=base_scale,
-            category=category,
-            dependency=dependency,
-            evidence=(
-                f"Juno Overlay16 jump-table case {_CASE_ADDRESS[index]}, index {index}; "
-                "ant clip ID equals Juno's; common objAnimDframe call 0x01005B54..0x01005B60"
-            ),
-        )
-        for index, (animation_id, base_scale) in enumerate(
-            zip(_BOY_ANIMATION_IDS[:51], _BOY_BASE_PHASE_PER_VI_TICK[:51], strict=True)
-        )
-        for category, dependency in (_boy_timing_kind(index),)
-    }
-)
+def _inherited_timings(
+    source: Mapping[int, RuntimeClipTiming],
+    clip_count: int,
+    base_name: str,
+) -> Mapping[int, RuntimeClipTiming]:
+    """Derive LIKELY timings for a multiplayer family from a verified base table.
+
+    Multiplayer characters reproduce the start of their base character's clip
+    list (same IDs, same order) and carry the same child weapon object, so each
+    state takes the base character's factor and dependency.  No capture shows
+    the multiplayer controller reaching that code, hence LIKELY, not VERIFIED.
+    """
+    return MappingProxyType(
+        {
+            index: replace(
+                source[index],
+                status=EvidenceStatus.LIKELY,
+                evidence=(
+                    f"{source[index].evidence}; inherited from {base_name} because the "
+                    "multiplayer clip ID at this index is identical"
+                ),
+            )
+            for index in range(clip_count)
+        }
+    )
+
+
+# Juno-like multiplayer models have 51 clips (Juno's first 51); Vela-like ones
+# have 52 (Vela's first 52).
+JUNO_LIKE_TIMINGS: Mapping[int, RuntimeClipTiming] = _inherited_timings(VERIFIED_BOY_TIMINGS, 51, "Juno")
+VELA_LIKE_TIMINGS: Mapping[int, RuntimeClipTiming] = _inherited_timings(VERIFIED_VELA_TIMINGS, 52, "Vela")
+_INHERITED_TIMINGS = {TIMING_JUNO_LIKE: JUNO_LIKE_TIMINGS, TIMING_VELA_LIKE: VELA_LIKE_TIMINGS}
 
 
 def runtime_timing(clip: AnimationClip) -> RuntimeClipTiming:
-    if "ant_animation_index" in clip.metadata:
-        known = GREENANT_TIMINGS.get(clip.animation_index)
+    if TIMING_FAMILY_KEY in clip.metadata:
+        family_table = _INHERITED_TIMINGS.get(str(clip.metadata[TIMING_FAMILY_KEY]))
+        known = None if family_table is None else family_table.get(clip.animation_index)
     elif "powerdog_animation_index" in clip.metadata:
         known = VERIFIED_POWERDOG_TIMINGS.get(clip.animation_index)
     elif "lupus_animation_index" in clip.metadata:
@@ -496,7 +501,8 @@ __all__ = [
     "PlaybackTimingMode",
     "PlaybackTimingContext",
     "RuntimeClipTiming",
-    "GREENANT_TIMINGS",
+    "JUNO_LIKE_TIMINGS",
+    "VELA_LIKE_TIMINGS",
     "TECHNICAL_SAMPLES_PER_SECOND",
     "TimingDependency",
     "TimingCategory",

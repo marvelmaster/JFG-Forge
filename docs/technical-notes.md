@@ -101,21 +101,47 @@ A player's object definition names a child object (BoyGun, GirlGun or DogGun)
 that has nine models. The game copies one joint's matrix, chosen by the first
 vertex-reference record of the character's model, into the weapon's transform
 with no extra rotation, scale or translation. `core/character_data.py` holds the
-slot lists; the Green Ant reuses Juno's.
+slot lists; the multiplayer characters reuse Juno's or Vela's.
 
-## Green Ant (LIKELY)
+## Multiplayer characters and hover ships
 
-Prop 250 has Juno's 21-joint layout, its 51 animation IDs equal the first 51 of
-Juno's, and its player definition lists the same BoyGun child. Forge therefore
-uses Juno's timing table for animation indices 0 to 50 and BoyGun at joint 6.
-The game code that drives the ant was not captured at run time, so both are
-LIKELY. Overlays 15, 16 and 17 hold the Vela, Juno and Lupus controllers.
-Overlays 50, 51 and 52 hold similar tables in a different, unanalysed function,
-so it remains possible that the ant runs through that code instead.
+The game's object table lists 31 "player" definitions. Besides the six campaign
+characters, Forge opens 11 multiplayer characters and 8 ship models, all through
+one generic loader (`core/compact_character.py`) driven by the table in
+`core/roster.py`. Each entry pins the Prop's SHA-256, joint count, clip count and
+IDs, and active-face count; a mismatch stops the load.
+
+**Juno-layout models** (Green Ant 250, Red Ant 253, Tribal Man 251, Shield Bug
+254, Stag Bug 255, Weevil 256, Cyborg 257, Zombie 258) have 21 joints and 51
+clips whose IDs are Juno's first 51, and their player definitions list the same
+BoyGun child. **Vela-layout models** (Blue Ant 248, Yellow Ant 252, Tribal Woman
+249) have 28 joints and 52 clips equal to Vela's first 52, with the GirlGun
+child. The first vertex-reference record of all of them is matrix 6. Forge
+therefore uses the base character's timing factors and attachment definition.
+Both are LIKELY because no run-time capture shows these controllers reaching the
+base character's code.
+
+Juno's timing function starts at Overlay 16 `0x01005120`, with 52 factors at
+overlay offset `0x7974`. Overlays 50, 51 and 52 hold factor tables of the same
+size and shape as Juno's, Lupus's and Vela's inside a smaller function with a
+different dispatch. Which overlay the multiplayer controllers reach is not
+proven, and overlay 50's function was not decoded, so it remains possible that
+they run through that code instead.
+
+**Hover ships** (Props 225, 228, 231, 234 and their low-detail models 226, 229,
+232, 235) have 8 joints and two animations: ID 779 (40 samples, looping) and ID
+780 (5 samples, base pose only). No child object is listed, so there is no weapon,
+and their controller was not analysed, so Game Timing is UNKNOWN and Forge uses
+the technical rate.
+
+Of the textures that are unknown to Forge, none is used by a drawn group on any
+of the 25 models: they are either the known `0x3300` record used only by groups
+the game skips, or entries no group uses.
 
 ## Known unknowns
 
 - Several model header fields and vertex attributes.
 - Gameplay names and meanings of most animations.
 - The player state flags behind the timing rules.
-- Whether the ant's controller matches Juno's.
+- Whether the multiplayer characters' controllers match Juno's and Vela's.
+- The timing and meaning of the hover ships' animations.

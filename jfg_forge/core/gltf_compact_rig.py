@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import json
 import math
 from pathlib import Path
@@ -20,6 +22,10 @@ from jfg_forge.core.gltf_rig import (
 from jfg_forge.core.asset_types import AnimationClip, BoyAsset, Pose
 from jfg_forge.core.render_mesh import rigid_matrix_assignments
 from jfg_forge.core.vela import sample_vela_animation
+
+
+if TYPE_CHECKING:
+    from jfg_forge.core.roster import CharacterSpec
 
 
 def _decompose_local(
@@ -326,30 +332,46 @@ def build_lupus_rig_artifacts(
     )
 
 
-def build_greenant_rig_artifacts(
-    greenant: BoyAsset,
+def build_compact_rig_artifacts(
+    character: BoyAsset,
     output_dir: Path,
     *,
     clip: AnimationClip | None,
     include_mesh: bool,
+    spec: "CharacterSpec",
 ) -> dict[str, bytes]:
-    from jfg_forge.core.green_ant import sample_greenant_animation
+    """glTF builder for roster entries that use the generic compact loader."""
+    from jfg_forge.core.compact_character import sample_compact_animation
+    from jfg_forge.core.roster import TIMING_JUNO_LIKE, TIMING_VELA_LIKE
 
+    joint_count = len(character.model.skeleton.joints)
+    if spec.timing_family == TIMING_JUNO_LIKE:
+        base, first, last = "Juno", 0, spec.clip_count - 1
+    elif spec.timing_family == TIMING_VELA_LIKE:
+        base, first, last = "Vela", 0, spec.clip_count - 1
+    else:
+        base = first = last = None
+    if base is None:
+        animation_timing = "Technical Timing (Game Timing UNKNOWN); retimed by JFG Forge export service"
+        game_timing = "UNKNOWN; Technical fallback"
+    else:
+        animation_timing = f"LIKELY {base}-derived Game Timing; retimed by JFG Forge export service"
+        game_timing = f"LIKELY: {base} factors, indices {first}..{last}"
     return _build_compact_character_rig_artifacts(
-        greenant,
+        character,
         output_dir,
         clip=clip,
         include_mesh=include_mesh,
-        sample_pose=sample_greenant_animation,
-        character_name="GreenAnt",
-        artifact_stem="greenant",
-        root_status="Prop 250 MultiGreenAnt model and 21-joint structure",
+        sample_pose=sample_compact_animation,
+        character_name=spec.file_name,
+        artifact_stem=spec.file_stem,
+        root_status=f"Prop {spec.prop_id} {spec.model_name} model and {joint_count}-joint structure",
         joint_status="Structure decoded; live numerical capture PENDING",
-        animation_timing="LIKELY Juno-derived Game Timing; retimed by JFG Forge export service",
-        asset_generator="JFG Forge Green Ant exporter",
+        animation_timing=animation_timing,
+        asset_generator=f"JFG Forge {spec.key} exporter",
         character_extras={
-            "joint_count": 21,
-            "game_timing": "LIKELY: Juno Overlay16 factors, indices 0..50",
+            "joint_count": joint_count,
+            "game_timing": game_timing,
         },
     )
 
@@ -385,7 +407,7 @@ def build_powerdog_rig_artifacts(
 
 
 __all__ = [
-    "build_greenant_rig_artifacts",
+    "build_compact_rig_artifacts",
     "build_lupus_rig_artifacts",
     "build_powerdog_rig_artifacts",
     "build_powergirl_rig_artifacts",

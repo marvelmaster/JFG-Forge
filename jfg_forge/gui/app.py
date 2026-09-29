@@ -9,13 +9,9 @@ import sys
 from PySide6.QtGui import QSurfaceFormat
 from PySide6.QtWidgets import QApplication, QMessageBox, QWidget
 
-from jfg_forge.core.green_ant import load_greenant
-from jfg_forge.core.character_data import load_boy, load_powerboy
-from jfg_forge.core.scene import evaluate_boy_scene
-from jfg_forge.core.lupus import load_lupus
-from jfg_forge.core.powerdog import load_powerdog
 from jfg_forge.core.rom_source import RomLoadError, RomSession, RomSource
-from jfg_forge.core.vela import load_powergirl, load_vela
+from jfg_forge.core.roster import CharacterLibrary
+from jfg_forge.core.scene import evaluate_boy_scene
 from jfg_forge.gui.main_window import MainWindow, RomWelcomeWindow
 from jfg_forge.gui.render_data import model_information, prepare_render_data
 
@@ -38,22 +34,12 @@ def _request_opengl_33() -> None:
 
 
 def _load_characters(arguments: argparse.Namespace, source: RomSource):
-    boy = load_boy(None, source, arguments.textures)
-    powerboy = load_powerboy(None, source, arguments.textures)
-    vela = load_vela(None, source, arguments.textures)
-    powergirl = load_powergirl(None, source, arguments.textures)
-    lupus = load_lupus(None, source, arguments.textures)
-    powerdog = load_powerdog(None, source, arguments.textures)
-    greenant = load_greenant(None, source, arguments.textures)
+    """Open the character library; only Juno is decoded now, the rest on selection."""
+    library = CharacterLibrary(source, arguments.textures)
+    boy = library.get("Juno")
     scene = evaluate_boy_scene(boy, animation_index=0, time=0.0)
     return (
-        boy,
-        powerboy,
-        vela,
-        powergirl,
-        lupus,
-        powerdog,
-        greenant,
+        library,
         scene,
         prepare_render_data(scene),
         model_information(scene),

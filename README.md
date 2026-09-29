@@ -52,7 +52,8 @@ revisions are rejected. The ROM path is not remembered between starts.
 
 ## What you can do
 
-- **Pick a character** from the list at the top of the left panel.
+- **Pick a character** from the grouped list at the top of the left panel. Each
+  model loads the first time you select it.
 - **Browse animations** with Previous/Next (or Ctrl+Left / Ctrl+Right), play and
   stop them, and scrub through the frames.
 - **Choose the timing**: *Game Timing* plays each animation at the speed the
@@ -71,20 +72,20 @@ button to pan, and use the mouse wheel to zoom. The
 
 ## Supported characters
 
-| Character | Prop | Joints | Animations | Game Timing | Weapon set |
-|---|---:|---:|---:|---|---|
-| Juno | 220 | 21 | 52 | VERIFIED | BoyGun, 9 models, VERIFIED |
-| PowerBoy | 221 | 21 | 52 | VERIFIED (same as Juno) | BoyGun, VERIFIED |
-| Vela | 218 | 28 | 53 entries, 52 unique | VERIFIED | GirlGun, 9 models, VERIFIED |
-| PowerGirl | 219 | 28 | 53 entries, 52 unique | VERIFIED (same as Vela) | GirlGun, VERIFIED |
-| Lupus | 222 | 27 | 24 | VERIFIED | DogGun, 9 models, VERIFIED |
-| PowerDog | 223 | 18 | 29 entries, 28 unique | VERIFIED | DogGun, VERIFIED |
-| Green Ant (multiplayer) | 250 | 21 | 51 | LIKELY (Juno's table) | BoyGun, LIKELY |
+25 models in three groups. The drop-down at the top of the left panel lists them;
+each one loads the first time you pick it.
+
+| Group | Entries | Rig | Game Timing | Weapons |
+|---|---|---|---|---|
+| Campaign | Juno, PowerBoy, Vela, PowerGirl, Lupus, PowerDog | 21, 21, 28, 28, 27 and 18 joints | VERIFIED | 9 per character, VERIFIED |
+| Multiplayer characters | Green Ant, Red Ant, Tribal Man, Shield Bug, Stag Bug, Weevil, Cyborg, Zombie | 21 joints (Juno's layout) | LIKELY (Juno's table) | Juno's 9, LIKELY |
+| | Blue Ant, Yellow Ant, Tribal Woman | 28 joints (Vela's layout) | LIKELY (Vela's table) | Vela's 9, LIKELY |
+| Hover ships | Yellow, Red, Blue and Green Ant Ship, each also as a low-detail model | 8 joints, 2 animations | UNKNOWN (Technical) | none |
 
 **VERIFIED** means the value comes straight from ROM data and game code that was
 checked. **LIKELY** means the evidence is strong but no runtime capture confirms
-it. [docs/characters.md](docs/characters.md) explains both labels and the Green
-Ant in detail.
+it. [docs/characters.md](docs/characters.md) lists every model with its Prop
+number and explains both labels.
 
 ## Project layout
 
@@ -103,10 +104,12 @@ requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6)
 
 ## Limitations
 
-- Only the seven characters above load. Other props in the ROM are not browsable
-  yet.
+- Only the 25 models above load. The other ~880 props in the ROM (enemies, NPCs,
+  vehicles, levels) are not browsable yet, and the six multiplayer versions of
+  Juno, Vela and Lupus are not included.
 - The texture decoder handles the formats these characters use (RGBA32,
-  RGBA16, IA8 and one multi-image RGBA16 layout). Others are shown as unknown.
+  RGBA16, IA8 and one multi-image RGBA16 layout). Others are shown as unknown;
+  none of them is drawn on any of the 25 models.
 - Animation numbers are technical IDs. They have no gameplay names unless that
   was verified.
 - The Movement / Speed slider is a preview input, not a live game value.

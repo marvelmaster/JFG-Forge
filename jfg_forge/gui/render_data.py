@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 from jfg_forge.core.scene import evaluate_attachment_positions, evaluate_rigid_mesh_positions
+from jfg_forge.core.roster import ROSTER
 from jfg_forge.core.asset_types import BoySceneSnapshot, EvidenceStatus, ModelAsset, SceneAttachment
 from jfg_forge.core.rdp_material import primitive_material_state
 
@@ -192,18 +193,32 @@ def prepare_attachment_render_data(attachment: SceneAttachment) -> PreparedRende
     return _prepare_model_render_data(attachment.attachment.model, positions)
 
 
+_CAMPAIGN_ATTACHMENT_STATUS = {
+    218: "GirlGun matrix 6 placement VERIFIED",
+    219: "GirlGun matrix 6 placement VERIFIED",
+    220: "matrix 6 placement VERIFIED",
+    221: "matrix 6 placement VERIFIED",
+    222: "DogGun matrix 16 placement VERIFIED",
+    223: "DogGun matrix 7 placement VERIFIED",
+}
+
+
+def _attachment_status(prop_id: int) -> str:
+    if prop_id in _CAMPAIGN_ATTACHMENT_STATUS:
+        return _CAMPAIGN_ATTACHMENT_STATUS[prop_id]
+    for spec in ROSTER:
+        if spec.compact and spec.prop_id == prop_id:
+            attachment = spec.attachment
+            if not attachment.slots:
+                return "no attachment"
+            return f"{attachment.name} matrix {attachment.attachment_joint_id} placement {attachment.status}"
+    return "attachment placement UNKNOWN"
+
+
 def model_information(scene: BoySceneSnapshot) -> ModelInformation:
     model = scene.model
     skeleton = model.skeleton
-    attachment_status = {
-        218: "GirlGun matrix 6 placement VERIFIED",
-        219: "GirlGun matrix 6 placement VERIFIED",
-        220: "matrix 6 placement VERIFIED",
-        221: "matrix 6 placement VERIFIED",
-        222: "DogGun matrix 16 placement VERIFIED",
-        223: "DogGun matrix 7 placement VERIFIED",
-        250: "BoyGun matrix 6 placement LIKELY",
-    }.get(model.prop_id, "attachment placement UNKNOWN")
+    attachment_status = _attachment_status(model.prop_id)
     return ModelInformation(
         name=model.name,
         prop_id=model.prop_id,

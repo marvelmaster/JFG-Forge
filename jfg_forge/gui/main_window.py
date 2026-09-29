@@ -8,6 +8,7 @@ from typing import Callable
 from PySide6.QtCore import QElapsedTimer, QSignalBlocker, Qt, QTimer
 from PySide6.QtGui import QAction, QKeySequence, QShortcut
 from PySide6.QtWidgets import (
+    QApplication,
     QComboBox,
     QCheckBox,
     QFormLayout,
@@ -25,22 +26,17 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from jfg_forge.core.green_ant import load_greenant_attachment
-from jfg_forge.core.character_data import load_boy_attachment
-from jfg_forge.core.lupus import load_lupus_attachment
-from jfg_forge.core.powerdog import load_powerdog_attachment
-from jfg_forge.core.scene import (
-    evaluate_attachment_positions,
-    evaluate_boy_scene,
-    evaluate_greenant_scene,
-    evaluate_lupus_scene,
-    evaluate_powerdog_scene,
-    evaluate_rigid_mesh_positions,
-    evaluate_vela_scene,
-)
+from jfg_forge.core.scene import evaluate_attachment_positions, evaluate_rigid_mesh_positions
 from jfg_forge.core.asset_types import BoyAsset, BoySceneSnapshot, LoadedAttachment
 from jfg_forge.core.rom_source import RomSource
-from jfg_forge.core.vela import load_vela_attachment
+from jfg_forge.core.roster import (
+    CharacterLibrary,
+    GROUPS,
+    attachment_loader,
+    scene_evaluator,
+    spec_for,
+    specs_in_group,
+)
 from jfg_forge.gui.attachment_browser import AttachmentBrowserController, inspect_attachment
 from jfg_forge.gui.animation_browser import AnimationBrowserEntry, browser_entries, sample_display
 from jfg_forge.gui.debug_view import (
@@ -49,16 +45,7 @@ from jfg_forge.gui.debug_view import (
     prepare_skeleton_debug,
     selected_joint_information,
 )
-from jfg_forge.gui.export_service import (
-    ExportOperation,
-    export_boy,
-    export_greenant,
-    export_lupus,
-    export_powerdog,
-    export_powergirl,
-    export_vela,
-    suggested_filename,
-)
+from jfg_forge.gui.export_service import ExportOperation, exporter_for, suggested_filename
 from jfg_forge.gui.playback import (
     MAX_MOVEMENT_SPEED_TICK,
     MIN_MOVEMENT_SPEED_TICK,
@@ -117,13 +104,7 @@ class RomWelcomeWindow(QMainWindow):
 class MainWindow(QMainWindow):
     def __init__(
         self,
-        boy: BoyAsset,
-        powerboy: BoyAsset,
-        vela: BoyAsset,
-        powergirl: BoyAsset,
-        lupus: BoyAsset,
-        powerdog: BoyAsset,
-        greenant: BoyAsset,
+        library: CharacterLibrary,
         initial_scene: BoySceneSnapshot,
         data: PreparedRenderData,
         information: ModelInformation,
@@ -131,46 +112,16 @@ class MainWindow(QMainWindow):
         on_rom_selected: Callable[[Path], None],
     ) -> None:
         super().__init__()
-        self._assets = {
-            "Juno": boy,
-            "PowerBoy": powerboy,
-            "Vela": vela,
-            "PowerGirl": powergirl,
-            "Lupus": lupus,
-            "PowerDog": powerdog,
-            "GreenAnt": greenant,
-        }
-        self._scene_evaluators = {
-            "Juno": evaluate_boy_scene,
-            "PowerBoy": evaluate_boy_scene,
-            "Vela": evaluate_vela_scene,
-            "PowerGirl": evaluate_vela_scene,
-            "Lupus": evaluate_lupus_scene,
-            "PowerDog": evaluate_powerdog_scene,
-            "GreenAnt": evaluate_greenant_scene,
-        }
-        self._attachment_loaders = {
-            "Juno": load_boy_attachment,
-            "PowerBoy": load_boy_attachment,
-            "Vela": load_vela_attachment,
-            "PowerGirl": load_vela_attachment,
-            "Lupus": load_lupus_attachment,
-            "PowerDog": load_powerdog_attachment,
-            "GreenAnt": load_greenant_attachment,
-        }
-        self._exporters = {
-            "Juno": export_boy,
-            "PowerBoy": export_boy,
-            "Vela": export_vela,
-            "PowerGirl": export_powergirl,
-            "Lupus": export_lupus,
-            "PowerDog": export_powerdog,
-            "GreenAnt": export_greenant,
-        }
+        self._library = library
         self._character_key = "Juno"
+        self._spec = spec_for("Juno")
+        self._evaluate_scene = scene_evaluator(self._spec)
+        self._load_attachment = attachment_loader(self._spec)
+        self._export_asset = exporter_for(self._spec)
         self._rom_source = rom_source
         self._on_rom_selected = on_rom_selected
-        self._asset = boy
+        self._asset = library.get("Juno")
+        boy = self._asset
         self._scene = initial_scene
         self._playback = PlaybackController(boy.animations)
         self._attachment_browser = AttachmentBrowserController(boy.attachment)
@@ -246,7 +197,7 @@ class MainWindow(QMainWindow):
         filename = suggested_filename(
             operation,
             clip,
-            character_name=self._character_key,
+            character_name=self._spec.file_name,
             prop_id=self._asset.model.prop_id,
         )
         destination, _selected_filter = QFileDialog.getSaveFileName(
@@ -261,8 +212,7 @@ class MainWindow(QMainWindow):
         if path.suffix.lower() != ".gltf":
             path = path.with_suffix(".gltf")
         try:
-            exporter = self._exporters[self._character_key]
-            result = exporter(
+            result = self._export_asset(
                 self._asset,
                 path,
                 operation,
@@ -298,8 +248,13 @@ class MainWindow(QMainWindow):
         heading.setStyleSheet("font-weight: bold; font-size: 15px;")
         layout.addWidget(heading)
         self.character_combo = QComboBox()
-        for name in self._assets:
-            self.character_combo.addItem(name, name)
+        for group in GROUPS:
+            self.character_combo.addItem(f"— {group} —", None)
+            header = self.character_combo.model().item(self.character_combo.count() - 1)
+            header.setFlags(header.flags() & ~(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable))
+            for spec in specs_in_group(group):
+                self.character_combo.addItem(spec.key, spec.key)
+        self.character_combo.setCurrentIndex(self.character_combo.findData(self._character_key))
         layout.addWidget(self.character_combo)
         form = QFormLayout()
         self.model_name_value = QLabel()
@@ -514,13 +469,34 @@ class MainWindow(QMainWindow):
         self.model_attachment_status_value.setText(information.attachment_status)
 
     def _select_character(self, _combo_index: int = -1) -> None:
-        key = str(self.character_combo.currentData())
-        if key == self._character_key:
+        raw_key = self.character_combo.currentData()
+        if raw_key is None or str(raw_key) == self._character_key:
             return
+        key = str(raw_key)
         self._timer.stop()
+        if not self._library.is_loaded(key):
+            self.statusBar().showMessage(f"Loading {key} ...")
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+            QApplication.processEvents()
+        try:
+            asset = self._library.get(key)
+        except Exception as error:
+            QApplication.restoreOverrideCursor()
+            blocker = QSignalBlocker(self.character_combo)
+            self.character_combo.setCurrentIndex(self.character_combo.findData(self._character_key))
+            del blocker
+            self.statusBar().showMessage(f"Could not load {key}: {error}")
+            QMessageBox.critical(self, "JFG Forge load error", f"Could not load {key}:\n\n{error}")
+            return
+        if QApplication.overrideCursor() is not None:
+            QApplication.restoreOverrideCursor()
         movement_speed = self._playback.movement_speed
         self._character_key = key
-        self._asset = self._assets[key]
+        self._spec = spec_for(key)
+        self._evaluate_scene = scene_evaluator(self._spec)
+        self._load_attachment = attachment_loader(self._spec)
+        self._export_asset = exporter_for(self._spec)
+        self._asset = asset
         self._playback = PlaybackController(self._asset.animations)
         self._playback.set_movement_speed(movement_speed)
         self._attachment_browser = AttachmentBrowserController(self._asset.attachment)
@@ -560,21 +536,28 @@ class MainWindow(QMainWindow):
         self.timing_mode_combo.setCurrentIndex(self.timing_mode_combo.findData(timing_mode.value))
         self.timing_mode_combo.setEnabled(True)
         del timing_blocker
-        self.attachment_heading.setText(f"{self._asset.attachment.name} / Attachment")
+        has_weapons = bool(self._asset.attachment.slots)
+        self.attachment_combo.setEnabled(has_weapons)
+        self.attachment_heading.setText(
+            f"{self._asset.attachment.name} / Attachment" if has_weapons else "Attachment"
+        )
         self.attachment_combo.setToolTip(
             f"The selected {self._asset.attachment.name} model is included automatically "
             "in model-bearing glTF exports. None makes no unarmed-slot claim."
         )
-        self.attachment_socket_value.setText(
-            f"Joint {self._asset.attachment.attachment_joint_id} — "
-            f"{self._asset.attachment.name} attachment socket [{self._asset.attachment.status}]"
-        )
+        if has_weapons:
+            self.attachment_socket_value.setText(
+                f"Joint {self._asset.attachment.attachment_joint_id} — "
+                f"{self._asset.attachment.name} attachment socket [{self._asset.attachment.status}]"
+            )
+        else:
+            self.attachment_socket_value.setText("This model carries no weapon.")
         slider_blocker = QSignalBlocker(self.time_slider)
         self.time_slider.setRange(0, self._playback.slider_maximum)
         self.time_slider.setValue(0)
         del slider_blocker
         self.play_button.setText("Play")
-        self._scene = self._scene_evaluators[key](
+        self._scene = self._evaluate_scene(
             self._asset, animation_index=0, time=0.0
         )
         data = prepare_render_data(self._scene)
@@ -599,9 +582,7 @@ class MainWindow(QMainWindow):
             else:
                 loaded = self._attachment_cache.get(slot)
                 if loaded is None:
-                    loaded = self._attachment_loaders[self._character_key](
-                        self._asset, slot=slot
-                    )
+                    loaded = self._load_attachment(self._asset, slot=slot)
                     self._attachment_cache[slot] = loaded
                 self._selected_attachment = loaded
                 joint_index = self.joint_combo.findData(self._asset.attachment.attachment_joint_id)
@@ -726,8 +707,7 @@ class MainWindow(QMainWindow):
 
     def _evaluate_current_pose(self, *, update_slider: bool = True) -> None:
         try:
-            evaluator = self._scene_evaluators[self._character_key]
-            scene = evaluator(
+            scene = self._evaluate_scene(
                 self._asset,
                 animation_index=self._playback.animation_index,
                 time=self._playback.time,

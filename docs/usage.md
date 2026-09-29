@@ -25,7 +25,11 @@ command line).
 
 ### Asset / Model Info
 
-The drop-down at the top selects the character. Below it Forge lists what it
+The drop-down at the top selects the model. It is split into three groups
+(Campaign, Multiplayer characters, Hover ships); the group names are headings,
+not choices. A model is decoded from the ROM the first time you pick it, so the
+status bar briefly shows "Loading ...". If a model cannot be loaded, Forge shows
+the reason and keeps the previous one. Below the drop-down Forge lists what it
 decoded from the ROM: model name, Prop number, vertex and face counts, groups,
 joints, how many textures decoded (VERIFIED) and how many did not (UNKNOWN),
 and the attachment status.
@@ -63,7 +67,9 @@ falls back to Technical timing.
 
 ### Attachment
 
-The attachment list holds nine hand-and-weapon models for the character:
+The attachment list holds nine hand-and-weapon models for the character. Hover
+ships carry no weapon, so for them the list is greyed out and the panel says so.
+The nine models are:
 pistol, automatic, uzi, second uzi, shrink beam, rocket, flamethrower, sniper,
 and a ninth slot (a hand for Juno and Vela, a grenade model for Lupus).
 **None** shows the character without an attachment. The weapon is placed on the
