@@ -3,8 +3,9 @@
 This page walks through the JFG Forge window from top to bottom. For
 installation see the [README](../README.md).
 
-The window has two tabs: **Characters** (sections 2 to 4 below) and **Models**
-(section 5). Only the Characters tab has animation playback, weapons and export.
+The window has three tabs: **Characters** (sections 2 to 4 below), **Models**
+(section 5) and **Audio** (section 6). Only the Characters tab has animation
+playback, weapons and glTF export.
 
 ## 1. Load your ROM
 
@@ -130,3 +131,21 @@ The panel below the list shows the model's name, Prop number, type, face and
 vertex counts, joints, animations and texture status. The 3D view has the same
 mouse controls as the Characters tab. Details, rest pose and limits are in
 [models.md](models.md).
+
+## 6. The Audio tab
+
+The **Audio** tab has two segments, **Music** and **Sounds**.
+
+| Control | What it does |
+|---|---|
+| Search box | Finds an entry by its number. |
+| Only looping sounds | (Sounds) Shows only the effects that loop. |
+| List | Click an entry to select it; arrow keys step through the list. |
+| Play / Restart | Plays the selected entry. Double-clicking a sound also plays it. |
+| Stop | Stops playback. |
+| Volume | Output loudness of this program only; exports are not affected. |
+| Play when selected | Plays every entry as soon as it is selected (on by default for Sounds). |
+| Export WAV... / Export MP3... | Saves the selected entry as an audio file. |
+
+The details above the buttons show the tempo, note count and rendered length of a
+song, or the sample, pitch and volume of a sound. See [audio.md](audio.md).

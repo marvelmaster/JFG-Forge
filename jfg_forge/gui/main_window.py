@@ -48,6 +48,7 @@ from jfg_forge.gui.debug_view import (
     selected_joint_information,
 )
 from jfg_forge.gui.export_service import ExportOperation, exporter_for, suggested_filename
+from jfg_forge.gui.audio_tab import AudioTab
 from jfg_forge.gui.prop_browser import PropBrowser
 from jfg_forge.gui.playback import (
     MAX_MOVEMENT_SPEED_TICK,
@@ -158,6 +159,8 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(splitter, "Characters")
         self.prop_browser = PropBrowser(rom_source)
         self.tabs.addTab(self.prop_browser, "Models")
+        self.audio_tab = AudioTab(rom_source)
+        self.tabs.addTab(self.audio_tab, "Audio")
         self.tabs.currentChanged.connect(self._tab_changed)
         self.prop_browser.status_message.connect(lambda text: self.statusBar().showMessage(text))
         self.setCentralWidget(self.tabs)
@@ -177,14 +180,21 @@ class MainWindow(QMainWindow):
         self._start_playback()
 
     def _tab_changed(self, index: int) -> None:
-        """Pause character playback when the Models tab is opened and show a first model."""
-        if self.tabs.widget(index) is self.prop_browser:
+        """Pause character playback on the other tabs, and stop audio when leaving the Audio tab."""
+        widget = self.tabs.widget(index)
+        if widget is not self.audio_tab:
+            self.audio_tab.stop()
+        if widget is self.prop_browser or widget is self.audio_tab:
             if self._playback.playing:
                 self._playback.pause()
                 self._timer.stop()
                 self.play_button.setText("Play")
+        if widget is self.prop_browser:
             if self.prop_browser.list_widget.currentRow() < 0:
                 self.prop_browser.select_first()
+        elif widget is self.audio_tab:
+            self.audio_tab.ensure_loaded()
+            self.statusBar().showMessage("Audio — music and sound effects")
         else:
             self._update_time_display()
 

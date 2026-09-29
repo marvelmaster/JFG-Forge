@@ -5,7 +5,8 @@ JFG Forge is a Windows desktop viewer and glTF exporter for the models of
 character, watch its animations with the game's own timing, put a weapon in its
 hand, and export the model or animation to glTF for Blender and other tools. A
 second tab, **Models**, lets you browse the game's static models (keys, doors,
-platforms, weapons and hundreds more) with their textures and names.
+platforms, weapons and hundreds more) with their textures and names, and a
+third tab, **Audio**, plays and exports the game's music and sound effects.
 
 ![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
 
@@ -15,6 +16,10 @@ the model info, animation browser, timing and attachment controls on the left.*
 ![The Models tab showing the Yellow Key with its name, Prop number, faces and textures](docs/screenshot-models.png)
 
 *The Models tab: a searchable list of the game's models, here the Yellow Key.*
+
+![The Audio tab with the Music segment showing Song 05, its length and the play and export controls](docs/screenshot-audio.png)
+
+*The Audio tab: the game's songs and sound effects, with playback and WAV/MP3 export.*
 
 **No game ROM and no game assets are included.** You need your own legally
 obtained US ROM. See [Legal](#legal).
@@ -74,6 +79,9 @@ revisions are rejected. The ROM path is not remembered between starts.
 - **Browse models** in the **Models** tab: search all 904 props by name or
   number and look at any of them with its textures. See
   [docs/models.md](docs/models.md).
+- **Listen** in the **Audio** tab: play the game's songs and its 637 sound
+  effects, and export any of them as WAV or MP3. See
+  [docs/audio.md](docs/audio.md).
 
 In the 3D view, drag with the left mouse button to orbit, drag with the middle
 button to pan, and use the mouse wheel to zoom. The
@@ -106,6 +114,15 @@ and orbit around it with the mouse. Each model shows its faces, joints,
 animations and how many of its textures Forge could decode. Details and limits
 are in [docs/models.md](docs/models.md).
 
+## Audio tab
+
+The **Audio** tab has two segments. **Music** lists the game's 80 songs; **Sounds**
+lists its 637 sound effects. Pick an entry and press Play (sound effects can also
+play as you select them), set the volume, and use **Export WAV...** or
+**Export MP3...** to save it. Songs are rendered from the game's own sequence
+and instrument data, so they sound close to the game but not identical. Details
+and limits are in [docs/audio.md](docs/audio.md).
+
 ## Project layout
 
 ```
@@ -114,11 +131,11 @@ jfg_forge/
   core/             ROM validation, prop bank, model and texture decoding,
                     animation and timing data, scenes, glTF export
   gui/              the Qt/OpenGL window, playback, export menu
-docs/               usage guide, characters, models tab, glTF export,
-                    technical notes, troubleshooting
+docs/               usage guide, characters, models tab, audio tab, glTF
+                    export, technical notes, troubleshooting
 licenses/           third-party software notices
 start_forge.bat     one-click launcher for Windows
-requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6)
+requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6, lameenc)
 ```
 
 ## Limitations
@@ -136,6 +153,9 @@ requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6)
 - The Movement / Speed slider is a preview input, not a live game value.
 - glTF exports approximate the game's decal layering, and skinned vertex
   weights are not written (each vertex follows one joint, as in the game).
+- Songs are an approximation of the console's synthesizer: no reverb, chorus
+  or sustain pedal, and pitch bends apply only at the start of a note. Sound
+  effects and songs have no known names, only numbers.
 - The viewer needs an OpenGL 3.3 capable graphics driver.
 - Tested on Windows 11. Other systems are untested.
 
@@ -145,6 +165,9 @@ JFG Forge is an unofficial, non-commercial fan project. It is not affiliated
 with or endorsed by Nintendo or Rare. *Jet Force Gemini* and its content belong
 to their rights holders. This repository contains no ROM and no extracted game
 data, and you must not add any.
+
+Music and sound effects you export come from the game's ROM. Keep them for
+your own use and do not redistribute them.
 
 The JFG Forge source code and documentation are licensed under the
 [MIT License](LICENSE). Third-party libraries are listed in

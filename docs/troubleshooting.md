@@ -45,6 +45,24 @@ The viewer needs an OpenGL 3.3 core profile. Update your graphics driver. On
 remote desktop sessions and in virtual machines OpenGL is often unavailable;
 run JFG Forge on the PC itself.
 
+## Audio tab: nothing plays
+
+The player uses the default Windows audio output. Check that a device is selected
+and not muted, and that the volume slider under the buttons is not at zero. If no
+device is found, the status line says so; you can still export.
+
+## Audio tab: "MP3 export unavailable"
+
+MP3 export needs the `lameenc` package. Delete the `.venv` folder and start again
+with `start_forge.bat` to install everything, or install it by hand from the
+JFG Forge folder:
+
+```powershell
+.venv\Scripts\python.exe -m pip install lameenc
+```
+
+WAV export works without it.
+
 ## Exported glTF looks wrong in another program
 
 - Keep the `.gltf`, `.bin` and `.png` files in the same folder.

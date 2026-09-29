@@ -152,6 +152,49 @@ joints each vertex is shifted by the summed stored offsets of its joint and that
 joint's parents (rotation left at zero). A texture that Forge cannot decode
 counts as "drawn" if any group that the game draws uses it; 67 props have one.
 
+## Audio
+
+All audio is in ROM asset 52, described by the small directory in asset 51. The
+first seven words of the directory (`w0` to `w6`) are section offsets into asset 52:
+
+| Section | Content |
+|---|---|
+| `[0, w0)` | music bank control data |
+| `[w0, w1)` | music samples (2,746,560 bytes) |
+| `[w1, w2)` | sound-effect bank control data |
+| `[w2, w3)` | sound-effect samples (3,566,816 bytes) |
+| `[w3, w4)` | sequence file: 90 compressed MIDI sequences |
+| `[w4, w5)` | sequence index, 3 bytes per song (volume, tempo, reverb) |
+| `[w5, w6)` | sound-effect index, 640 entries of 10 bytes |
+
+Both banks are standard N64 `ALBankFile` structures (magic `B1`, offsets relative
+to the start of the control data). The music bank has 159 instruments with 424
+sounds at 22,050 Hz. The sound-effect bank has one instrument holding 640 sounds at
+44,100 Hz. A wave table gives its sample offset and length, a VADPCM coefficient
+book (order 2, one or four predictors) and an optional loop (start, end, count, and
+the decoder state).
+
+**Samples** are VADPCM: 9-byte frames of a header (scale, predictor) and 16 four-bit
+residuals, decoded in blocks of eight with the coefficient book and the previous two
+samples. The decoder is checked against the ROM: each looped wave stores the
+decoder state at its loop start, and the decoded samples reproduce it bit for bit
+for 171 of 174 looped waves.
+
+**Sound effects.** An index entry is `soundBite` (the sample), volume (128 is full
+scale), minimum volume, pitch (100 is original), hearing range, and priority. Forge
+plays the sample at the entry's pitch times the sample's detune, scaled by volume.
+
+**Songs** use the libultra compressed sequence format: 16 track offsets and a
+division of 384 ticks per quarter note, then per track a delta time, a MIDI status
+group and, for notes, a duration in place of a note-off. Byte `0xFE` starts a
+back-reference that copies earlier bytes, and loops are meta events with a repeat
+counter stored in the stream. All 90 sequences decode, with 95,653 notes in total.
+To render one, Forge walks the events in time order and places each note using the
+tempo map, the channel's program, volume and pan, the instrument's key map, and the
+sample's pitch ratio `2^(((note - keyBase) * 100 + detune) / 1200)`. Pitch was
+checked by rendering middle C through single-sound instruments: the strongest
+partial lands on 261.6 Hz for the instruments that have it as their fundamental.
+
 ## Known unknowns
 
 - Several model header fields and vertex attributes.
@@ -159,3 +202,4 @@ counts as "drawn" if any group that the game draws uses it; 67 props have one.
 - The player state flags behind the timing rules.
 - Whether the multiplayer characters' controllers match Juno's and Vela's.
 - The timing and meaning of the hover ships' animations.
+- Names of songs and sound effects, and how the console's synthesizer differs from Forge's renderer (reverb, chorus, sustain, bends).

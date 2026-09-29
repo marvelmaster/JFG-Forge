@@ -9,7 +9,8 @@ license.
 |---|---|---|
 | [PySide6](https://pypi.org/project/PySide6/) (Qt for Python) | Desktop window and controls | LGPL-3.0, GPL-2.0 or GPL-3.0, or commercial (Qt) |
 | [PyOpenGL](https://pypi.org/project/PyOpenGL/) | OpenGL 3.3 model viewport | BSD-3-Clause |
-| [NumPy](https://pypi.org/project/numpy/) | Numeric arrays | BSD-3-Clause |
+| [NumPy](https://pypi.org/project/numpy/) | Numeric arrays and audio | BSD-3-Clause |
+| [lameenc](https://pypi.org/project/lameenc/) (uses the LAME encoder) | MP3 export | LGPL-3.0-or-later |
 
 Check each package's own page for the exact license text that applies to the
 version you install.
