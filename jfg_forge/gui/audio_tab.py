@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+import re
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
 import numpy as np
-from PySide6.QtCore import QBuffer, QByteArray, QIODevice, QObject, Qt, QTimer, Signal
+from PySide6.QtCore import QBuffer, QByteArray, QElapsedTimer, QIODevice, QObject, Qt, QTimer, Signal
+from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -23,12 +25,14 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QPushButton,
     QSlider,
+    QStyle,
     QTabWidget,
     QVBoxLayout,
     QWidget,
 )
 
 from jfg_forge.core.audio_export import Mp3Unavailable, export_audio
+from jfg_forge.core.audio_names import SFX_LABELS, sfx_label, song_levels, song_name, song_note
 from jfg_forge.core.audio_render import AudioEngine, Rendered
 from jfg_forge.core.audio_rom import AudioRom, load_audio
 from jfg_forge.core.rom_source import RomSource
@@ -39,6 +43,66 @@ try:  # QtMultimedia ships with PySide6 but may lack a working backend or device
     MULTIMEDIA_IMPORTED = True
 except Exception:  # pragma: no cover - depends on the installation
     MULTIMEDIA_IMPORTED = False
+
+
+def file_stem(kind: str, number: int, name: str, digits: int) -> str:
+    """Default export file name: Song_04_Goldwood, Sound_487_Health_pickup."""
+    clean = re.sub(r"[^A-Za-z0-9]+", "_", name).strip("_")
+    return f"{kind}_{number:0{digits}d}" + (f"_{clean[:40]}" if clean else "")
+
+
+def byte_offset(seconds: float, bytes_per_second: int, frame_bytes: int, size: int) -> int:
+    """Byte position of ``seconds`` in a PCM buffer, on a whole-frame boundary and inside the buffer."""
+    offset = int(max(seconds, 0.0) * bytes_per_second) // frame_bytes * frame_bytes
+    return min(offset, max(size - frame_bytes, 0) // frame_bytes * frame_bytes)
+
+
+class SeekSlider(QSlider):
+    """A position bar you can click or drag to jump to a point in the clip.
+
+    ``seek_requested`` carries the target as a fraction of the clip (0 to 1). While
+    the mouse is down, seeks are sent at most every 60 ms so you hear the audio as you scrub.
+    """
+
+    seek_requested = Signal(float)
+
+    def __init__(self, parent: QWidget | None = None) -> None:
+        super().__init__(Qt.Orientation.Horizontal, parent)
+        self.dragging = False
+        self._clock = QElapsedTimer()
+
+    def fraction(self) -> float:
+        span = max(self.maximum() - self.minimum(), 1)
+        return (self.value() - self.minimum()) / span
+
+    def _value_at(self, event: QMouseEvent) -> int:
+        return QStyle.sliderValueFromPosition(self.minimum(), self.maximum(), int(event.position().x()), max(self.width(), 1))
+
+    def mousePressEvent(self, event: QMouseEvent) -> None:
+        if event.button() != Qt.MouseButton.LeftButton or not self.isEnabled():
+            return super().mousePressEvent(event)
+        self.dragging = True
+        self.setValue(self._value_at(event))
+        self._clock.start()
+        self.seek_requested.emit(self.fraction())
+        event.accept()
+
+    def mouseMoveEvent(self, event: QMouseEvent) -> None:
+        if not self.dragging:
+            return super().mouseMoveEvent(event)
+        self.setValue(self._value_at(event))
+        if self._clock.elapsed() >= 60:
+            self._clock.restart()
+            self.seek_requested.emit(self.fraction())
+        event.accept()
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
+        if not self.dragging:
+            return super().mouseReleaseEvent(event)
+        self.dragging = False
+        self.setValue(self._value_at(event))
+        self.seek_requested.emit(self.fraction())
+        event.accept()
 
 
 def format_time(seconds: float) -> str:
@@ -88,6 +152,10 @@ class Player(QObject):
         self._sink = None
         self._buffer: QBuffer | None = None
         self._bytes_per_second = 1
+        self._frame_bytes = 2
+        self._device = None
+        self._format = None
+        self._base_seconds = 0.0
         self._volume = 0.8
         self._playing = False
         self._timer = QTimer(self)
@@ -107,7 +175,7 @@ class Player(QObject):
         if self._sink is not None:
             self._sink.setVolume(self._volume)
 
-    def play(self, audio: Rendered) -> None:
+    def play(self, audio: Rendered, start_seconds: float = 0.0) -> None:
         self.stop()
         if not self.available:
             raise RuntimeError("No audio output device is available.")
@@ -135,15 +203,32 @@ class Player(QObject):
             fmt.setSampleRate(rate)
         pcm = np.clip(np.round(samples * 32767.0), -32768, 32767).astype("<i2")
         self._bytes_per_second = rate * channels * 2
+        self._frame_bytes = channels * 2
+        self._device, self._format = device, fmt
         self._buffer = QBuffer(self)
         self._buffer.setData(QByteArray(pcm.tobytes()))
         self._buffer.open(QIODevice.OpenModeFlag.ReadOnly)
-        self._sink = QAudioSink(device, fmt, self)
-        self._sink.setVolume(self._volume)
-        self._sink.start(self._buffer)
+        self._open_sink(start_seconds)
         self._playing = True
         self._timer.start()
         self.started.emit()
+
+    def _open_sink(self, seconds: float) -> None:
+        """(Re)start the output at ``seconds`` in the loaded clip."""
+        if self._sink is not None:
+            self._sink.stop()
+            self._sink.deleteLater()
+        self._buffer.seek(byte_offset(seconds, self._bytes_per_second, self._frame_bytes, self._buffer.size()))
+        self._base_seconds = self._buffer.pos() / self._bytes_per_second
+        self._sink = QAudioSink(self._device, self._format, self)
+        self._sink.setVolume(self._volume)
+        self._sink.start(self._buffer)
+
+    def seek(self, seconds: float) -> None:
+        """Jump to ``seconds`` in the clip that is playing (no effect when nothing plays)."""
+        if self._playing and self._buffer is not None:
+            self._open_sink(seconds)
+            self.position.emit(self._base_seconds)
 
     def stop(self) -> None:
         was_playing = self._playing
@@ -163,7 +248,7 @@ class Player(QObject):
     def _tick(self) -> None:
         if self._sink is None or self._buffer is None:
             return
-        elapsed = self._sink.processedUSecs() / 1_000_000
+        elapsed = self._base_seconds + self._sink.processedUSecs() / 1_000_000
         self.position.emit(elapsed)
         if self._buffer.atEnd() and elapsed * self._bytes_per_second >= self._buffer.size() - self._bytes_per_second * 0.05:
             self.stop()
@@ -211,7 +296,7 @@ class AudioPage(QWidget):
         left.setMinimumWidth(260)
         left_layout = QVBoxLayout(left)
         self.search_edit = QLineEdit()
-        self.search_edit.setPlaceholderText("Search by number")
+        self.search_edit.setPlaceholderText("Search by number or name")
         self.search_edit.setClearButtonEnabled(True)
         left_layout.addWidget(self.search_edit)
         self.filter_check = QCheckBox(extra_filter) if extra_filter else None
@@ -238,7 +323,7 @@ class AudioPage(QWidget):
         controls.addWidget(self.play_button)
         controls.addWidget(self.stop_button)
         right_layout.addLayout(controls)
-        self.progress = QSlider(Qt.Orientation.Horizontal)
+        self.progress = SeekSlider()
         self.progress.setRange(0, 1000)
         self.progress.setEnabled(False)
         right_layout.addWidget(self.progress)
@@ -277,6 +362,7 @@ class AudioPage(QWidget):
         self.volume_slider.valueChanged.connect(lambda value: self._player.set_volume(value / 100.0))
         self.wav_button.clicked.connect(lambda: self.export_current("wav"))
         self.mp3_button.clicked.connect(lambda: self.export_current("mp3"))
+        self.progress.seek_requested.connect(self._scrub)
         self._player.position.connect(self._position)
         self._player.finished.connect(self._playback_finished)
         self._refresh_list()
@@ -390,7 +476,18 @@ class AudioPage(QWidget):
             QApplication.restoreOverrideCursor()
         self.status_label.setText(f"Could not render this entry: {message}")
 
-    def _start(self, index: int) -> None:
+    def _scrub(self, fraction: float) -> None:
+        """Jump to a point of the current clip; start playing from there if it is stopped."""
+        if self._current is None or self._duration <= 0:
+            return
+        seconds = min(max(fraction, 0.0), 1.0) * self._duration
+        self.time_label.setText(f"{format_time(seconds)} / {format_time(self._duration)}")
+        if self._player.playing:
+            self._player.seek(seconds)
+        elif self._current in self._cache:
+            self._start(self._current, seconds)
+
+    def _start(self, index: int, start_seconds: float = 0.0) -> None:
         try:
             audio = self.rendered_for(index)
         except Exception as error:
@@ -405,7 +502,9 @@ class AudioPage(QWidget):
             self.status_label.setText("No audio output device found; exporting still works.")
             return
         try:
-            self._player.play(audio)
+            self._player.play(audio, start_seconds)
+            if start_seconds > 0 and audio.seconds > 0:
+                self.progress.setValue(min(int(start_seconds / audio.seconds * 1000), 1000))
         except Exception as error:
             self.status_label.setText(f"Playback failed: {error}")
             return
@@ -414,19 +513,22 @@ class AudioPage(QWidget):
 
     def _reset_progress(self, seconds: float) -> None:
         self._duration = seconds
+        self.progress.setEnabled(seconds > 0)
         self.progress.setValue(0)
         self.time_label.setText(f"0:00 / {format_time(seconds)}")
 
     def _position(self, seconds: float) -> None:
-        if self._duration > 0:
+        if self._duration > 0 and not self.progress.dragging:
             self.progress.setValue(min(int(seconds / self._duration * 1000), 1000))
-        self.time_label.setText(f"{format_time(seconds)} / {format_time(self._duration)}")
+        if not self.progress.dragging:
+            self.time_label.setText(f"{format_time(seconds)} / {format_time(self._duration)}")
 
     def _playback_finished(self) -> None:
         self.play_button.setText("Play")
         if self.status_label.text() == "Playing.":
             self.status_label.setText("")
-        self.progress.setValue(0)
+        if not self.progress.dragging:
+            self.progress.setValue(0)
 
     # ------------------------------------------------------------------ export
     def export_current(self, kind: str) -> None:
@@ -512,15 +614,18 @@ class AudioTab(QWidget):
         audio, engine = self.audio, self.engine
         assert audio is not None and engine is not None
 
+        levels = song_levels(self._source)
         song_entries = []
         for song in audio.songs:
             decoded = engine.sequence(song)
             notes = sum(1 for e in decoded.events if e.kind == "note")
             silent = notes == 0
+            name = song_name(song.song_id, levels)
+            title = f"Song {song.song_id:02d}" + (f" - {name}" if name else "")
             song_entries.append(
                 AudioEntry(
                     song.song_id,
-                    f"Song {song.song_id:02d}   {format_time(decoded.seconds())}   {notes} notes",
+                    f"{title}   {format_time(decoded.seconds())}   {notes} notes",
                     "Empty placeholder without any notes" if silent else "",
                     playable=not silent,
                 )
@@ -531,7 +636,11 @@ class AudioTab(QWidget):
             decoded = engine.sequence(song)
             notes = [e for e in decoded.events if e.kind == "note"]
             tempo = next((e.a for e in decoded.events if e.kind == "tempo"), 500000)
+            name = song_name(index, levels)
             rows = [
+                ("Name", name or "no known name"),
+                ("Name source", song_note(index) if name else "none"),
+                ("Played in", ", ".join(levels.get(index, ())[:4]) + (" ..." if len(levels.get(index, ())) > 4 else "") or "no level"),
                 ("Song", f"{index} of {len(audio.songs) - 1}"),
                 ("Notes", str(len(notes))),
                 ("Tempo", f"{60_000_000 / tempo:.0f} beats per minute"),
@@ -547,7 +656,7 @@ class AudioTab(QWidget):
             song_entries,
             engine.render_song,
             describe_song,
-            lambda index: f"Song_{index:02d}",
+            lambda index: file_stem("Song", index, song_name(index, levels), 2),
             self.player,
             background=True,
             autoplay=False,
@@ -561,7 +670,9 @@ class AudioTab(QWidget):
             effect_entries.append(
                 AudioEntry(
                     effect.sound_id,
-                    f"Sound {effect.sound_id:03d}" + ("   (loops)" if looping else ""),
+                    f"Sound {effect.sound_id:03d}"
+                    + (f" - {sfx_label(effect.sound_id)}" if sfx_label(effect.sound_id) else "")
+                    + ("   (loops)" if looping else ""),
                     f"Sample {effect.bite}, pitch {effect.pitch}, volume {effect.volume}",
                     playable=sound is not None,
                     looping=looping,
@@ -571,7 +682,9 @@ class AudioTab(QWidget):
         def describe_effect(index: int, rendered: Rendered | None) -> list[tuple[str, str]]:
             effect = audio.effects[index]
             sound = engine.effect_sound(effect)
+            label = sfx_label(effect.sound_id)
             rows = [
+                ("Played by", f"{label} - called by {SFX_LABELS[effect.sound_id][1]} (LIKELY)" if label else "no fixed caller found; triggered through game data"),
                 ("Sound", f"{index} of {len(audio.effects) - 1}"),
                 ("Sample", str(effect.bite)),
                 ("Pitch", f"{effect.pitch}%"),
@@ -590,7 +703,7 @@ class AudioTab(QWidget):
             effect_entries,
             lambda index: engine.render_effect(index),
             describe_effect,
-            lambda index: f"Sound_{index:03d}",
+            lambda index: file_stem("Sound", index, sfx_label(index), 3),
             self.player,
             background=False,
             autoplay=True,
@@ -603,4 +716,4 @@ class AudioTab(QWidget):
         self.player.stop()
 
 
-__all__ = ["AudioEntry", "AudioPage", "AudioTab", "Player", "filter_entries", "format_time"]
+__all__ = ["AudioEntry", "AudioPage", "SeekSlider", "byte_offset", "file_stem", "AudioTab", "Player", "filter_entries", "format_time"]

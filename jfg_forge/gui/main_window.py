@@ -49,6 +49,7 @@ from jfg_forge.gui.debug_view import (
 )
 from jfg_forge.gui.export_service import ExportOperation, exporter_for, suggested_filename
 from jfg_forge.gui.audio_tab import AudioTab
+from jfg_forge.gui.animation_names import family_for, names_for
 from jfg_forge.gui.level_browser import LevelBrowser
 from jfg_forge.gui.prop_browser import PropBrowser
 from jfg_forge.gui.texture_tab import TextureTab
@@ -186,6 +187,17 @@ class MainWindow(QMainWindow):
         self._update_attachment_display()
         self._update_time_display()
         self._start_playback()
+
+    def _names_for_current(self):
+        spec = self._spec
+        family = family_for(spec.key, spec.kind, spec.timing_family)
+        names = names_for(family)
+        # Names are tied to the controller's clip table: only use them for the same clip IDs.
+        return names if names and len(names) <= len(self._asset.animations) else {}
+
+    def _clip_label(self, clip) -> str:
+        named = self._animation_names.get(clip.animation_index)
+        return animation_label(clip, named.name if named else None)
 
     def _tab_changed(self, index: int) -> None:
         """Pause character playback on the other tabs, and stop audio when leaving the Audio tab."""
@@ -333,8 +345,9 @@ class MainWindow(QMainWindow):
         self.animation_combo = QComboBox()
         self.animation_combo.setMinimumContentsLength(24)
         self.animation_combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self._animation_names = self._names_for_current()
         for clip in self._asset.animations:
-            self.animation_combo.addItem(animation_label(clip), clip.animation_index)
+            self.animation_combo.addItem(self._clip_label(clip), clip.animation_index)
         layout.addWidget(self.animation_combo)
         navigation_row = QHBoxLayout()
         self.previous_button = QPushButton("Previous")
@@ -394,6 +407,8 @@ class MainWindow(QMainWindow):
         timing_form.addRow("Timing status", self.timing_status_value)
         layout.addLayout(timing_form)
         technical_form = QFormLayout()
+        self.animation_name_value = QLabel()
+        self.animation_name_value.setWordWrap(True)
         self.animation_index_value = QLabel()
         self.animation_id_value = QLabel()
         self.animation_samples_value = QLabel()
@@ -403,6 +418,7 @@ class MainWindow(QMainWindow):
         self.animation_root_value = QLabel()
         self.animation_context_value = QLabel()
         self.animation_context_value.setWordWrap(True)
+        technical_form.addRow("Name", self.animation_name_value)
         technical_form.addRow("Index", self.animation_index_value)
         technical_form.addRow("ID", self.animation_id_value)
         technical_form.addRow("Samples", self.animation_samples_value)
@@ -572,8 +588,9 @@ class MainWindow(QMainWindow):
             blocker = QSignalBlocker(combo)
             combo.clear()
             if combo is self.animation_combo:
+                self._animation_names = self._names_for_current()
                 for clip in self._asset.animations:
-                    combo.addItem(animation_label(clip), clip.animation_index)
+                    combo.addItem(self._clip_label(clip), clip.animation_index)
             elif combo is self.attachment_combo:
                 for entry in self._attachment_browser.entries:
                     combo.addItem(entry.label, entry.slot)
@@ -827,6 +844,10 @@ class MainWindow(QMainWindow):
         self.sample_label.setText(
             f"sample {position.current_sample} -> {position.next_sample}; "
             f"fraction {position.fraction_10bit}/1024 ({position.fraction:.6f})"
+        )
+        named = self._animation_names.get(entry.animation_index)
+        self.animation_name_value.setText(
+            f"{named.name} ({named.status}): {named.basis}" if named else "no name known for this character"
         )
         self.animation_index_value.setText(str(entry.animation_index))
         self.animation_id_value.setText(str(entry.animation_id))

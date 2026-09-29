@@ -27,6 +27,7 @@ import struct
 
 import numpy as np
 
+from jfg_forge.core.audio_reverb import ReverbSettings, parse_reverb
 from jfg_forge.core.model_parser import BoyExportError, _asset_lut, _asset_range
 from jfg_forge.core.rom_source import RomSource, as_rom_source
 
@@ -131,6 +132,7 @@ class AudioRom:
     sfx_bank: SoundBank
     effects: tuple[SoundEffect, ...]
     songs: tuple[Song, ...]
+    reverb: ReverbSettings | None = None
 
 
 def _u32(data: bytes, offset: int) -> int:
@@ -210,8 +212,10 @@ def load_audio(rom_path: RomSource | Path) -> AudioRom:
     rom = source.data
     lut = _asset_lut(rom)
     start, end = _asset_range(lut, DIRECTORY_ASSET)
-    words = struct.unpack_from(">7I", rom[start:end], 0)
+    directory = rom[start:end]
+    words = struct.unpack_from(">7I", directory, 0)
     w0, w1, w2, w3, w4, w5, w6 = words
+    w7 = struct.unpack_from(">I", directory, 28)[0] if len(directory) >= 32 else 0
     start, end = _asset_range(lut, AUDIO_ASSET)
     audio = rom[start:end]
     if not (0 < w0 < w1 < w2 < w3 < w4 < w5 < w6 <= len(audio)):
@@ -239,7 +243,8 @@ def load_audio(rom_path: RomSource | Path) -> AudioRom:
             else (127, 0, 0)
         )
         songs.append(Song(song_id, volume, tempo, reverb, bytes(seq_file[offset : offset + length])))
-    return AudioRom(music, sfx, effects, tuple(songs))
+    reverb = parse_reverb(audio[w6:w7]) if w6 < w7 <= len(audio) else None
+    return AudioRom(music, sfx, effects, tuple(songs), reverb)
 
 
 # --------------------------------------------------------------------------

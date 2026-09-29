@@ -139,6 +139,14 @@ The **Levels** tab lists the game's 412 named levels. Pick one to see its
 textured geometry and orbit around it. Objects, lighting and vertex colours are
 not shown yet. Details and limits are in [docs/levels.md](docs/levels.md).
 
+## Names
+
+The ROM has no names for songs, sound effects or animations, so Forge assembles
+them and labels the evidence. Songs use the community song list, confirmed against
+the ROM; sound effects are labelled by the game code that plays them; character
+animations are named only where the game's own controller code shows what a clip is
+for. See [docs/audio.md](docs/audio.md) and [docs/characters.md](docs/characters.md).
+
 ## Textures tab
 
 The **Textures** tab is a texture bank of all 7,320 textures. Search, filter and

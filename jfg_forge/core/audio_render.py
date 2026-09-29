@@ -26,10 +26,23 @@ from jfg_forge.core.audio_rom import (
     Song,
     decode_adpcm,
 )
+from jfg_forge.core.audio_reverb import apply_reverb, send_levels
 from jfg_forge.core.audio_sequence import DEFAULT_TEMPO_US, DecodedSequence, decode_sequence
 
 LOOP_FOREVER = 0xFFFFFFFF
-TAIL_SECONDS = 1.5
+BANK_SIZE = 128  # programs per bank: bank-select LSB 1 reaches instruments 128 and up
+BANK_SELECT_LSB = 32
+
+
+def instrument_index(program: int, bank_lsb: int) -> int:
+    """Music-bank instrument for a program change under the channel's bank select.
+
+    Bank 0 is instruments 0-127; any non-zero bank-select LSB (controller 32) is the
+    second bank, instruments 128 and up (31 of them, programs 0-30).
+    """
+    return program + (BANK_SIZE if bank_lsb else 0)
+TAIL_SECONDS = 2.5  # room for the reverb to die away
+EFFECT_SEND_CONTROLLER = 91
 MAX_SONG_SECONDS = 600.0
 
 
@@ -79,6 +92,21 @@ def _envelope(envelope: Envelope, count: int, rate: int, note_samples: int) -> n
         level[start : start + fade] = np.linspace(start_level, 0.0, fade, endpoint=False, dtype=np.float32) if fade else level[start:start]
         level[start + fade :] = 0.0
     return level
+
+
+def song_instruments(decoded: DecodedSequence) -> dict[int, int]:
+    """Notes played per music-bank instrument index, with bank select applied."""
+    program = [0] * 16
+    pending = [0] * 16
+    used: dict[int, int] = {}
+    for event in decoded.events:
+        if event.kind == "control" and event.a == BANK_SELECT_LSB:
+            pending[event.channel] = event.b
+        elif event.kind == "program":
+            program[event.channel] = instrument_index(event.a, pending[event.channel])
+        elif event.kind == "note":
+            used[program[event.channel]] = used.get(program[event.channel], 0) + 1
+    return used
 
 
 class AudioEngine:
@@ -176,6 +204,10 @@ class AudioEngine:
             self._sequences[song.song_id] = decoded
         return decoded
 
+    def song_instruments(self, song: Song) -> dict[int, int]:
+        """Notes played per music-bank instrument index, with bank select applied."""
+        return song_instruments(self.sequence(song))
+
     def song_is_silent(self, song: Song) -> bool:
         return not any(e.kind == "note" for e in self.sequence(song).events)
 
@@ -223,8 +255,12 @@ class AudioEngine:
         end_seconds = max(to_seconds(e.tick + e.duration) for e in notes)
         total = min(end_seconds + TAIL_SECONDS, MAX_SONG_SECONDS)
         mix = np.zeros((int(total * rate) + rate, 2), dtype=np.float32)
+        reverb = self.audio.reverb if song.reverb else None
+        aux = np.zeros_like(mix) if reverb is not None else None  # what each channel sends to the effect
 
-        program = [0] * 16
+        program = [0] * 16  # instrument index per channel (bank select already applied)
+        pending_bank = [0] * 16  # bank select takes effect at the next program change
+        fx_send = [0] * 16  # controller 91: share of the channel that goes to the reverb
         volume = [100] * 16
         pan = [64] * 16
         bend = [8192] * 16
@@ -233,9 +269,13 @@ class AudioEngine:
         for event in decoded.events:
             channel = event.channel
             if event.kind == "program":
-                program[channel] = event.a
+                program[channel] = instrument_index(event.a, pending_bank[channel])
             elif event.kind == "control":
-                if event.a == 7:
+                if event.a == BANK_SELECT_LSB:
+                    pending_bank[channel] = event.b
+                elif event.a == EFFECT_SEND_CONTROLLER:
+                    fx_send[channel] = event.b
+                elif event.a == 7:
                     volume[channel] = event.b
                 elif event.a == 10:
                     pan[channel] = event.b
@@ -266,17 +306,26 @@ class AudioEngine:
                     * song_gain
                     * 0.5
                 )
-                angle = min(max(pan[channel], 0), 127) / 127.0 * (math.pi / 2)
+                angle = min(max(pan[channel] + sound.pan - 64, 0), 127) / 127.0 * (math.pi / 2)  # the sample's own pan offsets the channel's
                 offset = int(start * rate)
                 room = len(mix) - offset
                 if room <= 0:
                     continue
                 voice = voice[:room]
-                mix[offset : offset + len(voice), 0] += voice * gain * math.cos(angle)
-                mix[offset : offset + len(voice), 1] += voice * gain * math.sin(angle)
+                dry, wet = send_levels(fx_send[channel]) if reverb is not None else (1.0, 0.0)
+                left, right = voice * gain * math.cos(angle), voice * gain * math.sin(angle)
+                mix[offset : offset + len(voice), 0] += left * dry
+                mix[offset : offset + len(voice), 1] += right * dry
+                if aux is not None and wet > 0.0:
+                    aux[offset : offset + len(voice), 0] += left * wet
+                    aux[offset : offset + len(voice), 1] += right * wet
                 done += 1
                 if progress and done % 200 == 0:
                     progress(min(start / total, 1.0))
+        if reverb is not None and aux is not None and np.any(aux):
+            wet_mono = apply_reverb(aux[:, 0], aux[:, 1], reverb, rate)
+            mix[:, 0] += wet_mono
+            mix[:, 1] += wet_mono
         # Songs differ a lot in loudness; scale each one to a comfortable, non-clipping peak.
         peak = float(np.max(np.abs(mix)))
         if peak > 0:
@@ -289,4 +338,4 @@ class AudioEngine:
         return Rendered(mix, rate)
 
 
-__all__ = ["AudioEngine", "Rendered", "cents_to_ratio"]
+__all__ = ["AudioEngine", "Rendered", "cents_to_ratio", "instrument_index", "song_instruments"]

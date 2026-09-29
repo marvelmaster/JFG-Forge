@@ -25,10 +25,11 @@ MAX_MOVEMENT_SPEED_TICK = 50
 SUPPORTED_SPEEDS = tuple(value / MOVEMENT_SPEED_TICKS_PER_UNIT for value in range(10, 51))
 
 
-def animation_label(clip: AnimationClip) -> str:
+def animation_label(clip: AnimationClip, name: str | None = None) -> str:
     loop_text = "loop" if clip.loop else "non-loop"
+    prefix = f"{name} — " if name else ""
     return (
-        f"Index {clip.animation_index} — ID {clip.animation_id} — "
+        f"{prefix}Index {clip.animation_index} — ID {clip.animation_id} — "
         f"{clip.sample_count} samples — {loop_text}"
     )
 

@@ -208,9 +208,9 @@ The two texture pools and the lenient decoder are described in
 ## Known unknowns
 
 - Several model header fields and vertex attributes.
-- Gameplay names and meanings of most animations.
+- Gameplay names and meanings of most animations (only clips with a known controller rule are named; see [characters.md](characters.md)).
 - The player state flags behind the timing rules.
 - Whether the multiplayer characters' controllers match Juno's and Vela's.
 - The timing and meaning of the hover ships' animations.
 - Batch flag bits, vertex colours and the remaining header tables of level blocks.
-- Names of songs and sound effects, and how the console's synthesizer differs from Forge's renderer (reverb, chorus, sustain, bends).
+- Names of most sound effects (only 78 of 640 have a code-derived label), and how the console's synthesizer differs from Forge's renderer (reverb, chorus, sustain, bends).

@@ -21,3 +21,10 @@ version you install.
 This repository contains no ROM and no extracted game assets. JFG Forge is an
 unofficial fan project and is not affiliated with or endorsed by Nintendo or
 Rare.
+
+## Research credits
+
+The song names in Forge come from the community song list for the *Jet Force
+Gemini* kiosk demo on [The Cutting Room Floor](https://tcrf.net/Jet_Force_Gemini),
+which we checked against the final ROM. Only the names are used, not any
+sound or text from the site.

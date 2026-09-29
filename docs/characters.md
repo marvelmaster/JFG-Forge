@@ -103,6 +103,24 @@ object). Their Game Timing is **UNKNOWN**: Forge plays them at the technical
 rate and says so in the status text. The ship colour comes from the name of the
 game's player definition for that model.
 
+## Animation names
+
+The ROM has no animation names. Forge names a clip only when the game code shows
+something about it, and shows the evidence in the animation list and the
+**Name** row of the animation details. Names cover Juno and the Juno-like
+multiplayer characters, Vela and the Vela-like ones, and Lupus.
+
+| Evidence | Meaning | Example |
+|---|---|---|
+| VERIFIED | The player controller chooses this clip by a known rule. | `Open chest` (chest code), `Idle 1` to `Idle 4` (idle states chosen below a movement threshold), `Strafe (side A/B)` (chosen by the sign of the sideways speed) |
+| LIKELY | The clip runs the same controller code as a named clip, so it is named after it plus its stance set. | `Walk`, `Run`, `Walk (set B)`, `Idle-like` |
+| UNKNOWN | Nothing names it. | `Action 13` |
+
+The stance sets (A, B and C) are the three groups of movement clips that share
+the same controller code; what distinguishes them in play is not known, so they are
+not given names such as "aiming" or "crouching". Clips with a repeated name get a
+running number. The other characters (power forms, ships) show no names.
+
 ## Weapon sets
 
 A weapon set is a child object of the character with nine interchangeable
