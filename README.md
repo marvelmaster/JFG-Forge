@@ -1,14 +1,20 @@
 # JFG Forge
 
-JFG Forge is a Windows desktop viewer and glTF exporter for the character models
-of *Jet Force Gemini* (Nintendo 64, US release). You load your own ROM, pick a
+JFG Forge is a Windows desktop viewer and glTF exporter for the models of
+*Jet Force Gemini* (Nintendo 64, US release). You load your own ROM, pick a
 character, watch its animations with the game's own timing, put a weapon in its
-hand, and export the model or animation to glTF for Blender and other tools.
+hand, and export the model or animation to glTF for Blender and other tools. A
+second tab, **Models**, lets you browse the game's static models (keys, doors,
+platforms, weapons and hundreds more) with their textures and names.
 
 ![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
 
 *JFG Forge with Vela selected: the textured, animated model in the 3D view, and
 the model info, animation browser, timing and attachment controls on the left.*
+
+![The Models tab showing the Yellow Key with its name, Prop number, faces and textures](docs/screenshot-models.png)
+
+*The Models tab: a searchable list of the game's models, here the Yellow Key.*
 
 **No game ROM and no game assets are included.** You need your own legally
 obtained US ROM. See [Legal](#legal).
@@ -65,6 +71,9 @@ revisions are rejected. The ROM path is not remembered between starts.
   to see its position and which geometry it moves.
 - **Export** through **File, Export**: the model, the current animation, or
   both, as glTF 2.0 with PNG and binary side files.
+- **Browse models** in the **Models** tab: search all 904 props by name or
+  number and look at any of them with its textures. See
+  [docs/models.md](docs/models.md).
 
 In the 3D view, drag with the left mouse button to orbit, drag with the middle
 button to pan, and use the mouse wheel to zoom. The
@@ -72,20 +81,30 @@ button to pan, and use the mouse wheel to zoom. The
 
 ## Supported characters
 
-25 models in three groups. The drop-down at the top of the left panel lists them;
-each one loads the first time you pick it.
+21 models in three groups. The drop-down at the top of the left panel of the
+Characters tab lists them; each one loads the first time you pick it.
 
 | Group | Entries | Rig | Game Timing | Weapons |
 |---|---|---|---|---|
 | Campaign | Juno, PowerBoy, Vela, PowerGirl, Lupus, PowerDog | 21, 21, 28, 28, 27 and 18 joints | VERIFIED | 9 per character, VERIFIED |
 | Multiplayer characters | Green Ant, Red Ant, Tribal Man, Shield Bug, Stag Bug, Weevil, Cyborg, Zombie | 21 joints (Juno's layout) | LIKELY (Juno's table) | Juno's 9, LIKELY |
 | | Blue Ant, Yellow Ant, Tribal Woman | 28 joints (Vela's layout) | LIKELY (Vela's table) | Vela's 9, LIKELY |
-| Hover ships | Yellow, Red, Blue and Green Ant Ship, each also as a low-detail model | 8 joints, 2 animations | UNKNOWN (Technical) | none |
+| Hover ships | Yellow, Red, Blue and Green Ant Ship | 8 joints, 2 animations | UNKNOWN (Technical) | none |
 
 **VERIFIED** means the value comes straight from ROM data and game code that was
 checked. **LIKELY** means the evidence is strong but no runtime capture confirms
 it. [docs/characters.md](docs/characters.md) lists every model with its Prop
 number and explains both labels.
+
+## Models tab
+
+The **Models** tab lists every model in the ROM by the name the game gives it.
+By default it shows the 604 static models. Two other filters show the 284
+animated props (drawn in a rest pose) and all 904 entries, including a few empty
+helper models. Type a name or a Prop number into the search box, pick a model,
+and orbit around it with the mouse. Each model shows its faces, joints,
+animations and how many of its textures Forge could decode. Details and limits
+are in [docs/models.md](docs/models.md).
 
 ## Project layout
 
@@ -95,8 +114,8 @@ jfg_forge/
   core/             ROM validation, prop bank, model and texture decoding,
                     animation and timing data, scenes, glTF export
   gui/              the Qt/OpenGL window, playback, export menu
-docs/               usage guide, characters, glTF export, technical notes,
-                    troubleshooting
+docs/               usage guide, characters, models tab, glTF export,
+                    technical notes, troubleshooting
 licenses/           third-party software notices
 start_forge.bat     one-click launcher for Windows
 requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6)
@@ -104,12 +123,14 @@ requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6)
 
 ## Limitations
 
-- Only the 25 models above load. The other ~880 props in the ROM (enemies, NPCs,
-  vehicles, levels) are not browsable yet, and the six multiplayer versions of
-  Juno, Vela and Lupus are not included.
+- The Characters tab opens the 21 models above. The other props are only
+  browsable in the Models tab, as still pictures: no animation, no weapons and no
+  export yet. The six multiplayer versions of Juno, Vela and Lupus are not in the
+  Characters tab.
 - The texture decoder handles the formats these characters use (RGBA32,
   RGBA16, IA8 and one multi-image RGBA16 layout). Others are shown as unknown;
-  none of them is drawn on any of the 25 models.
+  none of them is drawn on any of the 21 characters, but 67 props in the Models
+  tab have a part that shows grey for this reason.
 - Animation numbers are technical IDs. They have no gameplay names unless that
   was verified.
 - The Movement / Speed slider is a preview input, not a live game value.

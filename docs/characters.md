@@ -1,8 +1,10 @@
 # Characters and evidence levels
 
-JFG Forge opens 25 models, in three groups. The game's object table lists 31
-"player" definitions; the other six are the multiplayer versions of Juno, Vela
-and Lupus, which are not included yet (see the end of this page).
+The Characters tab opens 21 models, in three groups. The game's object table
+lists 31 "player" definitions. Four more are low-detail copies of the ship models
+and six are the multiplayer versions of Juno, Vela and Lupus; none of those ten
+is in the Characters tab (see the end of this page). Every prop, including the
+low-detail ships, can be viewed in the [Models tab](models.md).
 
 ## Evidence labels
 
@@ -82,15 +84,17 @@ for the campaign characters.
 
 ## Hover ships
 
-The four hover ship models that the game defines as player objects, each with a
-low-detail version.
+The four hover ship models that the game defines as player objects.
 
-| Entry | Props (detailed, low detail) | Active faces |
-|---|---|---|
-| Yellow Ant Ship | 225, 226 | 192, 62 |
-| Red Ant Ship | 228, 229 | 208, 62 |
-| Blue Ant Ship | 231, 232 | 192, 62 |
-| Green Ant Ship | 234, 235 | 210, 62 |
+| Entry | Prop | Active faces |
+|---|---:|---:|
+| Yellow Ant Ship | 225 | 192 |
+| Red Ant Ship | 228 | 208 |
+| Blue Ant Ship | 231 | 192 |
+| Green Ant Ship | 234 | 210 |
+
+The game also has a low-detail copy of each ship (Props 226, 229, 232 and 235,
+62 faces each). They are not in the Characters tab; open them in the Models tab.
 
 Each has 8 joints and 2 animations (IDs 779 and 780). Animation 779 is a looping
 40-sample motion; animation 780 has no motion data and is just the ship's base
@@ -117,7 +121,7 @@ socket.
 
 ## Textures
 
-On all 25 models every texture that is actually drawn decodes. A few models
+On all 21 models every texture that is actually drawn decodes. A few models
 carry one extra texture record in a format Forge does not decode (the known
 `0x3300` record and a few others); the game never draws it on these models, so
 nothing is missing from the pictures. The model info panel still counts such a
@@ -128,6 +132,7 @@ record as "UNKNOWN".
 - The six multiplayer versions of Juno, Vela and Lupus (`MultiGirl`, `MultiBoy`,
   `MultiDog`, `MultiPowerGirl`, `MultiPowerBoy`, `MultiPowerDog`, Props 236 to
   246) with their lower-detail weapon sets.
-- Shadow and low-detail copies of the campaign characters.
+- Shadow and low-detail copies of the campaign characters and of the ships.
+  The models can be viewed in the Models tab.
 - Non-player characters (tribal villagers, the Mizar boss, Floyd) and the other
   ~880 props: enemies, vehicles, doors and level objects.

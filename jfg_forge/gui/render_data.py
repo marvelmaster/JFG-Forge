@@ -193,6 +193,14 @@ def prepare_attachment_render_data(attachment: SceneAttachment) -> PreparedRende
     return _prepare_model_render_data(attachment.attachment.model, positions)
 
 
+def prepare_static_render_data(
+    model: ModelAsset,
+    positions: tuple[tuple[float, float, float], ...],
+) -> PreparedRenderData:
+    """Prepare one static (or rest-pose) model for the viewport."""
+    return _prepare_model_render_data(model, positions)
+
+
 _CAMPAIGN_ATTACHMENT_STATUS = {
     218: "GirlGun matrix 6 placement VERIFIED",
     219: "GirlGun matrix 6 placement VERIFIED",
@@ -242,4 +250,5 @@ __all__ = [
     "model_information",
     "prepare_attachment_render_data",
     "prepare_render_data",
+    "prepare_static_render_data",
 ]

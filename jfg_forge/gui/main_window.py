@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QScrollArea,
     QSlider,
     QSplitter,
+    QTabWidget,
     QVBoxLayout,
     QWidget,
 )
@@ -46,6 +47,7 @@ from jfg_forge.gui.debug_view import (
     selected_joint_information,
 )
 from jfg_forge.gui.export_service import ExportOperation, exporter_for, suggested_filename
+from jfg_forge.gui.prop_browser import PropBrowser
 from jfg_forge.gui.playback import (
     MAX_MOVEMENT_SPEED_TICK,
     MIN_MOVEMENT_SPEED_TICK,
@@ -146,7 +148,13 @@ class MainWindow(QMainWindow):
         splitter.addWidget(self.viewport)
         splitter.setSizes([260, 920])
         splitter.setStretchFactor(1, 1)
-        self.setCentralWidget(splitter)
+        self.tabs = QTabWidget()
+        self.tabs.addTab(splitter, "Characters")
+        self.prop_browser = PropBrowser(rom_source)
+        self.tabs.addTab(self.prop_browser, "Models")
+        self.tabs.currentChanged.connect(self._tab_changed)
+        self.prop_browser.status_message.connect(lambda text: self.statusBar().showMessage(text))
+        self.setCentralWidget(self.tabs)
         self._build_export_menu()
         self.rom_status_label = QLabel(f"ROM: {rom_source.display_name}")
         self.rom_status_label.setToolTip(str(rom_source.path))
@@ -160,6 +168,18 @@ class MainWindow(QMainWindow):
         self._update_joint_display()
         self._update_attachment_display()
         self._update_time_display()
+
+    def _tab_changed(self, index: int) -> None:
+        """Pause character playback when the Models tab is opened and show a first model."""
+        if self.tabs.widget(index) is self.prop_browser:
+            if self._playback.playing:
+                self._playback.pause()
+                self._timer.stop()
+                self.play_button.setText("Play")
+            if self.prop_browser.list_widget.currentRow() < 0:
+                self.prop_browser.select_first()
+        else:
+            self._update_time_display()
 
     def _build_export_menu(self) -> None:
         file_menu = self.menuBar().addMenu("&File")

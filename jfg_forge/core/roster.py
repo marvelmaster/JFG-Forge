@@ -147,20 +147,12 @@ ROSTER: tuple[CharacterSpec, ...] = (
                "41be805bd6670299c245a34d9e86fc650ce2729334bc24144c28b793919033ac", 21, 257),
     _ship("Yellow Ant Ship", "YellowAntShip", 225, "HoverShip1",
           "0d7866386637c2f9e05321bde021047ebd34cc2d9679da6a91740d3845a74ef4", 192),
-    _ship("Yellow Ant Ship (low detail)", "YellowAntShipLod", 226, "HoverShip1Lod",
-          "314fdb33f517cd3d7f7b5696beed4d582c61b502c201af56b32dc85a6475d29d", 62),
     _ship("Red Ant Ship", "RedAntShip", 228, "HoverShip2",
           "f2e7472ef6a8bc94ac0340b8aea1cc35d7af6d41784d49ae4ce45fcf322f1550", 208),
-    _ship("Red Ant Ship (low detail)", "RedAntShipLod", 229, "HoverShip2Lod",
-          "05bcf781c58139bfb388945b4a44e0652b2ff0d5db408fc10aa8c1da736fcb54", 62),
     _ship("Blue Ant Ship", "BlueAntShip", 231, "HoverShip3",
           "6497a8e728f67d8c9aa1471c2a0633a7078b47880c4442467001586764ccaeb4", 192),
-    _ship("Blue Ant Ship (low detail)", "BlueAntShipLod", 232, "HoverShip3Lod",
-          "5bfc0b5e10a3b33716af40718906a38f3054d1ee0aa883c0099bb025a8b42a21", 62),
     _ship("Green Ant Ship", "GreenAntShip", 234, "HoverShip4",
           "19365f5a93c069fe8e7c8ac19509acd3431e11bde77d0051e479b862bbabac81", 210),
-    _ship("Green Ant Ship (low detail)", "GreenAntShipLod", 235, "HoverShip4Lod",
-          "ec74b4e8755fbfe7a57c36d48bd76eabb1d4e26d4513466355806c2a2ea5f6f1", 62),
 )
 
 _BY_KEY = {spec.key: spec for spec in ROSTER}

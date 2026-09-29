@@ -128,15 +128,29 @@ different dispatch. Which overlay the multiplayer controllers reach is not
 proven, and overlay 50's function was not decoded, so it remains possible that
 they run through that code instead.
 
-**Hover ships** (Props 225, 228, 231, 234 and their low-detail models 226, 229,
-232, 235) have 8 joints and two animations: ID 779 (40 samples, looping) and ID
+**Hover ships** (Props 225, 228, 231 and 234; their low-detail copies 226, 229,
+232 and 235 are only in the Models tab) have 8 joints and two animations: ID 779 (40 samples, looping) and ID
 780 (5 samples, base pose only). No child object is listed, so there is no weapon,
 and their controller was not analysed, so Game Timing is UNKNOWN and Forge uses
 the technical rate.
 
 Of the textures that are unknown to Forge, none is used by a drawn group on any
-of the 25 models: they are either the known `0x3300` record used only by groups
+of the 21 characters: they are either the known `0x3300` record used only by groups
 the game skips, or entries no group uses.
+
+## Props and the Models tab
+
+`core/prop_catalog.py` lists all 904 Props by reading each header: the 16-byte
+name, the joint count (byte `+0x4F`) and the animation count from asset 40. A
+Prop counts as animated if asset 40 gives it at least one clip. It is flagged
+empty when none of its drawn groups holds triangle records; two more props turn
+out empty only after degenerate triangles are removed.
+
+`load_static_model` reuses the normal model decoding. Vertices of props without
+joints all sit on joint 0 (identity) and are drawn as stored. For props with
+joints each vertex is shifted by the summed stored offsets of its joint and that
+joint's parents (rotation left at zero). A texture that Forge cannot decode
+counts as "drawn" if any group that the game draws uses it; 67 props have one.
 
 ## Known unknowns
 

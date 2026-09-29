@@ -3,6 +3,9 @@
 This page walks through the JFG Forge window from top to bottom. For
 installation see the [README](../README.md).
 
+The window has two tabs: **Characters** (sections 2 to 4 below) and **Models**
+(section 5). Only the Characters tab has animation playback, weapons and export.
+
 ## 1. Load your ROM
 
 Start JFG Forge with `start_forge.bat`. If you did not pass `--rom`, a small
@@ -94,7 +97,7 @@ that placement. Selected weapons are included in model exports.
 The viewer needs OpenGL 3.3. If it cannot start, Forge shows a renderer error
 (see [troubleshooting](troubleshooting.md)).
 
-## 4. Export
+## 4. Export (Characters tab)
 
 Open **File, then Export** and choose one of three entries:
 
@@ -107,3 +110,19 @@ Open **File, then Export** and choose one of three entries:
 Choose a `.gltf` file name and folder. Forge writes the `.gltf`, a `.bin` file
 and PNG textures next to it, so keep them together. Details are in
 [export-gltf.md](export-gltf.md).
+
+## 5. The Models tab
+
+Open the **Models** tab to browse the game's other models.
+
+| Control | What it does |
+|---|---|
+| Search box | Finds models by part of a name or an exact Prop number. |
+| Show | *Static models* (default), *Animated props (rest pose)* or *All props*. |
+| Sort by | Order the list by *Prop number* or *Name*. |
+| List | Click a model to load it; use the arrow keys to step through the list. |
+
+The panel below the list shows the model's name, Prop number, type, face and
+vertex counts, joints, animations and texture status. The 3D view has the same
+mouse controls as the Characters tab. Details, rest pose and limits are in
+[models.md](models.md).
