@@ -6,7 +6,8 @@ character, watch its animations with the game's own timing, put a weapon in its
 hand, and export the model or animation to glTF for Blender and other tools. A
 second tab, **Models**, lets you browse the game's static models (keys, doors,
 platforms, weapons and hundreds more) with their textures and names, and a
-third tab, **Audio**, plays and exports the game's music and sound effects.
+third tab, **Audio**, plays and exports the game's music and sound effects. A
+fourth tab, **Levels**, shows the textured geometry of the game's levels.
 
 ![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
 
@@ -20,6 +21,10 @@ the model info, animation browser, timing and attachment controls on the left.*
 ![The Audio tab with the Music segment showing Song 05, its length and the play and export controls](docs/screenshot-audio.png)
 
 *The Audio tab: the game's songs and sound effects, with playback and WAV/MP3 export.*
+
+![The Levels tab showing CargoShip Sewer1 as a textured 3D level](docs/screenshot-levels.png)
+
+*The Levels tab: 412 named levels, each shown with its textures.*
 
 **No game ROM and no game assets are included.** You need your own legally
 obtained US ROM. See [Legal](#legal).
@@ -123,6 +128,12 @@ play as you select them), set the volume, and use **Export WAV...** or
 and instrument data, so they sound close to the game but not identical. Details
 and limits are in [docs/audio.md](docs/audio.md).
 
+## Levels tab
+
+The **Levels** tab lists the game's 412 named levels. Pick one to see its
+textured geometry and orbit around it. Objects, lighting and vertex colours are
+not shown yet. Details and limits are in [docs/levels.md](docs/levels.md).
+
 ## Project layout
 
 ```
@@ -131,7 +142,7 @@ jfg_forge/
   core/             ROM validation, prop bank, model and texture decoding,
                     animation and timing data, scenes, glTF export
   gui/              the Qt/OpenGL window, playback, export menu
-docs/               usage guide, characters, models tab, audio tab, glTF
+docs/               usage guide, characters, models, audio and levels tabs, glTF
                     export, technical notes, troubleshooting
 licenses/           third-party software notices
 start_forge.bat     one-click launcher for Windows

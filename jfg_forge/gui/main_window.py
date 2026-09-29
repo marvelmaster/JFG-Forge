@@ -49,6 +49,7 @@ from jfg_forge.gui.debug_view import (
 )
 from jfg_forge.gui.export_service import ExportOperation, exporter_for, suggested_filename
 from jfg_forge.gui.audio_tab import AudioTab
+from jfg_forge.gui.level_browser import LevelBrowser
 from jfg_forge.gui.prop_browser import PropBrowser
 from jfg_forge.gui.playback import (
     MAX_MOVEMENT_SPEED_TICK,
@@ -161,8 +162,11 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.prop_browser, "Models")
         self.audio_tab = AudioTab(rom_source)
         self.tabs.addTab(self.audio_tab, "Audio")
+        self.level_browser = LevelBrowser(rom_source)
+        self.tabs.addTab(self.level_browser, "Levels")
         self.tabs.currentChanged.connect(self._tab_changed)
         self.prop_browser.status_message.connect(lambda text: self.statusBar().showMessage(text))
+        self.level_browser.status_message.connect(lambda text: self.statusBar().showMessage(text))
         self.setCentralWidget(self.tabs)
         self._build_export_menu()
         self.rom_status_label = QLabel(f"ROM: {rom_source.display_name}")
@@ -184,7 +188,7 @@ class MainWindow(QMainWindow):
         widget = self.tabs.widget(index)
         if widget is not self.audio_tab:
             self.audio_tab.stop()
-        if widget is self.prop_browser or widget is self.audio_tab:
+        if widget is not self.tabs.widget(0):
             if self._playback.playing:
                 self._playback.pause()
                 self._timer.stop()
@@ -192,6 +196,9 @@ class MainWindow(QMainWindow):
         if widget is self.prop_browser:
             if self.prop_browser.list_widget.currentRow() < 0:
                 self.prop_browser.select_first()
+        elif widget is self.level_browser:
+            if self.level_browser.list_widget.currentRow() < 0:
+                self.level_browser.select_first()
         elif widget is self.audio_tab:
             self.audio_tab.ensure_loaded()
             self.statusBar().showMessage("Audio — music and sound effects")

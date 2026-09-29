@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 from jfg_forge.core.scene import evaluate_attachment_positions, evaluate_rigid_mesh_positions
 from jfg_forge.core.roster import ROSTER
 from jfg_forge.core.asset_types import BoySceneSnapshot, EvidenceStatus, ModelAsset, SceneAttachment
 from jfg_forge.core.rdp_material import primitive_material_state
+
+if TYPE_CHECKING:
+    from jfg_forge.core.level_data import LevelGeometry
 
 
 NEUTRAL_FALLBACK_RGBA = (0.55, 0.55, 0.55, 1.0)
@@ -201,6 +205,52 @@ def prepare_static_render_data(
     return _prepare_model_render_data(model, positions)
 
 
+def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
+    """Prepare one level block: opaque or cut-out textured triangles, no lighting."""
+    textures: dict[int, PreparedTexture] = {}
+    cutout: set[int] = set()
+    for texture in geometry.textures:
+        if texture.rgba is None:
+            continue
+        textures[texture.index] = PreparedTexture(
+            texture.index, texture.width, texture.height, texture.rgba, "REPEAT", "REPEAT"
+        )
+        if min(texture.rgba[3::4]) < 128:
+            cutout.add(texture.index)
+    batches = []
+    for batch in geometry.batches:
+        drawn = batch.texture_index in textures
+        if batch.texture_index is None:
+            reason = "no texture assigned"
+        elif not drawn:
+            reason = "UNKNOWN texture format"
+        else:
+            reason = None
+        batches.append(
+            PreparedBatch(
+                first_vertex=batch.first_vertex,
+                vertex_count=batch.vertex_count,
+                texture_index=batch.texture_index if drawn else None,
+                double_sided=True,
+                uses_verified_texture=drawn,
+                fallback_rgba=NEUTRAL_FALLBACK_RGBA,
+                fallback_reason=reason,
+                alpha_mode="MASK" if batch.texture_index in cutout else "OPAQUE",
+            )
+        )
+    positions = geometry.positions
+    minimum = tuple(min(point[axis] for point in positions) for axis in range(3))
+    maximum = tuple(max(point[axis] for point in positions) for axis in range(3))
+    return PreparedRenderData(
+        positions=positions,
+        uvs=geometry.uvs,
+        batches=tuple(batches),
+        textures=tuple(textures.values()),
+        bounds_minimum=minimum,
+        bounds_maximum=maximum,
+    )
+
+
 _CAMPAIGN_ATTACHMENT_STATUS = {
     218: "GirlGun matrix 6 placement VERIFIED",
     219: "GirlGun matrix 6 placement VERIFIED",
@@ -242,6 +292,7 @@ def model_information(scene: BoySceneSnapshot) -> ModelInformation:
 
 
 __all__ = [
+    "prepare_level_render_data",
     "ModelInformation",
     "NEUTRAL_FALLBACK_RGBA",
     "PreparedBatch",

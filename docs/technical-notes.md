@@ -195,6 +195,11 @@ sample's pitch ratio `2^(((note - keyBase) * 100 + detune) / 1200)`. Pitch was
 checked by rendering middle C through single-sound instruments: the strongest
 partial lands on 261.6 Hz for the instruments that have it as their fundamental.
 
+## Levels
+
+Level names live in assets 30/31 and geometry in assets 36/37; the format and its
+evidence are in [levels.md](levels.md).
+
 ## Known unknowns
 
 - Several model header fields and vertex attributes.
@@ -202,4 +207,5 @@ partial lands on 261.6 Hz for the instruments that have it as their fundamental.
 - The player state flags behind the timing rules.
 - Whether the multiplayer characters' controllers match Juno's and Vela's.
 - The timing and meaning of the hover ships' animations.
+- Batch flag bits, vertex colours and the remaining header tables of level blocks.
 - Names of songs and sound effects, and how the console's synthesizer differs from Forge's renderer (reverb, chorus, sustain, bends).

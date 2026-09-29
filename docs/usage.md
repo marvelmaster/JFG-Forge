@@ -3,8 +3,8 @@
 This page walks through the JFG Forge window from top to bottom. For
 installation see the [README](../README.md).
 
-The window has three tabs: **Characters** (sections 2 to 4 below), **Models**
-(section 5) and **Audio** (section 6). Only the Characters tab has animation
+The window has four tabs: **Characters** (sections 2 to 4 below), **Models**
+(section 5), **Audio** (section 6) and **Levels** (section 7). Only the Characters tab has animation
 playback, weapons and glTF export.
 
 ## 1. Load your ROM
@@ -149,3 +149,10 @@ The **Audio** tab has two segments, **Music** and **Sounds**.
 
 The details above the buttons show the tempo, note count and rendered length of a
 song, or the sample, pitch and volume of a sound. See [audio.md](audio.md).
+
+## 7. The Levels tab
+
+Search by name or level number, sort by number, name or geometry block, and click
+a level to view its textured geometry with the same mouse controls as the Models
+tab. Levels that share geometry (cut-scene and night versions) look the same. See
+[levels.md](levels.md).
