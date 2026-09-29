@@ -1,0 +1,40 @@
+# Game ROMs and emulator media: never commit these
+*.z64
+*.n64
+*.v64
+*.rom
+*.ndd
+/rom/
+/ROM/
+/local/
+
+# Extracted game data and user exports
+*.bin
+*.gltf
+*.glb
+*.obj
+*.mtl
+*.png
+!docs/*.png
+/export/
+/exports/
+/output/
+/local_output/
+
+# Python and environment files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Editors, operating system files, logs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp

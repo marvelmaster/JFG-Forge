@@ -1,0 +1,3 @@
+# Keep Windows batch files exactly as written (CRLF) so cmd.exe runs them
+# correctly, including from a GitHub ZIP download.
+*.bat -text
