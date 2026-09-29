@@ -5,6 +5,11 @@ of *Jet Force Gemini* (Nintendo 64, US release). You load your own ROM, pick a
 character, watch its animations with the game's own timing, put a weapon in its
 hand, and export the model or animation to glTF for Blender and other tools.
 
+![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
+
+*JFG Forge with Vela selected: the textured, animated model in the 3D view, and
+the model info, animation browser, timing and attachment controls on the left.*
+
 **No game ROM and no game assets are included.** You need your own legally
 obtained US ROM. See [Legal](#legal).
 
