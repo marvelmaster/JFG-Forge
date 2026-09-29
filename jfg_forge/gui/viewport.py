@@ -98,19 +98,36 @@ from jfg_forge.gui.render_data import (
 )
 
 
+VERTEX_FLOATS = 8  # position (3), texture coordinates (2), shade colour (3)
+
+
+def pack_vertices(data: PreparedRenderData) -> np.ndarray:
+    """Interleave positions, UVs and shade colours (white when the data has none)."""
+    packed = np.ones((len(data.positions), VERTEX_FLOATS), dtype=np.float32)
+    packed[:, :3] = np.asarray(data.positions, dtype=np.float32)
+    packed[:, 3:5] = np.asarray(data.uvs, dtype=np.float32)
+    if len(data.colors) == len(data.positions) and len(data.colors):
+        packed[:, 5:8] = np.asarray(data.colors, dtype=np.float32)
+    return packed
+
+
 _VERTEX_SHADER = """#version 330 core
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec2 in_uv;
+layout(location = 2) in vec3 in_shade;
 uniform mat4 mvp;
 out vec2 uv;
+out vec3 shade;
 void main() {
     gl_Position = mvp * vec4(in_position, 1.0);
     uv = in_uv;
+    shade = in_shade;
 }
 """
 
 _FRAGMENT_SHADER = """#version 330 core
 in vec2 uv;
+in vec3 shade;
 uniform sampler2D color_texture;
 uniform bool use_texture;
 uniform int alpha_mode;
@@ -118,6 +135,7 @@ uniform vec4 fallback_color;
 out vec4 fragment_color;
 void main() {
     fragment_color = use_texture ? texture(color_texture, uv) : fallback_color;
+    fragment_color.rgb *= shade;  // TEXEL0 * SHADE: the vertex colour tints the texture
     if (alpha_mode == 1 && fragment_color.a < 0.5) discard;
     if (alpha_mode != 2) fragment_color.a = 1.0;
 }
@@ -192,9 +210,7 @@ class ModelViewport(QOpenGLWidget):
     ) -> None:
         super().__init__(parent)
         self._data = data
-        self._vertex_data = np.empty((len(data.positions), 5), dtype=np.float32)
-        self._vertex_data[:, :3] = np.asarray(data.positions, dtype=np.float32)
-        self._vertex_data[:, 3:] = np.asarray(data.uvs, dtype=np.float32)
+        self._vertex_data = pack_vertices(data)
         self._skeleton = skeleton
         self._skeleton_vertex_data = np.asarray(
             skeleton.edge_positions + skeleton.joint_positions,
@@ -247,11 +263,13 @@ class ModelViewport(QOpenGLWidget):
         glBindVertexArray(self._vao)
         glBindBuffer(GL_ARRAY_BUFFER, self._vbo)
         glBufferData(GL_ARRAY_BUFFER, self._vertex_data.nbytes, self._vertex_data, GL_DYNAMIC_DRAW)
-        stride = 5 * self._vertex_data.itemsize
+        stride = VERTEX_FLOATS * self._vertex_data.itemsize
         glEnableVertexAttribArray(0)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, ctypes.c_void_p(0))
         glEnableVertexAttribArray(1)
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, ctypes.c_void_p(3 * self._vertex_data.itemsize))
+        glEnableVertexAttribArray(2)
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, ctypes.c_void_p(5 * self._vertex_data.itemsize))
         glBindVertexArray(0)
 
     def _upload_skeleton(self) -> None:
@@ -320,9 +338,7 @@ class ModelViewport(QOpenGLWidget):
             self.makeCurrent()
             self._destroy_model_resources()
         self._data = data
-        self._vertex_data = np.empty((len(data.positions), 5), dtype=np.float32)
-        self._vertex_data[:, :3] = np.asarray(data.positions, dtype=np.float32)
-        self._vertex_data[:, 3:] = np.asarray(data.uvs, dtype=np.float32)
+        self._vertex_data = pack_vertices(data)
         self._skeleton = skeleton
         self._skeleton_vertex_data = np.asarray(
             skeleton.edge_positions + skeleton.joint_positions,
@@ -346,9 +362,7 @@ class ModelViewport(QOpenGLWidget):
         if data is None:
             self._attachment_vertex_data = None
         else:
-            self._attachment_vertex_data = np.empty((len(data.positions), 5), dtype=np.float32)
-            self._attachment_vertex_data[:, :3] = np.asarray(data.positions, dtype=np.float32)
-            self._attachment_vertex_data[:, 3:] = np.asarray(data.uvs, dtype=np.float32)
+            self._attachment_vertex_data = pack_vertices(data)
             if self._program and not self._failed:
                 self._upload_attachment()
         if self._program and not self._failed:
@@ -391,7 +405,7 @@ class ModelViewport(QOpenGLWidget):
             self._attachment_vertex_data,
             GL_DYNAMIC_DRAW,
         )
-        stride = 5 * self._attachment_vertex_data.itemsize
+        stride = VERTEX_FLOATS * self._attachment_vertex_data.itemsize
         glEnableVertexAttribArray(0)
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, ctypes.c_void_p(0))
         glEnableVertexAttribArray(1)
@@ -402,6 +416,10 @@ class ModelViewport(QOpenGLWidget):
             GL_FALSE,
             stride,
             ctypes.c_void_p(3 * self._attachment_vertex_data.itemsize),
+        )
+        glEnableVertexAttribArray(2)
+        glVertexAttribPointer(
+            2, 3, GL_FLOAT, GL_FALSE, stride, ctypes.c_void_p(5 * self._attachment_vertex_data.itemsize)
         )
         glBindVertexArray(0)
         self._attachment_textures = self._create_textures(self._attachment_data)

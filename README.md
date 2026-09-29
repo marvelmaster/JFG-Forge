@@ -136,7 +136,7 @@ and limits are in [docs/audio.md](docs/audio.md).
 ## Levels tab
 
 The **Levels** tab lists the game's 412 named levels. Pick one to see its
-textured geometry and orbit around it. Objects, lighting and vertex colours are
+textured geometry and orbit around it. Objects, sky and water are
 not shown yet. Details and limits are in [docs/levels.md](docs/levels.md).
 
 ## Names

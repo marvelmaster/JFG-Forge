@@ -33,10 +33,17 @@ The full list of users is shown for each texture.
 
 ## Decoding and limits
 
-7,193 of 7,320 textures decode (RGBA32, RGBA16 and IA8). The strict decoder that
-handles most is VERIFIED against reference images for RGBA16. Textures that carry
-mipmap bytes after the pixels, or have no stride in their header (about 760),
-decode through a lenient path that shows the base image of each frame; that path
-is LIKELY, not VERIFIED. About 117 textures use other N64 formats (numbers 2, 3,
-4 and 6) that are not decoded yet and are marked `[not decoded]`, and four
-containers are damaged or use another compression marker.
+7,310 of 7,320 textures decode. The header's format number is one of the standard
+N64 image formats: 0 RGBA32, 1 RGBA16, 2 I8, 3 I4, 4 IA16, 5 IA8, 6 IA4 (the
+texel sizes match, for example format 3 stores half a byte per texel). The strict
+decoder that handles most textures is VERIFIED against reference images for
+RGBA16. Textures that carry mipmap bytes after the pixels, or have no stride in
+their header (about 760), and the formats I8, I4, IA16 and IA4 decode through a
+lenient path that shows the base image of each frame; that path is LIKELY, not
+VERIFIED. In every one of these formats except RGBA32 the odd rows are stored
+with their 4-byte words swapped (the way texture memory holds them), which Forge
+undoes; this was found by checking that images become smooth, and it also
+corrects the IA8 textures (ship glows and similar), which were slightly scrambled
+before. RGBA32 is left as stored because its evidence is mixed. Ten textures
+(Bank B, numbers 180 to 189) are in containers that use another compression
+marker and are still not decoded.

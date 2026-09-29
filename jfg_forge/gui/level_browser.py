@@ -120,7 +120,7 @@ class LevelBrowser(QWidget):
             info.addRow(label, widget)
         layout.addLayout(info)
         hint = QLabel(
-            "Geometry only: no objects, lighting or vertex colours yet. "
+            "Geometry only: no objects, sky or water yet; the baked vertex shading is applied. "
             "Drag to orbit, middle-drag to pan, wheel to zoom."
         )
         hint.setWordWrap(True)

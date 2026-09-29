@@ -19,19 +19,19 @@ from dataclasses import dataclass
 from jfg_forge.core.level_data import decode_block
 from jfg_forge.core.model_parser import _asset_lut, _asset_range, decompress_texture_container, parse_model
 from jfg_forge.core.rom_source import RomSource
-from jfg_forge.core.texture_formats import DecodedModelTexture, decode_model_texture_frame
+from jfg_forge.core.texture_formats import (
+    DecodedModelTexture,
+    decode_model_texture_frame,
+    decode_model_texture_lenient,
+)
 from jfg_forge.core.texture_rgba16 import (
-    HEADER_SIZE,
-    TextureHeader,
     TextureValidationError,
-    apply_odd_row_block_swap,
-    decode_rgba5551,
 )
 
 BANK_A = "A"
 BANK_B = "B"
 _BANK_ASSETS = {BANK_A: (1, 0), BANK_B: (3, 2)}
-FORMAT_NAMES = {0: "RGBA32", 1: "RGBA16", 5: "IA8"}
+FORMAT_NAMES = {0: "RGBA32", 1: "RGBA16", 2: "I8", 3: "I4", 4: "IA16", 5: "IA8", 6: "IA4"}
 PROP_COUNT = 904
 
 
@@ -92,60 +92,13 @@ def list_textures(source: RomSource) -> tuple[TextureEntry, ...]:
     return tuple(entries)
 
 
-def _lenient_decode(binary: bytes, frame: int) -> DecodedModelTexture:
-    """Decode textures the strict model decoder refuses.
-
-    Two layouts are covered: frames whose stride is larger than the pixels
-    (the extra bytes are the smaller mipmap levels, which are skipped) and
-    headers with a zero stride (frames are stored back to back). Only the base
-    image of the requested frame is decoded. LIKELY, not VERIFIED.
-    """
-    if len(binary) < HEADER_SIZE:
-        raise TextureValidationError("Texture is shorter than its 32-byte header.")
-    width, height = binary[0], binary[1]
-    format_id = binary[2] & 0x0F
-    if width == 0 or height == 0 or format_id not in (0, 1, 5):
-        raise TextureValidationError("Unsupported texture layout.")
-    pixel_bytes = width * height * {0: 4, 1: 2, 5: 1}[format_id]
-    frame_count = max(int.from_bytes(binary[0x12:0x14], "big") >> 8, 1)
-    stride = int.from_bytes(binary[0x16:0x18], "big") or pixel_bytes
-    if stride < pixel_bytes:
-        raise TextureValidationError("Texture frame stride is smaller than its pixels.")
-    chosen = frame if 0 <= frame < frame_count else 0
-    start = HEADER_SIZE + chosen * stride
-    pixels = binary[start : start + pixel_bytes]
-    if len(pixels) != pixel_bytes:
-        raise TextureValidationError("Texture data is shorter than its header says.")
-    if format_id == 1:
-        rgba = apply_odd_row_block_swap(decode_rgba5551(pixels), width, height)
-    elif format_id == 0:
-        rgba = pixels
-    else:
-        out = bytearray(width * height * 4)
-        for i, pixel in enumerate(pixels):
-            intensity, alpha = ((pixel >> 4) & 0x0F) * 17, (pixel & 0x0F) * 17
-            out[i * 4 : i * 4 + 4] = bytes((intensity, intensity, intensity, alpha))
-        rgba = bytes(out)
-    return DecodedModelTexture(
-        header=TextureHeader(width=width, height=height, raw=binary[:HEADER_SIZE]),
-        rgba=rgba,
-        format_id=format_id,
-        format_name=FORMAT_NAMES[format_id],
-        format_flags=binary[2] >> 4,
-        frame_count=frame_count,
-        frame_stride=stride,
-        selected_frame=chosen,
-        trailing_frame_bytes=stride - pixel_bytes,
-    )
-
-
 def decode_texture_entry(source: RomSource, entry: TextureEntry, frame: int = 0) -> DecodedModelTexture:
     """Decode one frame of a texture; raises for formats outside the decoder."""
     binary = decompress_texture_container(source.data, entry.rom_offset)
     try:
         return decode_model_texture_frame(binary, requested_frame=frame)
     except TextureValidationError:
-        return _lenient_decode(binary, frame)
+        return decode_model_texture_lenient(binary, frame)
 
 
 def find_usage(source: RomSource) -> dict[tuple[str, int], list[str]]:

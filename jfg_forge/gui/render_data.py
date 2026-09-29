@@ -54,6 +54,8 @@ class PreparedRenderData:
     textures: tuple[PreparedTexture, ...]
     bounds_minimum: tuple[float, float, float]
     bounds_maximum: tuple[float, float, float]
+    # Per-vertex shade (the N64 combiner multiplies the texture by it); empty means white.
+    colors: tuple[tuple[float, float, float], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -116,6 +118,18 @@ def _prepare_model_render_data(
         else:
             reason = None
         material_state = primitive_material_state(model, primitive)
+        alpha_mode = "OPAQUE" if material_state is None else material_state.preview_alpha_mode(
+            None if texture is None or not texture.supported else texture.rgba
+        )
+        depth_write = True if material_state is None else material_state.depth_write
+        if (
+            verified
+            and alpha_mode == "OPAQUE"
+            and "ia8" in (texture.decoder_id or "")
+            and min(texture.rgba[3::4]) < 255
+        ):
+            # An intensity/alpha texture (glows, exhaust, shadows) is meant to be see-through.
+            alpha_mode, depth_write = "BLEND", False
         batches.append(
             PreparedBatch(
                 first_vertex=primitive.first_index,
@@ -125,10 +139,8 @@ def _prepare_model_render_data(
                 uses_verified_texture=verified,
                 fallback_rgba=NEUTRAL_FALLBACK_RGBA,
                 fallback_reason=reason,
-                alpha_mode="OPAQUE" if material_state is None else material_state.preview_alpha_mode(
-                    None if texture is None or not texture.supported else texture.rgba
-                ),
-                depth_write=True if material_state is None else material_state.depth_write,
+                alpha_mode=alpha_mode,
+                depth_write=depth_write,
                 depth_compare=True if material_state is None else material_state.depth_compare,
                 z_mode=0 if material_state is None else material_state.z_mode,
             )
@@ -136,6 +148,10 @@ def _prepare_model_render_data(
 
     minimum = tuple(min(point[axis] for point in positions) for axis in range(3))
     maximum = tuple(max(point[axis] for point in positions) for axis in range(3))
+    colors = tuple(
+        tuple(channel / 255.0 for channel in model.source_vertices[vertex.source_vertex_index].f3ddkr_attributes[:3])
+        for vertex in model.render_mesh.vertices
+    )
     return PreparedRenderData(
         positions=positions,
         uvs=tuple(uvs),
@@ -143,6 +159,7 @@ def _prepare_model_render_data(
         textures=tuple(prepared_textures),
         bounds_minimum=minimum,
         bounds_maximum=maximum,
+        colors=colors,
     )
 
 
@@ -248,6 +265,7 @@ def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
         textures=tuple(textures.values()),
         bounds_minimum=minimum,
         bounds_maximum=maximum,
+        colors=geometry.colors,
     )
 
 

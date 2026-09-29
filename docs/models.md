@@ -59,10 +59,12 @@ lists afterwards.
 
 ## Textures
 
-Forge decodes the texture formats used by the game's characters (RGBA32, RGBA16,
-IA8 and one multi-image RGBA16 layout). Some props use a format it does not
-decode. Parts that use such a texture are drawn grey, and the **Textures** line
-says how many were not decoded. This affects 67 props.
+Forge decodes all seven texture formats the game uses (RGBA32, RGBA16, I8, I4, IA16,
+IA8 and IA4), including textures with mipmaps or several frames. Every texture
+that a drawable prop actually shows decodes. A texture that ever fails to decode
+is drawn grey and the **Textures** line says how many were not decoded. Textures
+with several frames show their first frame, and textures on the separate mipmapped
+tile path are drawn with default wrapping. See [textures.md](textures.md).
 
 ## Limits
 

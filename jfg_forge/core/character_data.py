@@ -50,7 +50,7 @@ from jfg_forge.core.texture_rgba16 import (
     TextureValidationError,
     decode_texture,
 )
-from jfg_forge.core.texture_formats import decode_model_texture_frame
+from jfg_forge.core.texture_formats import decode_model_texture_frame, decode_model_texture_lenient
 
 
 BOYGUN_ATTACHMENT = AttachmentDefinition(
@@ -131,23 +131,35 @@ def _decode_textures(
                 for group in parsed.groups
                 if group.texture_index == texture_index and not group.runtime_skipped
             ]
-            if frame_indices and len(set(frame_indices)) == 1:
+            if frame_indices:
+                # Groups that show one texture at different frames of an animated texture
+                # disagree; the base frame is shown for those.
+                chosen_frame = frame_indices[0] if len(set(frame_indices)) == 1 else 0
                 try:
                     binary = decompress_texture_container(
                         rom, record["compressed_stream_rom_offset"]
                     )
-                    decoded = decode_model_texture_frame(
-                        binary, requested_frame=frame_indices[0]
-                    )
+                    try:
+                        decoded = decode_model_texture_frame(
+                            binary, requested_frame=chosen_frame
+                        )
+                    except TextureValidationError:
+                        # mipmap tails, missing strides and the I8/I4/IA16/IA4 formats
+                        decoded = decode_model_texture_lenient(binary, chosen_frame)
                     width, height = decoded.header.width, decoded.header.height
                     rgba = decoded.rgba
                     decoder_id = f"n64-{decoded.format_name.lower()}-frame-v1"
-                    sampler = decode_tile_state(record)
+                    try:
+                        sampler = decode_tile_state(record)
+                    except BoyExportError:
+                        # the separate mipmapped tile path: show the base image with default wrapping
+                        sampler = None
+                        metadata["tile_state"] = "mipmapped tile path not decoded; default wrapping used"
                     status = EvidenceStatus.VERIFIED
                     metadata.update({
                         "n64_format_nibble": decoded.format_id,
                         "format_flags_nibble": decoded.format_flags,
-                        "requested_frame_index": frame_indices[0],
+                        "requested_frame_index": chosen_frame,
                         "selected_frame_index": decoded.selected_frame,
                         "frame_count": decoded.frame_count,
                         "frame_stride_bytes": decoded.frame_stride,

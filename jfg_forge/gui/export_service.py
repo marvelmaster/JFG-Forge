@@ -311,6 +311,18 @@ def _append_attachment(
                 maximum=[max(positions[axis::3]) for axis in range(3)],
             )
         }
+        shade = [
+            channel / 255.0
+            for vertex in vertices
+            for channel in attachment.model.source_vertices[vertex.source_vertex_index].f3ddkr_attributes[:3]
+        ]
+        attributes["COLOR_0"] = _append_accessor(  # the N64 shade that multiplies the texture
+            gltf,
+            data,
+            _pack_floats(shade),
+            count=count,
+            type_name="VEC3",
+        )
         texture = (
             None
             if primitive.texture_index is None

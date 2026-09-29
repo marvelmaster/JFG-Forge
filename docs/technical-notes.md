@@ -212,5 +212,5 @@ The two texture pools and the lenient decoder are described in
 - The player state flags behind the timing rules.
 - Whether the multiplayer characters' controllers match Juno's and Vela's.
 - The timing and meaning of the hover ships' animations.
-- Batch flag bits, vertex colours and the remaining header tables of level blocks.
+- Batch flag bits and the remaining header tables of level blocks.
 - Names of most sound effects (only 78 of 640 have a code-derived label), and how the console's synthesizer differs from Forge's renderer (reverb, chorus, sustain, bends).

@@ -18,10 +18,11 @@ here. The **Same geometry** line lists them.
 ## What is shown
 
 Only the level's static world geometry with its textures. Not shown yet: objects
-and enemies, lighting and vertex colours, sky, water, collision, and any
+and enemies, sky, water, collision, and any
 per-level texture animation. Some materials use plain grey or a flat colour
 where the game blends or scrolls them. Level geometry uses the same 3D view as
-the Models tab.
+the Models tab. Each vertex carries a colour (the level's baked shading), which tints
+the texture the way the console does.
 
 ## How it is read (evidence)
 
@@ -32,7 +33,8 @@ the Models tab.
 | Block layout: header offsets, 8-byte texture records, 0x48-byte segments, 16-byte batches, 16-byte triangles, 10-byte vertices. Triangle indices are relative to their batch. | VERIFIED (all 2,016 segments contiguous, 1.3 million indices in range) |
 | Texture number at record bytes 2-3, looked up in asset 1 and read from asset 0; width and height match the record in 99% of cases. | VERIFIED |
 | UV scale of 32 units per texel. | LIKELY (same as models; looks right) |
-| Meaning of batch flag bits, the remaining header tables, vertex colours. | UNKNOWN |
+| Vertex colour bytes tint the texture (texture times shade). | LIKELY (matches the material state the model code uses; looks right) |
+| Meaning of batch flag bits and the remaining header tables. | UNKNOWN |
 
-Of 11,422 texture references across all blocks, 10,811 decode; the rest use
-formats the decoder does not know and are drawn grey.
+All 11,422 texture references across all blocks decode (see [textures.md](textures.md)
+for the formats).

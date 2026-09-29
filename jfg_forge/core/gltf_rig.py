@@ -419,13 +419,14 @@ def _geometry(model: Any, textures: dict[int, dict[str, Any]], assignments: dict
                 or texture_index in decoded_textures
             )
         )
-        positions: list[float] = []; uvs: list[float] = []; joints: list[int] = []; weights: list[float] = []; sources: list[int] = []
+        positions: list[float] = []; uvs: list[float] = []; colors: list[float] = []; joints: list[int] = []; weights: list[float] = []; sources: list[int] = []
         first = primitive.first_index
         for local_index, vertex in enumerate(render_mesh.vertices[first : first + primitive.index_count]):
             delta = decal_plan.vertex_offsets[first + local_index]
             positions.extend(vertex.position[axis] + delta[axis] for axis in range(3))
             sources.append(vertex.source_vertex_index); render_source_indices.append(vertex.source_vertex_index)
             joints.extend((vertex.joint_id, 0, 0, 0)); weights.extend((1.0, 0.0, 0.0, 0.0))
+            colors.extend(channel / 255.0 for channel in model.vertices[vertex.source_vertex_index].attributes[:3])
             if verified:
                 assert vertex.uv is not None
                 uvs.extend(_gltf_texcoord(vertex.uv))
@@ -437,6 +438,7 @@ def _geometry(model: Any, textures: dict[int, dict[str, Any]], assignments: dict
             "WEIGHTS_0": buffer.add(_pack_floats(weights), 5126, count, "VEC4", target=34962),
             "_JFG_SOURCE_INDEX": buffer.add(struct.pack("<" + "H" * len(sources), *sources), 5123, count, "SCALAR", target=34962),
         }
+        attrs["COLOR_0"] = buffer.add(_pack_floats(colors), 5126, count, "VEC3", target=34962)  # the N64 shade
         if verified:
             attrs["TEXCOORD_0"] = buffer.add(_pack_floats(uvs), 5126, count, "VEC2", target=34962)
         primitives.append({"attributes": attrs, "material": material_ref[key], "mode": 4,

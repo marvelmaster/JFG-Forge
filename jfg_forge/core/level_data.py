@@ -26,7 +26,7 @@ from functools import lru_cache
 from jfg_forge.core.model_parser import _asset_lut, _asset_range, decompress_texture_container
 from jfg_forge.core.prop_bank import decode_prop_block
 from jfg_forge.core.rom_source import RomSource
-from jfg_forge.core.texture_formats import decode_model_texture_frame
+from jfg_forge.core.texture_formats import decode_model_texture_frame, decode_model_texture_lenient
 
 NAME_TABLE_ASSET = 30
 NAME_RECORD_ASSET = 31
@@ -72,6 +72,7 @@ class LevelGeometry:
     block_id: int
     positions: tuple[tuple[float, float, float], ...]
     uvs: tuple[tuple[float, float], ...]
+    colors: tuple[tuple[float, float, float], ...]
     batches: tuple[LevelBatch, ...]
     textures: tuple[LevelTexture, ...]
     segments: int
@@ -183,7 +184,11 @@ def _load_texture(
         start, end = data_start + table[texture_id], data_start + table[texture_id + 1]
         if end > data_end or end - start < 32:
             raise LevelDataError("texture outside the pool")
-        decoded = decode_model_texture_frame(decompress_texture_container(rom, start + 32))
+        binary = decompress_texture_container(rom, start + 32)
+        try:
+            decoded = decode_model_texture_frame(binary)
+        except ValueError:  # mipmap tails, missing strides: decode the base image instead
+            decoded = decode_model_texture_lenient(binary)
         width, height = decoded.header.width, decoded.header.height
         rgba, format_name = decoded.rgba, decoded.format_name
     except Exception:  # unsupported format or damaged container: leave it undecoded
@@ -211,6 +216,7 @@ def load_level_geometry(source: RomSource, block_id: int) -> LevelGeometry:
 
     positions: list[tuple[float, float, float]] = []
     uvs: list[tuple[float, float]] = []
+    colors: list[tuple[float, float, float]] = []
     batches: list[LevelBatch] = []
     source_vertices = 0
     for segment in range(max(segment_count, 0)):
@@ -240,6 +246,8 @@ def load_level_geometry(source: RomSource, block_id: int) -> LevelGeometry:
                     at = vertex_offset + (vertex_base + corner_indices[corner]) * 10
                     x, y, z = struct.unpack_from(">3h", block, at)
                     positions.append((float(x), float(y), float(z)))
+                    red, green, blue = block[at + 6 : at + 9]
+                    colors.append((red / 255.0, green / 255.0, blue / 255.0))
                     uvs.append((
                         raw_uv[corner * 2] / (32 * width),
                         1.0 - raw_uv[corner * 2 + 1] / (32 * height),
@@ -260,6 +268,7 @@ def load_level_geometry(source: RomSource, block_id: int) -> LevelGeometry:
         block_id=block_id,
         positions=tuple(positions),
         uvs=tuple(uvs),
+        colors=tuple(colors),
         batches=tuple(batches),
         textures=textures,
         segments=max(segment_count, 0),

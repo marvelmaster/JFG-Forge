@@ -145,6 +145,14 @@ carry one extra texture record in a format Forge does not decode (the known
 nothing is missing from the pictures. The model info panel still counts such a
 record as "UNKNOWN".
 
+**Vertex colours.** Every vertex carries a colour that multiplies its texture, as on
+the console. Several parts are drawn with a plain white 4x4 texture (the ants'
+heads, for example) or a white intensity texture and get their colour only from
+the vertices, so a viewer that ignores vertex colours shows them white. Forge
+applies the colours in the 3D view and writes them to glTF exports as `COLOR_0`.
+Intensity/alpha textures (glows, such as the ships' thruster pads) are drawn
+see-through.
+
 ## Not included
 
 - The six multiplayer versions of Juno, Vela and Lupus (`MultiGirl`, `MultiBoy`,
