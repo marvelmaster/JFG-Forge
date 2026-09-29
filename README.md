@@ -7,7 +7,8 @@ hand, and export the model or animation to glTF for Blender and other tools. A
 second tab, **Models**, lets you browse the game's static models (keys, doors,
 platforms, weapons and hundreds more) with their textures and names, and a
 third tab, **Audio**, plays and exports the game's music and sound effects. A
-fourth tab, **Levels**, shows the textured geometry of the game's levels.
+fourth tab, **Levels**, shows the textured geometry of the game's levels, and a
+fifth, **Textures**, is a texture bank with previews, derived names and PNG export.
 
 ![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
 
@@ -25,6 +26,10 @@ the model info, animation browser, timing and attachment controls on the left.*
 ![The Levels tab showing CargoShip Sewer1 as a textured 3D level](docs/screenshot-levels.png)
 
 *The Levels tab: 412 named levels, each shown with its textures.*
+
+![The Textures tab showing a forest texture with its derived name, size and users](docs/screenshot-textures.png)
+
+*The Textures tab: the game's 7,320 textures with previews and PNG export.*
 
 **No game ROM and no game assets are included.** You need your own legally
 obtained US ROM. See [Legal](#legal).
@@ -134,6 +139,13 @@ The **Levels** tab lists the game's 412 named levels. Pick one to see its
 textured geometry and orbit around it. Objects, lighting and vertex colours are
 not shown yet. Details and limits are in [docs/levels.md](docs/levels.md).
 
+## Textures tab
+
+The **Textures** tab is a texture bank of all 7,320 textures. Search, filter and
+sort them, see which models and levels use each one, and export one or many as
+PNG. The ROM has no texture names, so names are derived from usage and marked as
+such. Details and limits are in [docs/textures.md](docs/textures.md).
+
 ## Project layout
 
 ```
@@ -142,7 +154,7 @@ jfg_forge/
   core/             ROM validation, prop bank, model and texture decoding,
                     animation and timing data, scenes, glTF export
   gui/              the Qt/OpenGL window, playback, export menu
-docs/               usage guide, characters, models, audio and levels tabs, glTF
+docs/               usage guide, characters, models, audio, levels and textures tabs, glTF
                     export, technical notes, troubleshooting
 licenses/           third-party software notices
 start_forge.bat     one-click launcher for Windows

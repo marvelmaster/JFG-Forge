@@ -3,8 +3,9 @@
 This page walks through the JFG Forge window from top to bottom. For
 installation see the [README](../README.md).
 
-The window has four tabs: **Characters** (sections 2 to 4 below), **Models**
-(section 5), **Audio** (section 6) and **Levels** (section 7). Only the Characters tab has animation
+The window has five tabs: **Characters** (sections 2 to 4 below), **Models**
+(section 5), **Audio** (section 6), **Levels** (section 7) and **Textures**
+(section 8). Only the Characters tab has animation
 playback, weapons and glTF export.
 
 ## 1. Load your ROM
@@ -156,3 +157,11 @@ Search by name or level number, sort by number, name or geometry block, and clic
 a level to view its textured geometry with the same mouse controls as the Models
 tab. Levels that share geometry (cut-scene and night versions) look the same. See
 [levels.md](levels.md).
+
+## 8. The Textures tab
+
+Search by name, number (such as `A2715`) or user, filter by bank and decode
+status, and click a texture to preview it. **Export PNG...** saves the selected
+texture; **Export shown list as PNG files...** saves every decodable texture in
+the current list to a folder. Names are derived from usage because the ROM has
+none. See [textures.md](textures.md).

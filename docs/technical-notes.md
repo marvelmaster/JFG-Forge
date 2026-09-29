@@ -200,6 +200,11 @@ partial lands on 261.6 Hz for the instruments that have it as their fundamental.
 Level names live in assets 30/31 and geometry in assets 36/37; the format and its
 evidence are in [levels.md](levels.md).
 
+## Textures
+
+The two texture pools and the lenient decoder are described in
+[textures.md](textures.md).
+
 ## Known unknowns
 
 - Several model header fields and vertex attributes.
