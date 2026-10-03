@@ -33,7 +33,7 @@ The full list of users is shown for each texture.
 
 ## Decoding and limits
 
-7,310 of 7,320 textures decode. The header's format number is one of the standard
+All 7,320 textures decode. The header's format number is one of the standard
 N64 image formats: 0 RGBA32, 1 RGBA16, 2 I8, 3 I4, 4 IA16, 5 IA8, 6 IA4 (the
 texel sizes match, for example format 3 stores half a byte per texel). The strict
 decoder that handles most textures is VERIFIED against reference images for
@@ -44,6 +44,6 @@ VERIFIED. In every one of these formats except RGBA32 the odd rows are stored
 with their 4-byte words swapped (the way texture memory holds them), which Forge
 undoes; this was found by checking that images become smooth, and it also
 corrects the IA8 textures (ship glows and similar), which were slightly scrambled
-before. RGBA32 is left as stored because its evidence is mixed. Ten textures
-(Bank B, numbers 180 to 189) are in containers that use another compression
-marker and are still not decoded.
+before. RGBA32 is left as stored because its evidence is mixed. Nine textures
+(Bank B, numbers 180 to 188) are not compressed at all (their header flag at +0x19
+is 0), so Forge reads their pixels directly.

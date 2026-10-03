@@ -17,13 +17,20 @@ import struct
 from dataclasses import dataclass
 
 from jfg_forge.core.level_data import decode_block
-from jfg_forge.core.model_parser import _asset_lut, _asset_range, decompress_texture_container, parse_model
+from jfg_forge.core.model_parser import (
+    BoyExportError,
+    _asset_lut,
+    _asset_range,
+    decompress_texture_container,
+    parse_model,
+)
 from jfg_forge.core.rom_source import RomSource
 from jfg_forge.core.texture_formats import (
     DecodedModelTexture,
     decode_model_texture_frame,
     decode_model_texture_lenient,
 )
+from jfg_forge.core.texture_formats import _BITS_PER_TEXEL
 from jfg_forge.core.texture_rgba16 import (
     TextureValidationError,
 )
@@ -92,9 +99,22 @@ def list_textures(source: RomSource) -> tuple[TextureEntry, ...]:
     return tuple(entries)
 
 
+def _stored_texture(rom: bytes, entry: TextureEntry) -> bytes:
+    """An uncompressed texture: header flag 0x19 is 0 and the pixels follow the header as they are."""
+    header = rom[entry.rom_offset - 32 : entry.rom_offset]
+    if header[0x19] != 0:
+        raise BoyExportError(f"Texture container 0x{entry.rom_offset:X} is neither compressed nor stored.")
+    frames = max(int.from_bytes(header[0x12:0x14], "big") >> 8, 1)
+    pixels = entry.width * entry.height * _BITS_PER_TEXEL[header[2] & 0x0F] // 8
+    return header + rom[entry.rom_offset : entry.rom_offset + pixels * frames]
+
+
 def decode_texture_entry(source: RomSource, entry: TextureEntry, frame: int = 0) -> DecodedModelTexture:
     """Decode one frame of a texture; raises for formats outside the decoder."""
-    binary = decompress_texture_container(source.data, entry.rom_offset)
+    try:
+        binary = decompress_texture_container(source.data, entry.rom_offset)
+    except BoyExportError:
+        binary = _stored_texture(source.data, entry)
     try:
         return decode_model_texture_frame(binary, requested_frame=frame)
     except TextureValidationError:
