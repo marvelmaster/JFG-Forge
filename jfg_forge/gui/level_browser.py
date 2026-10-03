@@ -5,6 +5,7 @@ from __future__ import annotations
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import (
+    QCheckBox,
     QComboBox,
     QFormLayout,
     QFrame,
@@ -90,6 +91,11 @@ class LevelBrowser(QWidget):
             self.sort_combo.addItem(label, label)
         form.addRow("Sort by", self.sort_combo)
         layout.addLayout(form)
+        self.hidden_check = QCheckBox("Show hidden helper surfaces")
+        self.hidden_check.setToolTip(
+            "Flat purple-and-white surfaces the game never draws (collision and trigger helpers)."
+        )
+        layout.addWidget(self.hidden_check)
         self.count_label = QLabel("")
         layout.addWidget(self.count_label)
         self.list_widget = QListWidget()
@@ -128,6 +134,7 @@ class LevelBrowser(QWidget):
 
         self.search_edit.textChanged.connect(self._refresh_list)
         self.sort_combo.currentIndexChanged.connect(self._refresh_list)
+        self.hidden_check.toggled.connect(self._redraw)
         self.list_widget.currentItemChanged.connect(self._select_item)
         return panel
 
@@ -171,7 +178,7 @@ class LevelBrowser(QWidget):
         QGuiApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         try:
             geometry = self._geometry(entry.block_id)
-            data = prepare_level_render_data(geometry)
+            data = prepare_level_render_data(geometry, show_hidden=self.hidden_check.isChecked())
         except (LevelDataError, ValueError, OSError) as error:
             self._show_message(f"{entry.name} (#{index}) cannot be shown: {error}")
             self.status_message.emit(f"Levels / {entry.name} — no geometry to show")
@@ -187,7 +194,13 @@ class LevelBrowser(QWidget):
             self._viewport.set_model_data(data, _NO_SKELETON)
         self._message.hide()
         self._viewport.show()
-        self.faces_value.setText(f"{geometry.faces:,}")
+        shown = geometry.faces if self.hidden_check.isChecked() else geometry.faces - geometry.hidden_faces
+        text = f"{shown:,}"
+        if geometry.hidden_faces:
+            text += f" (+{geometry.hidden_faces:,} hidden helper faces)" if not self.hidden_check.isChecked() else (
+                f" (including {geometry.hidden_faces:,} hidden helper faces)"
+            )
+        self.faces_value.setText(text)
         self.vertices_value.setText(f"{geometry.source_vertices:,}")
         self.segments_value.setText(str(geometry.segments))
         text = f"{geometry.decoded_textures} of {len(geometry.textures)} decoded"
@@ -196,8 +209,12 @@ class LevelBrowser(QWidget):
             text += f"; {missing} undecoded (drawn grey)"
         self.textures_value.setText(text)
         self.status_message.emit(
-            f"Levels / #{entry.index} {entry.name} — block {entry.block_id} — {geometry.faces:,} faces"
+            f"Levels / #{entry.index} {entry.name} — block {entry.block_id} — {shown:,} faces"
         )
+
+    def _redraw(self, *_args: object) -> None:
+        if self._current is not None:
+            self.show_level(self._current.index)
 
     def _show_message(self, text: str) -> None:
         self._message.setText(text)

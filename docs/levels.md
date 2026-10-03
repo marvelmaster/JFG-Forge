@@ -24,6 +24,16 @@ where the game blends or scrolls them. Level geometry uses the same 3D view as
 the Models tab. Each vertex carries a colour (the level's baked shading), which tints
 the texture the way the console does.
 
+## Hidden helper surfaces
+
+Some surfaces of a level are flat purple-and-white (the game's placeholder texture).
+They are collision and trigger helpers that the game does not draw: the batch flag
+0x400, the same bit that marks a model group as skipped at run time, is set on every
+batch that uses the placeholder (and on only 1% of the other batches). Forge leaves
+them out and lists their count (for example "2,018 (+324 hidden helper faces)").
+Tick **Show hidden helper surfaces** to see them. 74 of the 301 geometry blocks
+contain some.
+
 ## How it is read (evidence)
 
 | Fact | Status |
@@ -34,7 +44,8 @@ the texture the way the console does.
 | Texture number at record bytes 2-3, looked up in asset 1 and read from asset 0; width and height match the record in 99% of cases. | VERIFIED |
 | UV scale of 32 units per texel. | LIKELY (same as models; looks right) |
 | Vertex colour bytes tint the texture (texture times shade). | LIKELY (matches the material state the model code uses; looks right) |
-| Meaning of batch flag bits and the remaining header tables. | UNKNOWN |
+| Batch flag 0x400 marks undrawn helper surfaces. | LIKELY (statistical match with the placeholder texture and the model flag of the same value) |
+| Meaning of the other batch flag bits and the remaining header tables. | UNKNOWN |
 
 All 11,422 texture references across all blocks decode (see [textures.md](textures.md)
 for the formats).

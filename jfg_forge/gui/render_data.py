@@ -222,8 +222,13 @@ def prepare_static_render_data(
     return _prepare_model_render_data(model, positions)
 
 
-def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
-    """Prepare one level block: opaque or cut-out textured triangles, no lighting."""
+def prepare_level_render_data(geometry: "LevelGeometry", *, show_hidden: bool = False) -> PreparedRenderData:
+    """Prepare one level block: textured triangles shaded by their vertex colours.
+
+    Helper surfaces the game does not draw (batch flag 0x400, mostly marked with a
+    purple placeholder texture) are left out unless ``show_hidden`` is set; the
+    camera frames only what is drawn.
+    """
     textures: dict[int, PreparedTexture] = {}
     cutout: set[int] = set()
     for texture in geometry.textures:
@@ -235,7 +240,17 @@ def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
         if min(texture.rgba[3::4]) < 128:
             cutout.add(texture.index)
     batches = []
+    positions: list[tuple[float, float, float]] = []
+    uvs: list[tuple[float, float]] = []
+    colors: list[tuple[float, float, float]] = []
     for batch in geometry.batches:
+        if batch.hidden and not show_hidden:
+            continue
+        first = len(positions)
+        end = batch.first_vertex + batch.vertex_count
+        positions.extend(geometry.positions[batch.first_vertex : end])
+        uvs.extend(geometry.uvs[batch.first_vertex : end])
+        colors.extend(geometry.colors[batch.first_vertex : end])
         drawn = batch.texture_index in textures
         if batch.texture_index is None:
             reason = "no texture assigned"
@@ -245,7 +260,7 @@ def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
             reason = None
         batches.append(
             PreparedBatch(
-                first_vertex=batch.first_vertex,
+                first_vertex=first,
                 vertex_count=batch.vertex_count,
                 texture_index=batch.texture_index if drawn else None,
                 double_sided=True,
@@ -255,17 +270,20 @@ def prepare_level_render_data(geometry: "LevelGeometry") -> PreparedRenderData:
                 alpha_mode="MASK" if batch.texture_index in cutout else "OPAQUE",
             )
         )
-    positions = geometry.positions
+    if not positions:
+        raise ValueError(
+            "This level block has only hidden helper surfaces; tick \"Show hidden helper surfaces\" to see them."
+        )
     minimum = tuple(min(point[axis] for point in positions) for axis in range(3))
     maximum = tuple(max(point[axis] for point in positions) for axis in range(3))
     return PreparedRenderData(
-        positions=positions,
-        uvs=geometry.uvs,
+        positions=tuple(positions),
+        uvs=tuple(uvs),
         batches=tuple(batches),
         textures=tuple(textures.values()),
         bounds_minimum=minimum,
         bounds_maximum=maximum,
-        colors=geometry.colors,
+        colors=tuple(colors),
     )
 
 

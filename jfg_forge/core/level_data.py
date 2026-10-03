@@ -39,6 +39,7 @@ NAME_RECORD_SIZE = 0x118
 BLOCK_FIELD_OFFSET = 0x54
 SEGMENT_STRIDE = 0x48
 NO_TEXTURE = 0xFF
+HIDDEN_BATCH_FLAG = 0x400
 
 
 @dataclass(frozen=True)
@@ -66,6 +67,15 @@ class LevelBatch:
     texture_index: int | None
     flags: int
 
+    @property
+    def hidden(self) -> bool:
+        """Batches with flag 0x400 are helper surfaces the game does not draw.
+
+        Same bit as a model group's "runtime skipped" flag. Every batch that uses the
+        game's purple placeholder texture has it (and only 1% of the others do).
+        """
+        return bool(self.flags & HIDDEN_BATCH_FLAG)
+
 
 @dataclass(frozen=True)
 class LevelGeometry:
@@ -81,6 +91,10 @@ class LevelGeometry:
     @property
     def faces(self) -> int:
         return len(self.positions) // 3
+
+    @property
+    def hidden_faces(self) -> int:
+        return sum(batch.vertex_count for batch in self.batches if batch.hidden) // 3
 
     @property
     def decoded_textures(self) -> int:
