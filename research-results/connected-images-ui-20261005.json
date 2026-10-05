@@ -1,0 +1,28 @@
+{
+  "characters": true,
+  "prop_autoplay": true,
+  "prop_camera_yaw_degrees": 215.0,
+  "other-models": true,
+  "levels": true,
+  "black_ant_level_scale": 0.41999998688697815,
+  "placements_read_only": true,
+  "level-enemies": true,
+  "audio": true,
+  "individual-texture": true,
+  "connected_images": 215,
+  "connected-MizarDoor3": true,
+  "connected_MizarDoor3": "split_image",
+  "connected-BearPad": true,
+  "connected_BearPad": "split_image",
+  "connected-Race track overview": true,
+  "connected_Race track overview": "split_image",
+  "connected-Jeff and Barry Racing logo": true,
+  "connected_Jeff and Barry Racing logo": "split_image",
+  "tabs": [
+    "Models",
+    "Levels",
+    "Audio",
+    "Textures"
+  ],
+  "gl": true
+}

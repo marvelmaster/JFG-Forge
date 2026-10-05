@@ -4,11 +4,18 @@ JFG Forge is a Windows desktop viewer and glTF exporter for the models of
 *Jet Force Gemini* (Nintendo 64, US release). You load your own ROM, pick a
 character, watch its animations with the game's own timing, put a weapon in its
 hand, and export the model or animation to glTF for Blender and other tools. A
-second tab, **Models**, lets you browse the game's static models (keys, doors,
-platforms, weapons and hundreds more) with their textures and names, and a
-third tab, **Audio**, plays and exports the game's music and sound effects. A
-fourth tab, **Levels**, shows the textured geometry of the game's levels, and a
-fifth, **Textures**, is a texture bank with previews, derived names and PNG export.
+**Models** tab contains **Characters** and **Other models**, including keys,
+doors, platforms, weapons and hundreds more. **Levels** shows textured level
+geometry, **Audio** plays and exports music and sound effects, and **Textures**
+provides individual previews and 215 reviewed connected flat images with PNG/layout export.
+
+The [current status and open work](docs/status.md) records implementation and
+evidence limits. The [connected-image handoff](docs/connected-textures-handoff.md)
+explains how to repeat the discovery efficiently in DK64 Forge.
+
+The [DK64 Forge UI parity update](docs/ui-parity.md) brings compact sidebars,
+expandable technical details, searchable animation lists, appearance choices,
+manual texture decoding and connected texture PNG/layout export.
 
 ![JFG Forge showing Vela with a pistol, next to the model info, animation browser and timing panel](docs/screenshot.png)
 
@@ -41,7 +48,7 @@ obtained US ROM. See [Legal](#legal).
 2. Get JFG Forge: on this GitHub page choose **Code, then Download ZIP**, and
    unpack it. (With git: `git clone https://github.com/marvelmaster/JFG-Forge`.)
 3. Double-click **`start_forge.bat`**. The first start creates a private Python
-   environment and downloads the three libraries JFG Forge needs, which takes a
+   environment and downloads the four libraries JFG Forge needs, which takes a
    minute or two. Later starts open the window right away.
 4. In the window choose **File, then Load ROM...** and select your ROM.
 
@@ -62,16 +69,22 @@ py -3 -m venv .venv
 | Property | Required value |
 |---|---|
 | Region | US |
-| Format | Z64 (big-endian) |
+| Format | Z64, V64 or N64; normalized in memory to big-endian |
 | Size | 33,554,432 bytes |
 | SHA-1 | `493ced9008dbe932d6e91179b68e8630cf23a023` |
 
-The file name does not matter. JFG Forge checks the size, the byte order and
-the full SHA-1 before it loads anything, and it only reads the file: your ROM is
-never copied, changed or uploaded. V64/N64 (byte-swapped) files and other
-revisions are rejected. The ROM path is not remembered between starts.
+The file name does not matter. JFG Forge recognizes storage byte order and
+checks the size and full SHA-1 after normalization in memory. It only reads
+the file: the original ROM is unchanged and never uploaded. Other revisions
+are rejected. Sessions remember viewer state for the selected ROM, not a ROM copy.
 
 ## What you can do
+
+The [workspace expansion](docs/dk64-feature-parity.md) adds sessions, personal
+clip names/favorites, synchronized comparisons, live search, bulk exports on
+every tab, current-pose GLB/PNG export, texture thumbnails/usage links,
+placement selection and cached Technical level-model playback. **View** applies
+FPS/grid/trilinear options to every 3D viewport. Asset loading runs in background.
 
 - **Pick a character** from the grouped list at the top of the left panel. Each
   model loads the first time you select it.
@@ -86,10 +99,10 @@ revisions are rejected. The ROM path is not remembered between starts.
   to see its position and which geometry it moves.
 - **Export** through **File, Export**: the model, the current animation, or
   both, as glTF 2.0 with PNG and binary side files.
-- **Browse models** in the **Models** tab: search all 904 props by name or
+- **Browse models** in **Models → Other models**: search all 904 props by name or
   number and look at any of them with its textures. See
   [docs/models.md](docs/models.md).
-- **Listen** in the **Audio** tab: play the game's songs and its 637 sound
+- **Listen** in the **Audio** tab: play the game's songs and its 547 sound
   effects, and export any of them as WAV or MP3. See
   [docs/audio.md](docs/audio.md).
 
@@ -118,7 +131,7 @@ number and explains both labels.
 
 The **Models** tab lists every model in the ROM by the name the game gives it.
 By default it shows the 604 static models. Two other filters show the 284
-animated props (drawn in a rest pose) and all 904 entries, including a few empty
+animated props (with Technical clip playback/export) and all 904 entries, including a few empty
 helper models. Type a name or a Prop number into the search box, pick a model,
 and orbit around it with the mouse. Each model shows its faces, joints,
 animations and how many of its textures Forge could decode. Details and limits
@@ -127,7 +140,7 @@ are in [docs/models.md](docs/models.md).
 ## Audio tab
 
 The **Audio** tab has two segments. **Music** lists the game's 80 songs; **Sounds**
-lists its 637 sound effects. Pick an entry and press Play (sound effects can also
+lists its 547 sound effects. Pick an entry and press Play (sound effects can also
 play as you select them), set the volume, and use **Export WAV...** or
 **Export MP3...** to save it. Songs are rendered from the game's own sequence
 and instrument data, so they sound close to the game but not identical. Details
@@ -136,8 +149,7 @@ and limits are in [docs/audio.md](docs/audio.md).
 ## Levels tab
 
 The **Levels** tab lists the game's 412 named levels. Pick one to see its
-textured geometry and orbit around it. Objects, sky and water are
-not shown yet. Details and limits are in [docs/levels.md](docs/levels.md).
+textured geometry and orbit around it. Placed objects and sky models have optional base-pose previews and glTF snapshot export. Water effects remain unresolved. Details and limits are in [docs/levels.md](docs/levels.md).
 
 ## Names
 
@@ -172,23 +184,27 @@ requirements.txt    Python libraries (NumPy, PyOpenGL, PySide6, lameenc)
 ## Limitations
 
 - The Characters tab opens the 21 models above. The other props are only
-  browsable in the Models tab, as still pictures: no animation, no weapons and no
-  export yet. The six multiplayer versions of Juno, Vela and Lupus are not in the
+  browsable, playable and exportable in the Models tab with Technical timing. The six multiplayer versions of Juno, Vela and Lupus are not in the
   Characters tab.
-- The texture decoder handles the formats these characters use (RGBA32,
-  RGBA16, IA8 and one multi-image RGBA16 layout). Others are shown as unknown;
-  none of them is drawn on any of the 21 characters, but 67 props in the Models
-  tab have a part that shows grey for this reason.
+- All 7,320 texture-bank entries decode in RGBA32, RGBA16, I8, I4, IA16,
+  IA8 or IA4. Some layouts use a LIKELY fallback decoder rather than a
+  reference-verified path. Models and Levels expose frame selection and Technical texture playback; the separate
+  mipmapped tile path uses default wrapping. See [docs/textures.md](docs/textures.md).
 - Animation numbers are technical IDs. They have no gameplay names unless that
   was verified.
 - The Movement / Speed slider is a preview input, not a live game value.
 - glTF exports approximate the game's decal layering, and skinned vertex
   weights are not written (each vertex follows one joint, as in the game).
-- Songs are an approximation of the console's synthesizer: no reverb, chorus
-  or sustain pedal, and pitch bends apply only at the start of a note. Sound
-  effects and songs have no known names, only numbers.
+- Songs include ROM-derived reverb but approximate the console's synthesizer:
+  sustain pedal and mid-note pitch bends are supported; chorus uses an approximate resampler; console fixed-point equivalence remains unresolved.
+  Song names and 109 sound-effect caller labels come from documented sources; the
+  remaining entries keep derived labels or numbers. See [docs/audio.md](docs/audio.md).
 - The viewer needs an OpenGL 3.3 capable graphics driver.
 - Tested on Windows 11. Other systems are untested.
+
+For the current feature inventory, research gaps and validation limits, see
+[docs/status.md](docs/status.md). Earlier extraction guides in the parent
+workspace and the frozen archive describe historical stages.
 
 ## Legal
 
